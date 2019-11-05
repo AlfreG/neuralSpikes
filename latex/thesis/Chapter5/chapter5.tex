@@ -1,0 +1,229 @@
+% !TEX root = ../toptesi-scudo-example.tex
+% !TEX encoding = UTF-8 Unicode
+%-----------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------
+\chapter{Implemetazione matlab}
+\label{capitolo:matlab}
+\graphicspath{{Graph/}}
+
+In questo capitolo si verificano con simulazioni matlab le previsione teoriche del capitolo precedente. Grafici e valori vengono analizzati in particolare per verificare la correttezza dei fattori di normalizzazione e delle relazioni tra trasformata discreta di Fourier e spettro del segnale continuo con riferimento alla realizzazione di un semplice segnale sinusoidale. L'ampiezza campionaria e il tasso di campionamento sono stati stabiliti simili a quelli realizzabili nell'esperimento neuro chip.
+
+La sezione conclude con l'implementazione del filtro, la verifica dell'abbattimento delle banda di spettro desiderata e il suo effetto nella densità spettrale di potenza del segnale con rumore di SNR simile a quello dell'esperimento neuro chip.
+
+
+
+%-----------------------------------------------------------------------
+\section{Spettro di un segnale di prova sinusoidale}
+
+Partendo da un ipotetico segnale sinusoidale a tempo continuo di durata illimitata
+\begin{equation}
+s_{c}(t) = A_{0}cos(\Omega_{0}t + \theta_{0}) +A_{1}cos(\Omega_{1}t + \theta_{0}),\quad\quad -\infty< t < +\infty.
+\end{equation}
+
+Si effettua un campionamento alla frequenza di $\nu$ $SAMPLES/s$ di $N$ osservazioni utilizzando una finestra quadrata $w_{n}$ tra $0$ e $N-1$
+\begin{align*}
+s_{n}  &= A_{0}cos(\omega_{0}n + \theta_{0}) +A_{1}cos(\omega_{1}n + \theta_{0}),\quad\quad -\infty< n < +\infty,\\
+2x_{n} &= 		  A_{0}w_{n}e^{j\theta_{0}+j\omega_{0}} + A_{0}w_{n}e^{-j\theta_{0}-j\omega_{0}} 
+			+ A_{1}w_{n}e^{j\theta_{1}+j\omega_{1}} + A_{1}w_{n}e^{-j\theta_{1}-j\omega_{1}},    \\
+x_{n} &= w_{n}s_{n}.
+\end{align*}
+
+Ottenendo così lo spettro
+\begin{align*}
+2X(e^{j\omega}) = 	  &A_{0}W(j(\omega-\omega_{0}))e^{j\theta_{0}} + A_{0}W(j(\omega+\omega_{0}))e^{-j\theta_{0}}  \\
+			+ &A_{1}W(j(\omega-\omega_{1}))e^{j\theta_{1}} + A_{1}W(j(\omega+\omega_{1}))e^{-j\theta_{1}}
+\end{align*}
+
+Nel seguente grafico \ref{fig:c5s0FreqNoNoise} la trasformata di Fourier discreta viene mappata nelle frequenze del segnale continuo e scalata utilizzando la frequenza campionaria verifiando così le relazioni della sezione \ref{sez:TDF}.
+
+Dal grafico si evincono anche le proprietà di simmetria della componente reale e immaginaria dello spettro discreto, nonchè l'effetto del windowing sull'ampiezza e la larghezza dei picchi.
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FreqNoNoise.eps}
+\caption[Trasformata discreta di Fourier di un segnale sinusoidale]
+{Segnale sinusoidale: $w_{-}=2\pi$262Hz, $w_{+}=2\pi$523Hz.
+$\nu=$ 9kSAMPLES/s,$N=$ 1024 SAMPLES.}
+\label{fig:c5s0FreqNoNoise}
+\end{figure}
+
+\newpage
+
+
+
+%-----------------------------------------------------------------------
+\section{Risoluzione spettrale}
+
+Come previsto nella sezione \ref{sez:TDF}, la risoluzione spettrale può essere migliorata aumentando l'ampiezza campionaria.
+Nel seguente grafico \ref{fig:c5s0FreqNoNoiseCloseFreq} si verifica la diminuzione della base dei picchi rispetto al grafico precendente e conseguente risoluzione di due picchi in frequenza molto vicini tra loro.
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FreqNoNoiseCloseFreq.eps}
+\caption[Risoluzione spettrale]
+{Segnale sinusoidale. $w_{-}=2\pi$515Hz, $w_{+}=2\pi$523Hz. $\nu=$ 9kSAMPLES/s,$N=$ 4096 SAMPLES.}
+\label{fig:c5s0FreqNoNoiseCloseFreq}
+\end{figure}
+
+\newpage
+
+
+%-----------------------------------------------------------------------
+\section{Funzione di trasferimento del filtro}
+\label{section trasferimento}
+
+Coefficienti dell'approssimazione di Butterworth di un filtro passa alto alla frequenza di soglia di $500Hz$ al second'ordine. 
+
+\begin{center}
+\begin{tabular}[c]{cccccc}
+A1 & A2 & A3 & B1 & B2 & B3\\
+1 & -1.5134 & 0.6105 & 0.7810 & -1.5619 & 0.7810
+\end{tabular}
+\end{center}
+\label{tab: parametri}
+
+
+\pagebreak
+
+
+%-----------------------------------------------------------------------
+\section{Filtro dei dati}
+\label{section filtro}
+
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FilteringNoNoise.eps}
+\caption[Densità spettrale di potenza senza rumore]
+{Segnale sinusoidale. $\omega_{-}=2\pi$262Hz, $\omega_{+}=2\pi$523Hz. $
+\nu$ 9kSAMPLES/s,$N=$ 4096 SAMPLES.}
+\label{fig:c5s0FilteringNoNoise}
+\end{figure}
+
+
+\newpage
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Effetto del rumore}
+\label{sez:FiltroRumore}
+
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FilteringNoise.eps}
+\caption[Densità spettrale di potenza con rumore]
+{Segnale sinusoidale. $\omega_{-}=2\pi$262Hz, $\omega_{+}=2\pi$523Hz. $
+\nu$ 9kSAMPLES/s,$N=$ 4096 SAMPLES.SNR = 5 dB.}
+\label{fig:c5s0FilteringNoise}
+\end{figure}
+
+\newpage
+
+
+
+%-----------------------------------------------------------------------
+\section{Effetto della PCA}
+\label{sez:FiltroRumore}
+
+
+%-----------------------------------------------------------------------
+\subsection{Elevamento alla seconda potenza}
+
+L'algoritmo di {\it spike sorting} prevede di trasformare il segnale con la trasformazione non lineare $x_{n}\rightarrow x_{n}{^2}$. Con riferimento ad un segnale sinusoidale di prova si verifica che l'effetto spettrale di tale trasformazione è molto sensibile alla presenza di un offset o di rumore nei dati.
+
+Nel caso ideale di un segnale $x(t)=cos(\Omega_{0}t)$, l'elevamento alla seconda potenza porta ad un raddoppio della frequenza del segnale e all'aggiunta di una componente in continua
+\begin{align}
+ x(t)^{2} &= \frac{1}{4}( e^{j\Omega_{0}t} + e^{-j\Omega_{0}t} + 2)  \\
+ X(e^{j\Omega}) &= \frac{1}{4}\delta(\Omega \pm \Omega_{0}) + 
+ \frac{1}{2}\delta(\Omega)
+\end{align}
+
+In presenza di un offset $a$, le frequenze originarie rimangono nello spettro scalate per la costante di offset
+\begin{align}
+ (x(t)+a)^{2}   &= a^{2} + cos(\Omega_{0}t)^{2} + 2cos(\Omega_{0}t)  \\
+ X(e^{j\Omega}) &= \frac{1}{4}\delta(\Omega \pm \Omega_{0}) + 
+ a\delta(\Omega\pm\Omega_{0}) + (a^{2} + \frac{1}{2})\delta(\Omega)
+\end{align}
+
+In presenza di un termine di errore additivo
+\begin{align}
+ (x(t)+\epsilon(t))^{2} &= \epsilon(t)^{2} + cos(\Omega_{0}t)^{2} + 2\epsilon(t)cos(\Omega_{0}t)
+ \end{align}
+Il segnale medio ha uno spettro di offset uguale alla varianza del rumore.
+Questo spiega la presenza di $5$ picchi nel primo grafico della figura \ref{fig:c5s0FilteringSquaredSignal}; anche con una piccola componente di rumore si verifica la presenza dei picchi di frequenza originali e del picco in conitua a causa della trasformazione $x_{n}\rightarrow x_{n}{^2}$.
+
+Si osserva inoltre che nel caso con rumore, allo spettro si aggiunge quello del termine $2\epsilon(t)cos(\Omega_{0}t)$, di media nulla, ma che contribuisce sensibilmente al rumore del segnale.
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FilteringSquaredSignal.eps}
+\caption[Effetto spettrale dell'elevamento a potenza 2 del segnale]
+{Segnale sinusoidale. $\omega_{-}=2\pi$262Hz, $\omega_{+}=2\pi$523Hz. $
+\nu$ 9kSAMPLES/s,$N=$ 4096 SAMPLES.SNR = 5 dB.}
+\label{fig:c5s0FilteringSquaredSignal}
+\end{figure}
+
+\newpage
+
+
+
+%-----------------------------------------------------------------------
+\subsection{Media mobile di ordine 3}
+
+La seconda operazione prevista dall'algoritmo di {\it spike sorting} è l'applicazione di una media mobile di ordine $3$ al segnale proveniente da un singolo pixel $ 3y_{n} = x_{n} + x_{n-1} + x_{n-2}$. L'effetto di smorzamento delle alte frequenze è visibile dal primo pannello nel grafico \ref{fig:c5s0FilteringNoiseFir.tex}. I pannelli successivi verificano che le frequenze intaccate da questa operazione sono solo quelle alte. 
+
+L'operazione non ha perciò effetto sulla banda di frequenze interessate dal primo filtro. Questo si verifica anche se il segnale viene preventivamente elevato al quadrato. L'ultimo pannello del grafico \ref{fig:c5s0FilteringNoiseFir.tex} evidenzia infatti come la funzione di trasferimento complessiva della trasformazione composta segua, ad una prima analisi, l'andamento della funzione di trasferimento del filtro FIR 3 lungo tutto lo spettro.
+
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FilteringNoiseFir.eps}
+\caption[Effetto spettrale del filtro Fir 3]
+{}
+\label{fig:c5s0FilteringNoiseFir.tex}
+\end{figure}
+
+\newpage
+
+
+%-----------------------------------------------------------------------
+\subsection{Algoritmo PCA}
+\label{sez:algoritmoPCA}
+
+Nelle due precedenti sezioni sono stati analizzati gli effetti generali sullo spettro complessivo delle trasformazioni di elevamento a potenza e di media mobile sul segnale originale. Al fine di verificare nel dettaglio l'effetto spettrale della composizione di queste due operazioni sulla banda delle basse frequenze in cui agisce anche il filtro passa alto di Butterworth, i seguenti grafici riportano un dettaglio delle trasformazioni subite dalla banda di interesse in un ventaglio di situazioni al variare dell'offset e del SNR del segnale.
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FilteringPCA.eps}
+\caption[Effetto spettrale della PCA. Segnale senza rumore]
+{Segnale sinusoidale. $\omega_{-}=2\pi$262Hz, $\omega_{+}=2\pi$523Hz. $
+\nu$ 9kSAMPLES/s,$N=$ 4096 SAMPLES. HP = High pass filter. FIR3 = media mobile al terzo ritardo sul segnale filtrato HP. 2FIR3 = media mobile al terzo ritardo sul segnale filtrato HP al quadrato. }
+\label{fig:c5s0FilteringPCA}
+\end{figure}
+
+In questo primo grafico \ref{fig:c5s0FilteringPCA} si verifica che anche con alto $SNR$, la componente di offset aggiunta dall'elevamento al quadrato del segnale ha poi un effetto di innalzamento delle frequenze vicine (quelle basse), con il risultato di annullare parzialmente l'effetto del filtro passa alto precedentemente applicato.
+Dal confronto dei grafici \ref{fig:c5s0FilteringPCA} e \ref{fig:c5s0FilteringPCAOffset} si verifica che l'effetto di annullamento dle filtro HP è dovuto alla combinazione di elevamento alla seconda potenza del segnale e dal filtro FIR3. E tale effetto peggiora con l'abbassamento del $SNR$, come si verifica nel grafico \ref{fig:c5s0FilteringPCAOffset7Snr}.
+
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FilteringPCAOffset.eps}
+\caption[Effetto spettrale della PCA. Offset]
+{HP = High pass filter. FIR3 = media mobile al terzo ritardo sul segnale filtrato HP. 2FIR3 = media mobile al terzo ritardo sul segnale filtrato HP al quadrato. }
+\label{fig:c5s0FilteringPCAOffset}
+\end{figure}
+
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c5s0FilteringPCAOffset7Snr.eps}
+\caption[Effetto spettrale della PCA. Offset e SNR 7]
+{HP = High pass filter. FIR3 = media mobile al terzo ritardo sul segnale filtrato HP. 2FIR3 = media mobile al terzo ritardo sul segnale filtrato HP al quadrato. }
+\label{fig:c5s0FilteringPCAOffset7Snr}
+\end{figure}
+

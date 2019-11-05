@@ -1,0 +1,545 @@
+[General]
+kile_livePreviewEnabled=false
+kile_livePreviewStatusUserSpecified=true
+kile_livePreviewTool=LivePreview-PDFLaTeX
+lastDocument=tesina.tex
+
+[document-settings,item:Appendix1/appendix1.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Appendix2/appendix2.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Appendix3/appendix3.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Appendix4/appendix4.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Biblio/biblio.bib]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=BibTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=BibTeX
+Mode Set By User=false
+
+[document-settings,item:Biblio/bibliografia.bib]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=BibTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=BibTeX
+Mode Set By User=false
+
+[document-settings,item:Chapter1/chapter1.aux]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=Normal
+Mode Set By User=false
+
+[document-settings,item:Chapter1/chapter1.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Chapter2/chapter2.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Chapter3/chapter3.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Chapter4/chapter4.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Chapter5/chapter5.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Chapter6/chapter6.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Chapter7/chapter7.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Graph/51VariableSNR.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:Graph/51VariableSNR.txt]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=Normal
+Mode Set By User=false
+
+[document-settings,item:Graph/51hiloSNR.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:appunti.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[document-settings,item:references.bib]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=BibTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=BibTeX
+Mode Set By User=false
+
+[document-settings,item:tesina.nlg]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=None
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=Normal
+Mode Set By User=false
+
+[document-settings,item:tesina.tex]
+Bookmarks=
+Encoding=UTF-8
+Highlighting=LaTeX
+Highlighting Set By User=false
+Indentation Mode=normal
+Mode=LaTeX
+Mode Set By User=false
+
+[item:Appendix1/appendix1.aux]
+open=false
+order=-1
+
+[item:Appendix1/appendix1.tex]
+open=false
+order=4
+
+[item:Appendix2/appendix2.aux]
+open=false
+order=-1
+
+[item:Appendix2/appendix2.tex]
+open=false
+order=5
+
+[item:Appendix3/appendix3.tex]
+open=false
+order=1
+
+[item:Appendix4/appendix4.tex]
+open=false
+order=-1
+
+[item:Biblio/biblio.bib]
+open=false
+order=3
+
+[item:Biblio/bibliografia.bib]
+open=false
+order=-1
+
+[item:Biblio/bibliografia.bib.bak]
+open=false
+order=-1
+
+[item:Chapter1/chapter1.aux]
+open=false
+order=-1
+
+[item:Chapter1/chapter1.tex]
+open=false
+order=1
+
+[item:Chapter2/Arrows.jpg]
+open=false
+order=-1
+
+[item:Chapter2/Binary_operations.jpg]
+open=false
+order=-1
+
+[item:Chapter2/Greek_letters.png]
+open=false
+order=-1
+
+[item:Chapter2/Miscellaneous_symbols.jpg]
+open=false
+order=-1
+
+[item:Chapter2/TomandJerry.pdf]
+open=false
+order=-1
+
+[item:Chapter2/WallE.pdf]
+open=false
+order=-1
+
+[item:Chapter2/chapter2.aux]
+open=false
+order=-1
+
+[item:Chapter2/chapter2.tex]
+open=false
+order=1
+
+[item:Chapter2/minion.pdf]
+open=false
+order=-1
+
+[item:Chapter3/chapter3.aux]
+open=false
+order=-1
+
+[item:Chapter3/chapter3.tex]
+open=false
+order=-1
+
+[item:Chapter4/chapter4.tex]
+open=false
+order=2
+
+[item:Chapter5/chapter5.tex]
+open=false
+order=2
+
+[item:Chapter6/chapter6.tex]
+open=false
+order=1
+
+[item:Chapter7/chapter7.tex]
+open=false
+order=-1
+
+[item:Graph/51VariableSNR-eps-converted-to.pdf]
+open=false
+order=-1
+
+[item:Graph/51VariableSNR.eps]
+open=false
+order=-1
+
+[item:Graph/51VariableSNR.tex]
+open=false
+order=-1
+
+[item:Graph/51hiloSNR.eps]
+open=false
+order=-1
+
+[item:Graph/51hiloSNR.tex]
+open=false
+order=2
+
+[item:Graph/signal_v10.fig]
+open=false
+order=-1
+
+[item:Graph/signal_v11.fig]
+open=false
+order=-1
+
+[item:Logodue.pdf]
+open=false
+order=-1
+
+[item:Logoquattro.pdf]
+open=false
+order=-1
+
+[item:Logotre.pdf]
+open=false
+order=-1
+
+[item:Logouno.pdf]
+open=false
+order=-1
+
+[item:TITDocScCropped.pdf]
+open=false
+order=-1
+
+[item:TITlogoCropped.pdf]
+open=false
+order=-1
+
+[item:appunti.tex]
+open=false
+order=-1
+
+[item:references.bib]
+open=true
+order=1
+
+[item:spikefilter.kilepr]
+open=false
+order=-1
+
+[item:tesina.bcf]
+open=false
+order=-1
+
+[item:tesina.nlg]
+open=false
+order=-1
+
+[item:tesina.nlo]
+open=false
+order=-1
+
+[item:tesina.nls]
+open=false
+order=-1
+
+[item:tesina.pdf]
+open=false
+order=-1
+
+[item:tesina.run.xml]
+open=false
+order=-1
+
+[item:tesina.synctex.gz]
+open=false
+order=-1
+
+[item:tesina.tex]
+open=false
+order=0
+
+[item:tesina.xmpdata]
+open=false
+order=-1
+
+[view-settings,view=0,item:Appendix1/appendix1.tex]
+CursorColumn=78
+CursorLine=27
+JumpList=
+TextFolding=[]
+ViMarks=.,27,78,[,27,78,],27,78
+
+[view-settings,view=0,item:Appendix2/appendix2.tex]
+CursorColumn=0
+CursorLine=60
+JumpList=
+TextFolding=[]
+ViMarks=.,60,19,[,60,15,],60,19
+
+[view-settings,view=0,item:Appendix3/appendix3.tex]
+CursorColumn=17
+CursorLine=37
+JumpList=
+TextFolding=[]
+ViMarks=.,37,15,[,37,12,],37,15
+
+[view-settings,view=0,item:Appendix4/appendix4.tex]
+CursorColumn=16
+CursorLine=5
+JumpList=
+TextFolding=[]
+ViMarks=.,5,15,[,5,15,],5,15
+
+[view-settings,view=0,item:Biblio/biblio.bib]
+CursorColumn=23
+CursorLine=68
+JumpList=
+TextFolding=[]
+ViMarks=.,65,15,[,65,15,],65,15
+
+[view-settings,view=0,item:Biblio/bibliografia.bib]
+CursorColumn=29
+CursorLine=2
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:Chapter1/chapter1.aux]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:Chapter1/chapter1.tex]
+CursorColumn=0
+CursorLine=120
+JumpList=
+TextFolding=[]
+ViMarks=.,42,47,[,42,47,],42,47
+
+[view-settings,view=0,item:Chapter2/chapter2.tex]
+CursorColumn=0
+CursorLine=204
+JumpList=
+TextFolding=[]
+ViMarks=.,14,0,[,14,0,],14,0
+
+[view-settings,view=0,item:Chapter3/chapter3.tex]
+CursorColumn=3
+CursorLine=16
+JumpList=
+TextFolding=[]
+ViMarks=.,16,2,[,16,2,],16,2
+
+[view-settings,view=0,item:Chapter4/chapter4.tex]
+CursorColumn=3
+CursorLine=20
+JumpList=
+TextFolding=[]
+ViMarks=.,36,41,[,36,39,],36,41
+
+[view-settings,view=0,item:Chapter5/chapter5.tex]
+CursorColumn=72
+CursorLine=5
+JumpList=
+TextFolding=[]
+ViMarks=.,17,39,[,17,31,],17,39
+
+[view-settings,view=0,item:Chapter6/chapter6.tex]
+CursorColumn=266
+CursorLine=232
+JumpList=
+TextFolding=[]
+ViMarks=.,232,263,[,232,263,],232,273
+
+[view-settings,view=0,item:Chapter7/chapter7.tex]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:Graph/51VariableSNR.tex]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:Graph/51VariableSNR.txt]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:Graph/51hiloSNR.tex]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:appunti.tex]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:references.bib]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:tesina.nlg]
+CursorColumn=0
+CursorLine=0
+JumpList=
+TextFolding=[]
+ViMarks=
+
+[view-settings,view=0,item:tesina.tex]
+CursorColumn=487
+CursorLine=272
+JumpList=
+TextFolding=[]
+ViMarks=.,272,487,[,272,487,],272,487

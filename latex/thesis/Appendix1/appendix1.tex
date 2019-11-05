@@ -1,0 +1,31 @@
+% !TEX root = ../toptesi-scudo-example.tex
+% !TEX encoding = UTF-8 Unicode
+% ******************************* Thesis Appendix A 
+
+\chapter{Dimostrazioni}
+\label{Appendix1}
+
+
+
+%-----------------------------------------------------------------------
+\section{Spettri notevoli}
+
+\subsection{Finestra quadrata}
+La successione $w_{n}=1$ per $n=0,1, ..., N-1$ e $0$ altrimenti, è stata applicata moltiplicativamente ad un segnale discreto $x_{n}$ per l'estrazione di un suo sotto campione di lunghezza finita, $y_{n} = w_{n}x_{n}$.
+L'effetto sullo spettro di $x_{n}$ è dato dalla somma di convoluzione $ Y(e^jw) = W(e^jw)*X(e^jw) $, dove $ W(e^jw) $ si ottiene applicando la trasformata di Fourier a $w_{n}$.
+
+\begin{align*}
+w_{n} 		& = \sum_{m=0}^{N-1} \delta(n-m),	\\
+W(e^{jw} ) 	& = \sum_{n=-\infty}^{+\infty} w_{n} e^{jwn} = \sum_{n=0}^{N-1} e^{jwn}.
+\end{align*}
+
+posto $z = e^jw $, la ragione della somma geometrica,
+$\sum_{n=0}^{N-1} z^{n} = \frac{z^{N}-1}{z-1} = \frac{z^{N/2}}{z^{1/2}}\frac{z^{N/2}-z^{-N/2}}{z^{1/2}-z^{-1/2}} $
+risulta che
+
+\begin{align*}
+W(e^{jw} ) 	& = e^{jw\frac{N-1}{2}}\frac{sen(w\frac{N}{2})}{sen(\frac{w}{2})}.
+\end{align*}
+
+
+

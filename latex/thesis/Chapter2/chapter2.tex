@@ -1,0 +1,276 @@
+% !TEX root = ../toptesi-scudo-example.tex
+% !TEX encoding = UTF-8 Unicode
+%***********************************************************************
+%*********************************** First Chapter 
+
+%***********************************************************************
+%\cite{lamport1994latex, hertel2010writing}.
+%Please see appendix~\ref{Appendix1}.
+%***********************************************************************
+
+\chapter{Costruzione di un filtro per segnali a tempo discreto}
+\label{segnali}
+
+\graphicspath{{Graph/}}
+
+In questo capitolo si riportano le principali nozioni di teoria dei segnali utilizzate per l'analisi e l'implementazione del filtro. Le referenze utilizzate sono \cite{Oppenheim1998} per la teoria e le dimostrazioni riguardanti la funzione di risposta agli impulsi e l'analisi spettrale del segnale. Il testo di 
+\cite{Diniz2010} è stato invece consultato per quanto riguarda gli esempi e le applicazioni con le librerie matlab già disponibili.
+
+
+
+%-----------------------------------------------------------------------
+\section{Rappresentazione convoluzionale}
+
+Un segnale a tempo discreto è una successione di valori reali $x:=(x_{n})_{n\in Z}$. Il segnale può essere intrinsecamente discreto o frutto di un campionamento da un segnale continuo $x_{n} = x(nT_{s})$, dove $T_{s}^{-1} = \nu_{s}$ è la frequenza di campionamento. Nell'analisi dei segnali a tempo discreto riveste particolare rilievo la scrittura $x_{n} = \sum_{m} x_{m}\delta_{n-m}$, della successione in termini di somma convoluzionale con un treno di impulsi, dove $\delta_{n-m}=1$ se $n=m$ e $0$ altrimenti. Se $*$ indica l'operazione di somma di convoluzione $x*y = \sum x_{m}y_{n-m} = \sum y_{m}x_{n-m} = y*x$, si può scrivere anche $x=x*\delta$.
+
+Una classe importante di operatori sui segnali discreti sono quelli lineari, ovvero tali che $ T(ax+by) = aT(x)+bT(y) $ ed omogenei, che commutano cioè con l'operatore di traslazione. Se $ S_{a}x = x_{-a}$ $x_{n}\rightarrow x_{n-a}$, allora affinché l'operatore $T$ sia omogeneo dovrà verificarsi che $TS_{a} = S_{a}T$. In tale classe, ad ogni operatore è associato un segnale detto di risposta agli impulsi che si indicherà con $h_{n}$. Posto$T(x)=y$ e $T(\delta) = h$ allora $T(x_{n}) = y_{n} = \sum x_{m}h_{n-m}$, dove $T(\delta_{n-m}) = h_{n-m}$, per cui $y=x*h$. Tutti gli operatori lineari e omogenei sono perciò descritti da una somma di convoluzione, la cui successione di risposta agli impulsi $h$ caratterizza l'operatore $T$.
+
+In questi termini, per le proprietà di $*$, due trasformazioni in serie $T_{1}T_{2}$ sono rappresentate da $h_{1}*h_{2} = h_{2}*h_{1}$ e due trasformazioni in parallelo $T_{1} + T_{2}$ da $h_{1} + h_{2}$.
+
+
+
+\section{Funzione di risposta agli impulsi. Trasformata z}
+Dalla sezione precedente, una generica trasformazione lineare ed omogenea di un segnale di input $x:=(x_{n})_{n\in Z}$ in un segnale di output
+$y:=(y_{n})_{n\in Z}$ si può scrivere in termini della somma di convoluzione
+\begin{equation}
+ y_{n} = \sum x_{m}h_{n-m} = \sum h_{m}x_{n-m}
+\end{equation}
+dove $h$ prende il nome di funzione di risposta agli impulsi e contiene tutta l'informazione necessaria per caratterizzare la trasformazione da $x$ a $y$. 
+
+La rappresentazione convoluzionale fornita in termini di $h$ della trasformazione dimostra i suoi vantaggi nel momento in cui si trasforma un segnale in una funzione olomorfa attraverso la trasformata z, che ad un segnale $x$ associa, la funzione $X(z) = \sum x_{n}z^{n}$, $z\in C$, posto che si abbia convergenza in una regione connessa del piano complesso.
+
+Dalla definzione di trasformata z si verifica che
+\begin{equation}
+ Y(z) = H(z)X(z)
+\end{equation}
+lo studio della funzione complessa $H(z)$, nel modulo e nella fase, risulta chiaramente più agevole di quanto in genere sia possibile con la successione di risposta gli impulsi $h$.
+
+La funzione $H(z)$ inoltre, qualora il dominio di convergenza includa il cerchio unitario del piano complesso si riduce alla trasformata di Fourier del segnale
+una volta che si pone $z = e^{iw}$.
+
+
+
+%-----------------------------------------------------------------------
+\section{Analisi spettrale di un segnale}
+
+Attraverso la trasformata di Fourier discreta, ad un segnale finito di $N$ campioni $(x_{n})_{n=0,1,...N-1}$ è sempre possibile assegnare uno spettro discreto $(X_{k})_{k=0,1,...N-1}$ l'intepretazione del quale richiede di analizzare quali siano gli effetti del campionamento sullo spettro di Fourier di un ipotetico segnale continuo da cui quello finito è stato estratto. Le operazioni di estrazione qui di seguito analizzate sono:
+\begin{itemize}
+ \item Campionamento. $x(t)\rightarrow x(nT)$, $n\in Z$.
+ \item Selezione o {\it windowing} $(x_{n})_{n\in Z} \rightarrow (x_{n})_{n=0}^{N-1} $
+\end{itemize}
+
+
+
+%-----------------------------------------------------------------------
+\subsection{Campionamento di segnali continui}
+
+Nel dominio del tempo il campionamento periodico
+\footnote{Indicato nei diagrammi con la sigla $C/D$},
+restituisce il segnale a tempo discreto $x_{n} = x(nT)$ dove $\nu = T^{-1}$ è la frequenza di campionamento. Per esplicitare gli effetti del campionamento nel dominio della frequenza risulta utile calcolare la trasformata di Fourier del segnale a tempo continuo
+$ x_{s}(t) = x(t)s(t) $, che coincide con $x_{n}$ quando $t=nT$ ed è nullo altrove, e dove
+$ s(t) = \sum_{n=-\infty}^{+\infty} \delta(t-nT_{s})$ è una sequenza di impulsi unitari. La trasformata di Fourier del segnale periodico $s(t)$ si può scrivere come sequenza di impulsi
+\begin{equation}
+S(jw) = \frac{2\pi}{T}\sum_{n=-\infty}^{+\infty} \delta(\frac{w}{T}-\frac{2\pi n}{T} ),
+\end{equation}
+da cui la trasformata di Fourier di $x_{s}(t)$ per convoluzione
+$X_{s}(jw) = X_{c}(jw)*S(jw)$,
+$X_{s}(jw) = \frac{1}{T} \sum_{n=-\infty}^{+\infty} X_{c}(j(\frac{w}{T}-\frac{2\pi n}{T}))$.
+Lo stesso risultato si ottiene con la trasformata di Fourier di $x_{s}(t)$
+\begin{align}
+ & \int \sum_{n} x(t)\delta(t-nT)e^{j\Omega t} dt = \\
+ & \sum_{n} x_{n} e^{-jw n} = \\
+ & w \nu = \Omega.
+\end{align}
+
+Si conclude che data la trasformata di Fourier o spettro di un segnale a tempo continuo $X(j\Omega)$, lo spettro del segnale a tempo discreto $ X(e^{jw}) $ è una versione periodica e omotetica dello spettro continuo. Omotetia di costante pari alla frequenza di campionamento $\nu$.
+
+\paragraph{Aliasing}
+La periodicizzazione dello spettro continuo è causata dal campionamento. Due spettri successivi possono perciò sovrapporsi se la banda del segnale continuo è maggiore di due volte la frequenza di campionamento. Per evitare tale distorsione nello spettro discreto si prescrivono frequenze di campionamento superiori a due volte la massima frequenza del segnale continuo. Lo spettro continuo viene inoltre di solito sottoposto ad un filtro passa basso detto di anti aliasing che abbatte le frequenze superiori alla soglia desiderata.
+
+
+
+%-----------------------------------------------------------------------
+\subsection{Trasformata di Fourier discreta}
+\label{sez:TDF}
+
+Ad un segnale reale costituito da $N$ campioni $(x_{n})_{n=0}^{N-1}$ 
+possono sempre essere associati i coefficienti della serie di Fourier del suo prolungamento per periodicità 
+\begin{align}
+ X_{SF}(k) & = \sum_{n=0}^{N-1} x_{n} e^{-j\frac{2\pi}{N}kn}  \\
+ x_{n} &= \frac{1}{N} \sum_{k=0}^{N-1} x_{n} e^{j\frac{2\pi}{N}kn}
+\end{align}
+In questo senso il segnale $(x_{n})_{n=0}^{N-1}$ è inteso come la rilevazione di un solo periodo di durata $(N-1)T$, di un segnale periodico composto dall'infinita ripetizione del segnale osservato.
+\footnote{Formalmente, il segnale periodico si può scrivere utilizzando l'operazione di modulo di due numeri interi
+$x({mod}(n,N))$, $n\in Z$.}
+
+Le frequenze campionarie $\frac{2\pi}{N}k$ utilizzate nelle espressioni precedenti sono quelle effettivamente osservabili in un campione finito. Infatti, preso ad esempio il segnale continuo
+$x(t) = cos(\Omega t)$,
+che campionato può essere scritto come
+$x_{n} = cos( \frac{2\pi}{TN} k nT )$,
+si verifica che le frequenze effettivamente osservabili sono
+\begin{equation}
+ \pm \pi \frac{2k}{N}, \quad k=0,...,\frac{N}{2}. 
+\end{equation}
+dove $k=0$ è la frequenza più bassa e $k=\frac{N}{2}$ la frequenza più alta.
+
+La trasformata di Fourier di screta di un segnale finito di $N$ campioni è perciò composta da $N$ coefficienti della serie di Fourier $X_{SF}(k)$, $k = 0,... , N-1$.
+
+Nel seguente esempio si esplicita la relazione della traformata discreta di Fourier e il campionamento di uno spettro del segnale continuo da cui sono state estratte le $N$ osservazioni.
+
+Se $F(\Omega) = \int dt f(t)e^{-j\Omega t}$, ad esmepio per un segnale sinusoidale,
+$F(\Omega) = \frac{A_{0}}{2}(\delta(\Omega-\Omega_{0}) + \delta(\Omega+\Omega_{0}))$
+l'osservazione di una finestra di durata $(N-1)T$ ha effetto nello spettro
+\begin{align}
+V & = F*W = \frac{1}{2\pi} \int d\Theta F(\Theta) W(\Omega - \Theta)    \\
+V(\Omega ) & = \frac{A_{0}}{2\pi}\frac{1}{\Omega - \Omega_{0}}
+e^{j(\Omega-\Omega_{0})\frac{N-1}{2}} sen( (\Omega-\Omega_{0}) \frac{N-1}{2} ) + ...
+\end{align}
+
+Se lo spettro viene campionato alle frequenze empiriche $\frac{2\pi}{N} k$, $k=0,..., N-1$
+
+\begin{equation}
+\frac{1}{T}V(\frac{2\pi}{N}n) = \frac{A_{0}}{2\pi}\frac{1}{ w-w_{0} }
+e^{j(w-w_{0})\frac{N-1}{2}} sen( (w-w_{0}) \frac{N-1}{2} ) + ...
+\end{equation}
+
+Si verifica che
+
+\begin{equation}
+\frac{1}{T} V(\frac{2\pi}{NT}k) = X_{FS}(k).
+\end{equation}
+
+
+
+%-----------------------------------------------------------------------
+\subsection{Windowing}
+
+In concreto il segnale reale si può ottenere moltiplicando il segnale a tempo discreto per una finestra $w_{n}=1$ se $n=0,1,...,N-1$ e $0$ altrove. Per cui il segnale osservato si può scrivere in forma di prodotto
+$v_{n} = x_{n}w_{n}$, $n\in Z$
+e la trasformata di Fourier in forma di convoluzione
+$V = X*W$, dove $W(jw) = \sum_{n=0}^{N-1} e^{jwn}$ è calcolata in \ref{DIM_W}.
+L'effetto di $W$ sullo spettro $X$ è sia sulle frequenze che sulle ampiezze e dipende in larga parte dalla forma della funzione $W$ i cui parametri principali sono l'altezza all'origine $|W(0)| = N$ e la base del picco all'ordine zero
+$w_{0} = \pm\frac{2\pi}{L}$, $W(w_{0}) = 0$.
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics[width=0.8\textwidth]{c2s0Window.eps}
+\caption{Finestra quadrata nel dominio delle frequenze. $N=$ 1024, $\nu=$ 9kSAMPLES/s.}
+\label{fig:c2s0Window}
+\end{figure}
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Disegno di un filtro in frequenza}
+
+Un filtro la cui funzione di trasferimento ha fase nulla e modulo pari ad una finestra che seleziona una determinata banda di frequenze con precisione infinita si dice ideale e per essere implementato necessita di tutti i valori del segnale. Secondo la definizione data in \ref{}
+il sistema risultante si dice non causale, in quanto i valori della sequenza filtrata in un determinato momento dipendono anche dai valori del segnale di input successivi. Diversamente, si dice causale un sistema dove la sequenza filtrata può essere calcolata in tempo reale, perchè il filtro è una funzione di soli valori passati della sequenza di input e della sequenza filtrata.
+I sistemi ricorsivi come quelli descritti da equazioni alle differenze lineari del tipo
+\begin{equation}
+\sum_{l=0}^{L} y_{n-l}a_{l} = \sum_{m=0}^{M} x_{n-m}b_{m}
+\label{eq:EDF}
+\end{equation}
+sono un esempio di sistemi causali facilmente implementabili e ampiamente utilizzati di cui fa parte il filtro analizzato in questo lavoro
+
+La  funzione di trasferimento del sistema \ref{eq:EDF} nel piano-z è data una funzione razionale di polinomi in $z$
+\begin{equation}
+ H(z) = \frac{ \sum_{l=0}^{L} z_{-l}a_{l} }
+             { \sum_{m=0}^{M} z_{-m}b_{m} },
+\label{eq:Hz}
+\end{equation}
+che può essere riscritta in modo da evidenziare poli, zeri e relativi ordini.
+\begin{equation}
+ H(z) = \frac{ \prod_{k=1}^{Z} (1-z_{k}z^{-1}) }
+             { \prod_{k=1}^{P} (1-p_{k}z^{-1}) }.
+\label{eq:Hzp}
+\end{equation}
+La prima rappresentazione \ref{eq:Hz} ha un'immediata lettura dei coefficienti dell'equazione \ref{eq:EDF}, la seconda trova utilizzo nell'analisi delle proprietà del filtro.
+
+Nel seguente grafico \ref{fig:c2s0MagPhase} si riportano l'attenuazione in ampiezza del filtro utilizzato e la distorsione di fase in termini di frequenze normalizzate.
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=0.9\textwidth]{c2s0MagPhase.eps}
+\caption[Funzione di trasferimento del filtro]
+{ Approssimazione di Butterworth filtro IIR, ordine 2, frequenza di stop a 350 Hz, 9 $kSAMPLES/s$. }
+\label{fig:c2s0MagPhase}
+\end{figure}
+
+
+Il successivo grafico \ref{fig:c2s0ZeroPole} visualizza nel piano-z i parametri del filtro. 
+
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=0.9\textwidth]{c2s0ZeroPole.eps}
+\caption[Filtro nel piano-z: poli e zeri]
+{ Approssimazione di Butterworth filtro IIR, ordine 2, frequenza di stop a 350 Hz, 9 $kSAMPLES/s$. }
+\label{fig:c2s0ZeroPole}
+\end{figure}
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Implementazione di un filtro}
+
+Con riferimento alla funzione di trasferimento di un filtro nel piano-z come quella dell'equazione \ref{eq:Hz}, i cui parametri $a_{k}$ e $b_{k}$, sono il frutto del disegno del filtro secondo le specifiche richieste, esistono diverse equazioni ricorsive, tutte matematicamente equivalenti, per la sua implementazione. Queste diverse formulazioni matematiche, tra loro equivalenti da un punto id vista formale, non lo sono però sotto il profilo implementativo. Trattandosi infatti di eseguire le operazioni elementari di somma e moltiplicazione su componenti elettronici a precisione finita, la precisa sequenza di operazioni può invece avere diverso impatto nell'affidabilità e nella velocità dei calcoli e nella complicazione dei circuiti necessari all'implementazione del filtro.
+
+In questo lavoro si prendono in esame due diverse forme, note in letteratura come forma diretta I e II. La forma diretta I si ottiene dalle seguente operazioni
+\begin{align}
+Y     &= \frac{B(z^{-1})}{A(z_{-1})}X \\
+Y     &= \frac{1}{A(z^{-1})}B(z^{-1})X    \\
+y_{n} &= \sum_{1}^{N} a_{l}y_{n-l} + \sum_{0}^{M} b_{l}x_{n-l}.
+\end{align}
+La forma diretta II si ottiene
+\begin{align}
+Y     &=  B(z^{-1})\frac{1}{A(z_{-1})}X \\
+W     &:= \frac{1}{A(z_{-1})}X        \\
+Y     &= B(z^{-1})W \\
+w_{n} &= \sum_{1}^{M} b_{l}w_{n-l} + x_{n},  \\
+y_n   &= \sum_{1}^{N} a_{l}w_{n-l}. 
+\end{align}
+%
+Le due forme differiscono per l'ordine in cui vengono implementati i poli e gli zeri della funzione di trasferimento. L'ordine può avere impatto sul risultato quando la precisione aritmetica è finita.
+Una seconda importande differenza è che la forma diretta II usa solo i ritardi della variabile $w_{n}$, riducendo così il numero di componenti elettroniche preposte alla memorizzazione dei valori passati da tenere per il calcolo del filtro. Trattandosi della forma con il minor numero di ritardi necessari, la forma diretta II prende il nome di forma canonica.
+
+In appendice \ref{appB:filtring} son riportati gli algoritmi matlab delle due forme, che con la precisione numerica disponile ad un comune pc, risultano chiaramente equivalenti. A fini di simulazione, la verifica dell'impatto dei due algoritmi dev'essere quindi verificata riducendo la precisione numerica utilizzata dal programma di calcolo usato.
+
+
+
+%-----------------------------------------------------------------------
+\section{Termini stocastici. Rumore}
+
+Per tener conto di effetti non deterministici che si verificano nella rilevazione e nel trattamento dei segnali si utilizza generalmente un termine stocastico additivo nel segnale di input modelizzato per semplicità come un errore gaussiano di media nulla e varianza data. Il segnale risultante
+$x_{n} + \epsilon_{n}$, dove $\epsilon_{n}$ è l'errore stocastico, può essere inteso come un processo stocastico di variabili aleatorie indipendenti ma non identicamente distribuite. Indipendenti perché lo sono $\epsilon_{n}$, e quindi non correlate, e non identicamente distribuite perché il valore atteso dipende dal valore di $x$ al tempo $n$, $<x_{n} + \epsilon_{n}> = x_{n}$.
+
+
+%-----------------------------------------------------------------------
+\subsection{Correlogramma e Periodogramma}
+Per effetto della trasformazione $y_{n} = \sum x_{l}h_{n-l}$, il processo stocastico $y_{n}$ non è di variabili indipendenti e una misura della dipendenza lineare tra esse è data dal correlogramma $\phi(m)$ che misura l'autocorrelazione del processo $\phi(m) = <yy_{-m}>$.
+Un risultato notevole riguarda gli spettri dei correlogrammi delle sequenze di input e output
+\begin{equation}
+ \Phi_{y}(e^{jw}) = |H(e^{jw})|^{2} \Phi_{y}(e^{jw}).
+\end{equation}
+Si verifica che l'area sotto lo spettro della trasformata di Fourier di un segnale è proporzionale alla potenza totale del segnale ovvero alla varianza campionaria osservata, per cui l'effetto della funzione di trasferimento è quello di modulare la densità spettrale di potenza nelle frequenze di guadagno o attenuazione del filtro.
+
+Nel caso del filtro analizzato in questo lavoro, ipotizzato un rumore di varianza $\sigma_{\epsilon}^{2}$ la modulazione della densità spettrale di potenza in dB è data da
+\begin{equation}
+10log_{10}(|H(e^{jw})|^2) + 20log_{10}(\sigma_{\epsilon}^{2}).
+\end{equation}
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics[width=0.9\textwidth]{c5s0Correlogram.eps}
+\caption[Correlogramma di rumore bianco e densità spettrale di covarianza]
+{ Correlogramma di rumore bianco e densità spettrale di covarianza. $
+u$ 4,096kSAMPLES/s, $N$ 1024SAMPLES. SNR 0dB.}
+\label{fig:Correlogram}
+\end{figure}
+
+%-----------------------------------------------------------------------
+\subsection{Stima della densità spettrale di potenza}
+
+Al cerscere dell'ampiezza campionaria la stima della densità spettrale di potenza diventa molto variabile. L'effetto è dovuto alla trasformazione di Fourier del correlogramma che ha ritardi molto elevati è calcolato con meno osservazioni. La variabilità sulla parte finale del correlogramma influisce su tutto lo spettro e quindi sulla stima della densità spettrale di potenza.

@@ -1,0 +1,28 @@
+% !TEX root = ../toptesi-scudo-example.tex
+% !TEX encoding = UTF-8 Unicode
+%-----------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------
+\chapter{Conclusioni e prospettive}
+\label{capitolo:conclusioni}
+
+
+\section{Campionamento discreto}
+
+Nella ambito della teoria dei segnali sono ben note le trasfomazioni da operare allo spettro di un segnale continuo per giustifacare la trasformata discreta di Fourier di un segnale finito frutto del campionamento di quello continuo. In questo lavoro sono stati in particolar modo verificati e analizzati gli effetti del campionamento di una finestra quadrata di dati, con particolare riferimento alla risoluzione spettrale dei picchi di frequenza di un segnale di prova sinusoidale.
+
+Sono note in letterature campionamente con finestre di dati non uniformi, che smorzando le osservazioni iniziali e finali del segnale ottengono risoluzioni spettrali migliori.
+
+
+\section{Algoritmo di Implementazione}
+
+I due algoritmi di impementazione qui analizzati non mostrano concrete differenze nella simulazione a causa dell'ampia disponibilità dei registri di memoria a precisione doppia utilizzati. Da una considerazione sul numero di operazioni richieste è noto che la forma {\it diretta 2} richiede l'uso di meno componenti elettronici dedicati ai ritardi del segnale di input e perciò è stata indicata come preferita.
+
+Ulteriori verifiche dovrebbero essere condotte con simulazioni a precisione algebrica finita, per verificare le possibili fonti di rumore derivanti dal troncamento e la quantizzazione del segnale tipiche della fase di digitalizzazione.
+
+
+\section{Effetto spettrale della PCA}
+
+Nel grafico \ref{fig:c5s0FilteringPCA} si verifica che anche con alto SNR, la componente di offset aggiunta dall'elevamento al quadrato del segnale ha l'effetto di innalzare le frequenze vicine (quelle basse), con il risultato di annullare parzialmente l'effetto del filtro passa alto precedentemente applicato.
+Dal confronto dei grafici \ref{fig:c5s0FilteringPCA} e \ref{fig:c5s0FilteringPCAOffset} si verifica che l'effetto di annullamento del filtro passa alto è dovuto alla composizione delle due operazioni della PCA; quella di elevamento alla seconda potenza del segnale e quella del filtro FIR3.

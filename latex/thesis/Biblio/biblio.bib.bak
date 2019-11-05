@@ -1,0 +1,111 @@
+% Encoding: UTF-8
+
+@InProceedings{Vallicelli2017,
+  author    = {E. A. Vallicelli and M. De Matteis and A. Baschirotto and M. Rescati and M. Reato and M. Maschietto and S. Vassanelli and D. Guarrera and G. Collazuol and R. Zeiter},
+  title     = {Neural spikes digital detector/sorting on FPGA},
+  booktitle = {2017 IEEE Biomedical Circuits and Systems Conference (BioCAS)},
+  year      = {2017},
+  pages     = {1-4},
+  month     = {Oct},
+  abstract  = {This paper presents the results of a multidisciplinary experiment where the electrical activity of a rat hippocampus cultured neurons population has been detected and mapped by an advanced FPGA spike-sorting algorithm. Neurons are growth over a silicon chip that is thus capacitively coupled with neuronal cells. Due to noise power coming from bio-silicon interface and analog electronics signal processing, the Action Potentials detection intrinsically needs advanced noise rejection algorithms which are often software/off-line implemented. This approach disables instantaneous detection of neural spikes and cannot be obviously used for real-time electrical stimulation. In this scenario, this paper presents a proper FPGA system able to separate relevant neuronal cells potentials from noise. The FPGA output signals provide real time spatial mapping of biosensor electrical activity, noise and synchronous neural network activity.},
+  doi       = {10.1109/BIOCAS.2017.8325077},
+  keywords  = {bioelectric phenomena;bioelectric potentials;biomedical electrodes;biosensors;field programmable gate arrays;neural nets;signal processing;multidisciplinary experiment;rat hippocampus;neurons population;advanced FPGA spike-sorting algorithm;silicon chip;bio-silicon interface;advanced noise rejection algorithms;instantaneous detection;real-time electrical stimulation;relevant neuronal cells potentials;FPGA output signals;time spatial mapping;biosensor electrical activity;synchronous neural network activity;action potential detection;neural spike digital detector-sorting;analog electronic signal processing;Neurons;Action potentials;Field programmable gate arrays;Biosensors;Detectors;TCPIP;Real-time systems;Digital circuits;Programmable logic devices;Biomedical engineering;Biomedical computing;Biological cells},
+}
+
+@Book{Squire2013,
+  title     = {Fundamental Neuroscience},
+  publisher = {Elsevier Science},
+  year      = {2013},
+  author    = {Squire, L. and Berg, D. and Bloom, F.E. and du Lac, S. and Ghosh, A. and Spitzer, N.C.},
+  series    = {ClinicalKey 2012},
+  isbn      = {9780123858702},
+  lccn      = {2012020285},
+  url       = {https://books.google.it/books?id=AEmEn-\_hD9IC},
+}
+
+@Article{Lambacher2011,
+  author        = {Lambacher, A. and Vitzthum, V. and Zeitler, R. and Eickenscheidt, M. and Eversmann, B. and Thewes, R. and Fromherz, P.},
+  title         = {Identifying firing mammalian neurons in networks with high-resolution multi-transistor array (MTA)},
+  journal       = {APPLIED PHYSICS A-MATERIALS SCIENCE \& PROCESSING},
+  year          = {2011},
+  volume        = {102},
+  number        = {1},
+  pages         = {1--1-11},
+  issn          = {0947-8396},
+  __markedentry = {[alfre:6]},
+  database      = {Science Citation Index},
+  refid         = {000286099800001},
+  url           = {http://search.ebscohost.com/login.aspx?direct=true&db=edswsc&AN=000286099800001&site=eds-live},
+}
+
+@Book{Diniz2010,
+  title     = {Digital Signal Processing: System Analysis and Design},
+  publisher = {Cambridge University Press},
+  year      = {2010},
+  author    = {Diniz, P.S.R. and da Silva, E.A.B. and Netto, S.L.},
+  isbn      = {9780521887755},
+  lccn      = {2010024387},
+  url       = {https://books.google.it/books?id=MDSJswEACAAJ},
+}
+
+@Book{Rabaey2005,
+  title     = {Circuiti integrati digitali. L'ottica del progettista},
+  publisher = {Pearson Education Italia},
+  year      = {2005},
+  author    = {Rabaey, J.M. and Chandrakasan, A.P. and Nicoli{\'c}, B.},
+  isbn      = {9788871922317},
+  url       = {https://books.google.it/books?id=NrC0jXNwZtAC},
+}
+
+@Book{Oppenheim1998,
+  title     = {Discrete-time signal processing},
+  publisher = {Prentice Hall},
+  year      = {1998},
+  author    = {Oppenheim, A.V. and Schafer, R.W. and Buck, R.J.},
+  isbn      = {},
+  url       = {},
+}
+
+@Article{Schwiening2012,
+  author  = {Schwiening, Christof J.},
+  title   = {A brief historical perspective: Hodgkin and Huxley},
+  journal = {The Journal of Physiology},
+  year    = {2012},
+  volume  = {590},
+  number  = {11},
+  pages   = {2571-2575},
+  doi     = {10.1113/jphysiol.2012.230458},
+  eprint  = {https://physoc.onlinelibrary.wiley.com/doi/pdf/10.1113/jphysiol.2012.230458},
+  url     = {https://physoc.onlinelibrary.wiley.com/doi/abs/10.1113/jphysiol.2012.230458},
+}
+
+@Article{Hodgkin1952,
+  author  = {Hodgkin, A. L. and Huxley, A. F. and Katz, B.},
+  title   = {Measurement of current-voltage relations in the membrane of the giant axon of Loligo},
+  journal = {The Journal of Physiology},
+  year    = {1952},
+  volume  = {116},
+  number  = {4},
+  pages   = {424-448},
+  doi     = {10.1113/jphysiol.1952.sp004716},
+  eprint  = {https://physoc.onlinelibrary.wiley.com/doi/pdf/10.1113/jphysiol.1952.sp004716},
+  url     = {https://physoc.onlinelibrary.wiley.com/doi/abs/10.1113/jphysiol.1952.sp004716},
+}
+
+@Article{Kim2014,
+  author   = {Kim, Raeyoung and Joo, Sunghoon and Jung, Hyunjun and Hong, Nari and Nam, Yoonkey},
+  title    = {Recent trends in microelectrode array technology for in vitro neural interface platform},
+  journal  = {Biomedical Engineering Letters},
+  year     = {2014},
+  volume   = {4},
+  number   = {2},
+  pages    = {129--141},
+  month    = {Jun},
+  issn     = {2093-985X},
+  abstract = {Microelectrode array (MEA) technology is a widely used platform for the study of in vitro neural networks as it can either record or stimulate neurons by accessing multiple sites of neural circuits simultaneously. Unlike intracellular recording techniques, MEAs form noninvasive interface with cells so that they provides relatively long time window for studying neural circuits. As the technology matured, there have been various engineering solutions to meet the requirements in diverse application areas of MEAs: High-density MEAs, high-throughput platforms, flexible electrodes, monitoring subthreshold activity, co-culture platforms, and surface micropatterning. The MEA technology has been applied to neural network analysis, drug screening and neural prostheses studies. In this paper, the MEA technology is reviewed and the future prospect is discussed.},
+  day      = {01},
+  doi      = {10.1007/s13534-014-0130-6},
+  url      = {https://doi.org/10.1007/s13534-014-0130-6},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

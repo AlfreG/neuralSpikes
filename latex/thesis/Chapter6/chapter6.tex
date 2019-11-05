@@ -1,0 +1,434 @@
+% !TEX root = ../toptesi-scudo-example.tex
+% !TEX encoding = UTF-8 Unicode
+%-----------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------
+\chapter{Logica di simulazione}
+\label{capitolo:logica}
+\graphicspath{{Graph/}}
+
+
+
+
+In questa sezione due algoritmi di rilevazione degli impulsi sono messi a confronto su dei segnali di prova. L'analisi della capacità di discriminazione degli impulsi è condotta lungo i profili temporale e spettrale.
+
+
+\paragraph{Profilo temporale.}
+Sotto il profilo temporale, si verifica la corretta previsione del momento in cui si verifica un impulso. La metrica naturale di qualità dell'algoritmo sotto questo profilo dipende dal numero di falsi positivi e falsi negativi sul totale di impulsi nel segnale di prova. Adottando un criterio di soglia per l'identificazione di un impulso, $t=t_{spike} \Leftrightarrow V(t)>V_{soglia}$, la capacità discriminante dell'algoritmo dipende in ultima analisi dal guadagno differenziale tra le frequenze degli impulsi e quelle del rumore ed è perciò strettamente connessa al profilo spettrale.
+
+
+\paragraph{Profilo spettrale.}
+Sotto il profilo spettrale l'analisi riguarda la forma dello spettro dopo le trasformazioni previste dall'algoritmo di rilevazione. La metrica sarà un'opportuna distanza tra lo spettro ideale e quello risultante dall'algoritmo, eventualmente ristretta alla banda di frequenze di interesse.
+
+
+\subparagraph{Spettro di riferimento.}
+Per {\it spettro ideale} si intende lo spettro che si otterrebbe campionando il segnale proveniente da un singolo pixel, contenente un unico impulso, a parità di durata e tasso di campionameno, e senza rumore, o più realisticamente, con un $SNR$ molto alto.
+
+
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Algoritmo di rilevazione a media semplice}
+
+Dopo aver applicato un filtro passa banda singolarmente ai segnali di ogni pixel del cluster, si ottiene un segnale medio applicando una media semplice.
+In formule, con $y_{k, n, j}$ il segnale, dove $k=1, 2, 3, 4$ è l'indice dello stadio della trasformazione, $n$ il campione al tempo $n/\nu_{sampling}$ e $ j=1, .., N $ l'indice del pixel nel cluster.
+
+\begin{align*}
+y_{1, n, j } & = a_{0}y_{1, n, j } + a_{1}y_{1, n-1, j } + b_{0}x_{n} + b_{1}x_{n-1} + b_{2}x_{n-2}  &\quad\mathtt{band pass step}\\
+y_{2, n    } & = \frac{\sum_{j=1}^{N} y_{1, n, j }}{N}  &\quad\mathtt{spatial average step}\\
+\end{align*}
+
+
+
+%-----------------------------------------------------------------------
+\section{Algoritmo di rilevazione a media quadratica}
+
+Dopo aver applicato un filtro passa banda singolarmente ai segnali di ogni pixel del cluster, si ottiene un segnale medio del cluster con una media quadratica. Al segnale quadratico medio viene dopodiché applicato un filtro a media mobile di ordine 3.
+
+In formule, con $y_{k, n, j}$, dove $k=1, 2, 3, 4$ è l'indice dello stadio della trasformazione, $n$ il campional tempo $n/\nu_{sampling}$ e $j=1, .., N$ l'indice del pixel.
+
+\begin{align*}
+y_{1, n, j } & = a_{0}y_{1, n, j } + a_{1}y_{1, n-1, j } + b_{0}x_{n} + b_{1}x_{n-1} + b_{2}x_{n-2}  \\
+y_{2, n, j } & = y_{1, n,j}^{2}   \\
+y_{3, n    } & = \sum_{j=1}^{N} y_{2, n, j } / N    &\quad\mathtt{spatial average step}\\
+y_{4, n    } & = \sum_{t=0}^{3} y_{3, n-t } / 3 &\quad\mathtt{moving average step}
+\end{align*}
+
+
+
+%-----------------------------------------------------------------------
+\section{Logica di simulazione}
+
+La simulazione introduce diversi tipi di incertezza nella rilevazione degli impulsi.
+
+\paragraph{Tempo di interarrivo degli impulsi.}
+La distribuzione degli impulsi è uniforme su tutto il segnale. Fissato il numero totale di spike attesi in un campione di data lunghezza in base al parametro {\it spike rate}, gli impulsi sono uniformemente distribuiti in tutto il segnale. Si assume che il momento in cui viene rilevato lo spike sia uguale per tutti i pixel considerati.
+
+
+\paragraph{Forma dell'impulso}
+Si considerano forme di impulso diverse: rettangolare, gaussiana, gaussiana doppia e sinusoidale. Ciascuna ha durata di circa $1ms$ e picco massimo intorno a $60mV$ e sono tutte costruite in modo da trasferire la stessa potenza.
+
+
+\paragraph{Fase di campionamento}
+Ad ogni impulso e per ciascun pixel, la forma d'onda considerata viene campionata ad intervalli regolari da un punto di partenza variabile casualmente.
+Con il tasso di campionamento a $\nu_{s}=9$ $kHz$ e la durata dell'impulso di circa $1ms$, si attendono circa 9 campioni su ciascun impulso. Data la forma di ciascun impulso si tiene conto di un possibile ritardo di campionamento (fase casuale) distribuito uniformemente nell'intervallo $\pm \nu_{s}^{-1} = \pm 1/9$ $ms$.
+
+
+\paragraph{Rumore termico}
+Rumore gaussiano di varianza stabilita in base all'$SNR$ fissato e alla potenza trasferito dall'impulso.
+Si rimanda alla sezione \ref{{sez:calcoloSNR}} per un dettaglio del calcolo dell'$SNR$.
+
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Parametri di simulazione}
+\label{sez:parametri}
+
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l|c|c|c}
+{\bf Parametro}             & Valore                & Unità \\ \hline
+
+ & &     \\
+Durata segnale             & 1      & s    \\
+Tasso di campionamento     & 9      & kHz  \\
+Tasso di spiking           & 5      & Hz   \\
+Durata impulso             & 1-1.5  & ms   \\
+Picco di potenziale AP     & 60     & mV   \\
+SNR                        & 5-7    & dB   \\
+                           &        &      \\
+Ordine filtro passa banda  & 2      &      \\
+ + pass band               & $>0.2$ & kHz  \\
+ + stop band               & $>3$   & kHz  \\
+                           &        &      \\
+Pixel nel cluster          &    7   &      \\
+ & &     \\
+ 
+\hline
+\end{tabular}
+\caption[Parametri di simulazione]
+{Parametri di simulazione}
+\label{tab:paraemtri}
+\end{center}
+\end{table}
+
+
+
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Forma degli impulsi e fase di campionamento}
+
+I valori di riferimento degli impulsi neurali sono la durata di $1ms$ e il picco massimo di $60mV$. Non essendo nota la forma dell'impulso,  per semplicità, la simulazione considera come impulso base un periodo di un impulso in tensione sinusoidale
+$ V(t) = (60mV) sin( wt) $, della durata di $1$ $ms$. Le altre forme di impulso sono dimensionate in modo tale da trasferire una potenza simile. L'esatta potenza di ciascun impulso viene poi utilizzata per il calcolo della varianza dell'errore termico in modo che simulazioni con impulsi diversi siano confrontabili in base all'$SNR$. Il seguente grafico \ref{fig:c6_impulseTable} riporta alcuni campionamenti dai diversi tipi di impuso considerati.
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=1\textwidth]{c6_impulseTable.eps}
+\caption[Forme degli impulsi]
+{Forme degli impulsi.}
+\label{fig:c6_impulseTable}
+\end{figure}
+
+\paragraph{Fase di campionamento}
+Si verifica che al tasso di campionamento considerato, la fase di campionamento è una fonte di incertezza importante essendo più che grossolano il campionamento di un impulso della durata di $1ms$ con solo $9$ campioni. I seguenti grafici riportano con maggior dettaglio l'effetto della fase di campionamento.
+\ref{fig:c6s0impulsoGauss}, \ref{fig:c6s0impulso2Gauss}.
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics[width=0.6\textwidth]{c6s0impulsoGauss.eps}
+\caption[Campionamento di un impulso gaussiano]
+{3 campioni da un impulso gaussiano}
+\label{fig:c6s0impulsoGauss}
+\end{figure}
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics[width=0.6\textwidth]{c6s0impulso2Gauss.eps}
+\caption[Campionamento di due impulsi gaussiani]
+{3 campioni da due impulsi gaussiani}
+\label{fig:c6s0impulso2Gauss}
+\end{figure}
+
+
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Calcolo potenza di rumore per dato SNR}
+\label{sez:calcoloSNR}
+
+L'impulso di riferimento per la simulazione è quello sinusoidale.
+La tabella \ref{tab:impulsi} specifica la parametrizzazione utilizzata e riporta i valori di potenza e durata degli impulsi in modo tale che forme di impulso diverse abbiano la stessa potenza di quello sinusoidale di picco $V_{0}$ a $60$ $mV$ e durata $1ms$, ovvero $1,8$ $\mu V^{2}s$.
+
+
+\begin{table}%[tbp]
+\begin{tabular}{l|c|c|c|c|}
+{\bf Impulso}   & Potenza &  & Durata &  \\ \hline
+
+& & & &     \\
+
+$S(t)  = V_{0}sin(\Omega t)$
+&   & 
+& 1 periodo  &  - \\
+
+$S(\Omega)^{2}  = V_{0}^{2}\delta(\pm \Omega - \Omega_{0})$
+&  $V_{0}^{2}\frac{L}{2}$ & $1,8$ $\mu V^{2}s$
+& $L$ &  $1ms$ \\   \hline
+
+
+$V(t) = V_{0}e^{-\frac{t^2}{A^2}}$
+&  %$V_{0}A\sqrt{\pi}$ 
+& 
+& $\frac{3}{\sqrt{2}}A$ & $1$ $ms$    \\
+
+& & & &     \\
+
+$V(\Omega)^{2} = V_{0}^{2}\frac{A^{2}}{2}e^{-\frac{\Omega^{2}A^{2}}{2}}$
+&  $V_{0}^{2}A\sqrt{\frac{\pi}{2}}$ & $2.127$ $(mV)^{2}ms$
+& $\frac{3}{A}$ &  $6.36$ $kHz$   \\   \hline
+
+& & & &     \\
+
+$R(t) = V_{0}\chi(\pm \frac{b}{2})$
+&  %$V_{0}b$ 
+& $60$ $mV$
+& $b$ &  $0.59$ $s$  \\
+
+& & & &     \\
+
+$R(t)^{2}  = V_{0}^{2}\chi(\pm \frac{b}{2})$
+&  $V_{0}^{2}b$ & $1,8$ $\mu V^{2}s$
+& $b$ &  - \\
+
+\hline
+
+\end{tabular}
+\caption[Impulsi: potenza e durata]
+{Impulsi: potenza e durata}
+\label{tab:impulsi}
+\end{table}
+
+
+La potenza di rumore utilizzata per dato $SNR$ è stata calcolata tenendo conto della potenza trasferita nel tempo di durata di un singolo impulso, secondo le seguenti relazioni.
+
+\begin{align*}
+P_{noise} \quad [V^2s] &=  P_{impulse} 10^{- snr [dB]/10} \\
+\sigma^2 &= \frac{ P_{noise} }{ \nu_{s} T_{s} }\\
+\epsilon_{n} &\sim norm(0,\sigma^2) 
+\end{align*}
+
+dove $\nu_{s} $ è il tasso di campionamento e $ T_{s} $ la durata dell'impulso; $\sigma$ è la deviazione standard dell'errore additivo aggiunto al segnale in ogni campionamento. Con riferimento all'impulso di riferimento sinusoidale, il seguente grafico \ref{fig:c6_graphSNR} riporta le deviazioni standard utilizzate in funzione dell'SNR.
+
+
+% function genGraphSigmaSNR(p)
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=0.8\textwidth]{c6_graphSNR.eps}
+\caption[Calcolo potenza di rumore.]
+{Calcolo potenza di rumore.}
+\label{fig:c6_graphSNR}
+\end{figure}
+
+
+
+
+
+
+%-----------------------------------------------------------------------
+\chapter{Risultati}
+\label{capitolo:risultati}
+\graphicspath{{Graph/}}
+
+
+
+%-----------------------------------------------------------------------
+\section{Algoritmo quadratico}
+
+I grafici riportano nella prima colonna il segnale nel dominio del tempo e della frequenza e nella colonna a destra il segnale filtrato con l'algoritmo di rilevazione degli impulsi. Gli asterischi rossi indicano i momenti in cui sono stati simulati gli impulsi.
+
+Lo {\it spettro di riferimento} è lo spettro che si otterrebbe campionando con lo stesso tasso di campionameno un segnale della stessa durata con un solo impulso, senza rumore o più realisticamente, con un $SNR$ alto.
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics{c6_I2T2SNR-39Simulazione.eps}
+\caption[Algoritmo media quad. Impulso $2$. $SNR=-39$.]
+{Algoritmo media quad. Impulso $2$. $SNR=-39$.}
+\label{fig:c6_I2T2SNR-32Simulazione}
+\end{figure}
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics{c6_I3T2SNR-40Simulazione.eps}
+\caption[Algoritmo media quad. Impulso $3$. $SNR=-40$.]
+{Algoritmo media quad. Impulso $3$. $SNR=-40$.}
+\label{fig:c6_I3T2SNR-40Simulazione}
+\end{figure}
+
+
+\begin{figure}[tbp] 
+\centering
+\includegraphics{c6_I4T2SNR-41Simulazione.eps}
+\caption[Algoritmo media quad. Impulso $4$. $SNR=-41$.]
+{Algoritmo media quad. Impulso $4$. $SNR=-41$.}
+\label{fig:c6_I4T2SNR-41Simulazione}
+\end{figure}
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics{c6_I5T2SNR-43Simulazione.eps}
+\caption[Algoritmo media quad. Impulso $5$. $SNR=-43$.]
+{Algoritmo media quad. Impulso $5$. $SNR=-43$.}
+\label{fig:c6_I5T2SNR-43Simulazione}
+\end{figure}
+
+
+
+\pagebreak
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Algoritmo in media semplice}
+
+I grafici riportano nella prima colonna il segnale nel dominio del tempo e della frequenza e nella colonna a destra il segnale filtrato con l'algoritmo di rilevazione degli impulsi. Gli asterischi rossi indicano i momenti in cui sono stati simulati gli impulsi.
+
+Lo {\it spettro di riferimento} è lo spettro che si otterrebbe campionando con lo stesso tasso di campionameno un segnale della stessa durata con un solo impulso, senza rumore o più realisticamente, con un $SNR$ alto.
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics{c6_I2T1SNR-39Simulazione.eps}
+\caption[Algoritmo media semplice. Impulso $2$. $SNR=-39$.]
+{Algoritmo media quad. Impulso $2$. $SNR=-39$.}
+\label{fig:c6_I2T1SNR-32Simulazione}
+\end{figure}
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics{c6_I3T1SNR-40Simulazione.eps}
+\caption[Algoritmo media semplice. Impulso $3$. $SNR=-40$.]
+{Algoritmo media quad. Impulso $3$. $SNR=-40$.}
+\label{fig:c6_I3T1SNR-40Simulazione}
+\end{figure}
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics{c6_I4T1SNR-41Simulazione.eps}
+\caption[Algoritmo media semplice. Impulso $4$. $SNR=-41$.]
+{Algoritmo media quad. Impulso $4$. $SNR=-41$.}
+\label{fig:c6_I4T1SNR-41Simulazione}
+\end{figure}
+
+
+\begin{figure}[tbp] 
+\centering    
+\includegraphics{c6_I5T1SNR-43Simulazione.eps}
+\caption[Algoritmo media semplice. Impulso $5$. $SNR=-43$.]
+{Algoritmo media quad. Impulso $5$. $SNR=-43$.}
+\label{fig:c6_I5T1SNR-43Simulazione}
+\end{figure}
+
+
+\pagebreak
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Risultati: Distanza spettri}
+
+Presa come metrica la distanza tra gli spettri
+
+\begin{equation}
+ d_{\nu_{1},\nu_{2}} = \| psd_{\nu_{1},\nu_{2}}^{*} - psd_{\nu_{1},\nu_{2}}^{f} - <psd_{*} - psd_{f}> \|_{2}
+\end{equation}
+\label{eqn:metrica}
+
+dove $<psd_{*} - psd_{f}>$ è la media della differenza tra lo spettro ideale $psd_{*}$ e quello filtrato $psd_{f}$ complessivamente nell'intera banda, e $psd_{\nu_{1},\nu_{2}}^{*} - psd_{\nu_{1},\nu_{2}}^{f}$ la differenza degli spettri nella banda $(\nu_{1},\nu_{2})$, si verifica che gli l'algoritmi di sorting a media semplice restituiscono sempre spettri più vicino a quello ideale.
+
+
+La tabella riporta la distanza tra lo spettro ideale e lo spettro ottenuto dopo le trasformazioni di quattro test. La distanza è calcolata sull'intera banda di frequenze.
+
+Il test $1BP$ è il test a media semplice con un filtro passa banda $(BP)$ applicato a tutti i pixel prima della media.
+Il test $2BP$ è il test a media quadratica con un filtro passa banda $(BP)$ applicato a tutti i pixel prima della media.
+I test $1LP$ e $2LP$ corrispondono ai precedenti dove però il filtro è solo passa basso $LP$. Questi test sono stati introdotti per verificare se, per le forme di impuso a media positiva come quello gaussiano, la distorsione apportata dal filtro $BP$ sulle basse frequenze non comportasse un allontanamento apprezzabile degli spettri.
+
+\begin{table}%[tbp]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+
+\hline
+      & \multicolumn{5}{|c|}{Impulso}    \\
+      \hline
+Test  &  $1$  &  $2$ &   $3$ &   $4$ &   $5$ \\
+      &       &      &       &       &       \\
+
+  $1BP$  &  0.0010  &  0.0200 &   0.0195 &   0.0119 &   0.0165 \\
+  &   &  &    &    &    \\
+$2BP$  &  0.0020  &  1.1978 &   1.1909 &   1.2277 &   1.2332 \\
+&   &  &    &    &    \\
+$1LP$  &  0.0030  &  0.0192 &   0.0180 &   0.0117 &   0.0168 \\
+&   &  &    &    &    \\
+$2LP$  &  0.0040  &  1.2494 &   1.2500 &   1.2576 &   1.2331 \\
+&   &  &    &    &    \\
+
+         
+         
+\hline
+
+\end{tabular}
+\caption[Distanza dallo spettro ideale per tipo di sorting test e forma di impulso]
+{Distanza dallo spettro ideale per tipo di sorting test e forma di impulso}
+\label{tab:DFTdiff}
+\end{center}
+\end{table}
+
+
+
+
+
+
+
+%-----------------------------------------------------------------------
+\chapter{Conclusioni}
+\label{capitolo:conclusioni}
+\graphicspath{{Graph/}}
+
+
+%-----------------------------------------------------------------------
+\section{Conclusioni}
+
+
+\paragraph{Distanza spettri.}
+
+
+\paragraph{Andamento al variare del SNR}
+
+
+
+\paragraph{Andamento al variare del tipo di impulso}
+
+
+
+\paragraph{Effetto del filtro passa basso o passa banda}
+Alcune forme di impulso come quelle a media non nulla, ad esempio il tipo $2$ gaussiano
+ha uno spettro ideale che non diminuisce alle basse frequenze. Ha senso quindi applicare a priori un filtro passa banda? In questo caso le basse frequenze non costituiscono rumore ma sono parte del pacchetto di frequenze necessario a dar forma dell'impulso.

@@ -1,0 +1,67 @@
+\section{Elaborazione digitale del segnale con precisione finita}
+
+\cite[cap 11.1]{diniz2010}
+% implementazione in un pc
+per l'implementazione in un pc si tratta di un problema di
+efficienza computazionale dall'algoritmo per un linguaggio di alto livello ( come il C o matlab)
+in temini di velocità di esecuzione e utilizzo della memoria, ma le possibilità di controllo sono
+in questo caso limitate.
+
+% implementazione in hardware specifico
+hardware specifico per applicazioni con requisiti stringenti di velocità di esecuzione (real-time) e 
+risorse limitate ( consumo energetico, memoria).
+PLD ( programmable logic devices):
+ - FPGA  which represent an intermediate integarted stage between discrete hardware and full-custom integrated circuits or digital signal processor DSP.
+ -VLSI (Very large scale integration) ASICs (Application-specific integrated circuits)
+ 
+
+\section{Errori dovuti alla quantizzazione}
+
+emergono a diversi livelli del processo di elaborazione :
+
+- input signal in livelli discreti
+- costanti moltiplicative del filtro approssimazione : veid anche \ref[cap. 4.6.5.]{diniz2010} Sensitivity
+- risultato della moltiplicazione per troncamento o arrotondamento
+
+e dipendono dall'aritmetica utilizzata \ref{Rappresentazioni numeriche binarie}
+
+{optimal design} to reduce round-off errors
+ 
+ 
+\section{Rappresentazioni numeriche binarie}
+
+Numeri
++ a virgola mobile: implementaizone compelssa, richiede la quantizzazione della mantissa sia dopo l'addizione che la moltiplicazione 
++ a virgola fissa 
+
+- sign-magnitude
+- complemento a 1
+- complemento a 2
+
+Aritmetica distribuita: design alternative for digital filter that elimnates the necessity of multiplier elements.
+
+
+\section{Elementi base}
+
+(adder, multiplier) x (serial, parallel)
+
+serial arithmetic:
+i bit sono elaborati sequenzialmente
+\cite[cap 11.1]{diniz2010} very efficient in terms of requeired hardware, power consumption, modularity
+main drawback is processing speed
+
+- full adder
+- serial multiplier
+
+serial multiplier:
+- attenzione ai numeri con molti zeri
+- risultato è un numero con M+N+1 bit
+- troncamento o arrotondamento
+si può ottenere precisione doppia raddoppiando il numero di bit, con zeri alla fine dle numero
+\cite[pag. 683]{diniz2010}
+
+la moltiplicazione è un'operazione costosa e lenta. La velocità computazionale di molte
+applicazioni è dominata da questa aoperaizone, si sviluppano blocchi appositi, moltiplicatori.
+
+\cite[11.4]{Rabaey2005}
+
