@@ -1,10 +1,10 @@
-function [metric, errors, timeDistance] = graphFT( p )
+function [metric, timeDistance, p] = graphFT( p )
 %
 
 
 
 % Spike train with random sampling phase. Reference signal.
-[signalR, impulseParam] = spikeTrain(p, true, false);
+[signalR, impulseParam] = spikeTrain(p, false);
 
 
 % Sample data
@@ -37,7 +37,7 @@ noiseP = mP * 10^( -p.snrDb / 10 );
 % Spike times repositories and True spike indicator.
 spikes     = NaN( 1, sampleSize );
 filtSpikes = NaN( 1, sampleSize );
-spikeTimes = impulseParam.start + impulseParam.max - 1;
+spikeTimes = impulseParam.start;
 spikes(spikeTimes) = p.amplitudeHighFreq;
 
 
@@ -48,25 +48,25 @@ switch p.algorType
         p = AV(BP(SMOOTH(ID(signalN, p))));
         p = SMOOTH(p);
         filterName = '1BP';
-        filtSpikes = spikes * 0.5;
+%         filtSpikes = spikes * 0.5;
         
     case 2 %    'quadratic'
         p = MA(AV(SQ(BP(SMOOTH(ID(signalN, p))))));
         p = SMOOTH(p);
         filterName = '2BP';
-        filtSpikes(spikesTime) = 3;
+%         filtSpikes(spikesTime) = 3;
 
     case 3 %    'simpleLP'
         p = AV(LP(SMOOTH(ID(signalN, p))));
         p = SMOOTH(p);
         filterName = '1LP';
-        filtSpikes = spikes * 0.5;
+%         filtSpikes = spikes * 0.5;
         
     case 4 %    'quadraticLP'
         p = MA(AV(SQ(LP(SMOOTH(ID(signalN, p))))));
         p = SMOOTH(p);
         filterName = '2LP';
-        filtSpikes(spikesTime) = 3;
+%         filtSpikes(spikesTime) = 3;
    
 end
 
@@ -124,12 +124,10 @@ if p.saveGraph == true
 
     saveGraph(p);
 
-    metric = zeros(4,1);
-
-    else
-        metric = dftNorm(q, p);
-        errors = alfaBetaErrors(p, spikesTime);
-        timeDistance   = timeDist(p, spikesTime);
+else
+        
+        metric       = dftNorm(q, p);
+        timeDistance = timeDist(p, impulseParam);
 
 end
 

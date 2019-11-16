@@ -68,14 +68,14 @@ La seguente tabella \ref{tab:param} mostra i principali parametri di simulazione
 \caption{\bf Parametri di simulazione}
 \begin{tabular}{ccc}
 \hline
-Durata segnale       & 1s         \\
-Spike rate           & 10Hz       \\
-Durata spike         & 1ms        \\
-Ampiezza Max 0p      & 60mV       \\
-Campionamento        & 9kSamples  \\
-Filtro. $\nu_{low}$  & 0.1 kHz     \\
-Filtro. $\nu_{high}$ & 2.5 kHz     \\
-Pixels               & 7 \\
+Durata segnale       & 1s        \\
+Spike rate           & 10Hz      \\
+Durata spike         & 1ms       \\
+Ampiezza Max 0p      & 60mV      \\
+Campionamento        & 9kSamples \\
+Filtro. $\nu_{low}$  & 0.1 kHz   \\
+Filtro. $\nu_{high}$ & 2.5 kHz   \\
+Pixels               & 7         \\
 \hline
 \end{tabular}
 \label{tab:param}
@@ -85,13 +85,14 @@ Pixels               & 7 \\
 
 \subsection{Impulsi e SNR}
 
-Il segnale di prova è un treno di impulsi uniformemente distribuiti lungo la durata del segnale $T$. Ogni impulso viene campionamento a intervalli costanti $t$ con una fase casuale $\phi_{\mu}$, dove $\mu$ è il tempo casuale in cui si manifesta l'impulso. 
+Il segnale di prova è un treno di impulsi uniformemente distribuiti lungo la durata del segnale $T$. Ogni impulso $I(t'), t'\in[0,t]$ è campionamento a intervalli costanti con una fase casuale $\phi_{\mu}$, dove $\mu$ è il tempo casuale in cui si manifesta l'impulso.
+%
 \begin{align*}
- s_{n} &= \epsilon_{n} + I(nt + \phi_{\mu})(\theta_{\mu+N} - \theta_{\mu})    \\
+ s_{n} &= \epsilon_{n} + I(k_{n} + \phi_{\mu})(\theta_{\mu+N} - \theta_{\mu})    \\
  \epsilon_{n} & \sim N(0,\sigma^{2}_{\epsilon})   \\
  \phi & \sim U(0,t), \quad\quad \mu  \sim  U(0,T )
 \end{align*}
-
+%
 Gli impulsi considerati hanno uguale durata media e potenza trasferita e si distinguono per la forma (gaussiana, rettangolare, sinusoidale, ... ). Al tasso di campionamento considerato, ogni impulso è campionato per circa $N = 9kSamples/s (1ms) \simeq 9$ volte.
 
 La potenza di rumore utilizzata per dato $SNR$ è stata calcolata tenendo conto della potenza trasferita nel tempo di durata di un singolo impulso, secondo le seguenti relazioni.

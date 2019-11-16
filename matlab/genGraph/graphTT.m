@@ -1,24 +1,28 @@
 function graphTT( p )
+% Plot signal and filters in time domain.
 %
 
-p.saveGraph = true;
+p.saveGraph = false;
 
 p.snrDb          = 0;
 p.impulseType    = 5;
 p.highFreq       = 2500;
 p.lowFreq        = 100;
-p.spikeRate      = 100; %Hz
-p.sampleDuration = 0.05;
+p.spikeRate      = 50; %Hz
+p.sampleDuration = 0.08;
+p.pixelNumber    = 10;
+p.waveVelocity   = 10;
+p.pixelDistance  = 5;
+
 
 
 % Spike train with random sampling phase. Reference signal.
-[signalR, impulseParam] = spikeTrain(p, true, false);
+[signalR, impulseParam] = spikeTrain(p, false);
 
 
 % Sample data
 sampleSize = size(signalR,2);                     % [SAMPL
 time       = (1:sampleSize) * 1000 / p.sampleRate;   % [ms]
-% cFreq      = p.sampleRate * (-sampleSize/2 : 1 : sampleSize/2-1) / sampleSize;  % [Hz]
 
 
 % Add noise
@@ -33,7 +37,7 @@ noiseP = mP * 10^( -p.snrDb / 10 );
     
 % Spike times repositories and True spike indicator.
 % spikesTime = spikesTime + round((p.spikePeriod * p.sampleRate)/2);
-spikeTimes = impulseParam.start + impulseParam.max;
+spikeTimes = round(impulseParam.start + impulseParam.size);
 spikes             = NaN( 1, sampleSize );
 spikes(spikeTimes) = signalN(spikeTimes);
 spikes(spikeTimes) = 0.04;
@@ -44,22 +48,10 @@ p0  = ID( signalN, p);
 p0  = SMOOTH(p0);
 f0  = p0.signal( end, : );
 
-% 
-% p1 = AV(BP(SMOOTH(ID(signalN, p))));
-% p1 = SMOOTH(p1);
-% f1 = p1.signal( end, : );
-% 
-% p2 = MA(AV(SQ(BP(SMOOTH(ID(signalN, p))))));
-% p2 = SMOOTH(p2);
-% f2 = p2.signal( end, : );
-% f2 = (f2 - mean(f2)) / std(f2) / 100;
-
 p3 = AV(LP(SMOOTH(ID(signalN, p))));
-p3 = SMOOTH(p3);
 f3 = p3.signal( end, : );
         
 p4 = MA(AV(SQ(LP(SMOOTH(ID(signalN, p))))));
-p4 = SMOOTH(p4);
 f4 = p4.signal( end, : );
 f4 = (f4 - mean(f4)) / std(f4) / 100;
 
@@ -80,7 +72,6 @@ plot( time, spikes, 'r^', 'MarkerFaceColor','r');
     xlabel('ms');
     ylabel('mV');
     set(gcf,'WindowStyle','docked');
-
 
 
 saveGraph(p);

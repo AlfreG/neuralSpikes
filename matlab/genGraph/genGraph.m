@@ -1,11 +1,5 @@
-function [metricStore, errorsStore, timesStore] = genGraph(param, units, graphSorting)
+function [metricStore, timesStore, p] = genGraph(p)
 %--- Generate graph and save to path
-
-
-% Load parameters structures
-p = param;
-u = units;
-s = graphSorting;
 
 
 % Set simulation parameters 
@@ -19,14 +13,13 @@ p.pixelNumber     = 7;       %
 p.noiseTF         = true;
 
 
-snrSpanL     = length(param.snrSpan);
-testSpanL    = length(param.testSpan);
-impulseSpanL = length(param.impulseSpan);
+snrSpanL     = length(p.snrSpan);
+testSpanL    = length(p.testSpan);
+impulseSpanL = length(p.impulseSpan);
 
 
 % REsults' Repositories
 metricStore  = zeros( 4, testSpanL, snrSpanL, impulseSpanL );
-errorsStore  = zeros( 2, testSpanL, snrSpanL, impulseSpanL );
 timesStore   = zeros( 1, testSpanL, snrSpanL, impulseSpanL );
 
 
@@ -37,10 +30,9 @@ timesStore   = zeros( 1, testSpanL, snrSpanL, impulseSpanL );
             for l = 1 : 1: impulseSpanL
                 p.impulseType = p.impulseSpan(l);
                 
-                [metric, errors, timeDistance]    = graphFT( p, u, s );
-                metricStore( :, k, j, l) = metric;
-                errorsStore( :, k, j, l) = errors;
-                 timesStore( :, k, j, l) = timeDistance;
+                [metric, timeDistance]    = graphFT( p );
+                metricStore( :, k, j, l)  = metric;
+                 timesStore( :, k, j, l)  = timeDistance;
                   
             end
         end

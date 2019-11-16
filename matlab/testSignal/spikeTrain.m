@@ -1,43 +1,77 @@
-function [signal, impulseParam] = spikeTrain(p, randomSpikeTF, plotTF )
-% Each pixel senses the same spike at the same spike time
+function [signal, impulseParam] = spikeTrain(p, plotTF )
+%
+
+% Stub parameters. [signal, impulseParam] = spikeTrain(param, true );
+%     p.impulseType    = 2;
+%     p.spikeRate      = 5;
+%     p.sampleDuration = 0.1;
+%     p.interSpikeType = 1;
 
 
-sampleSize  = round( p.sampleRate * p.sampleDuration );
-spikeNumber = round(  p.spikeRate * p.sampleDuration );
-restPeriod  = round( p.sampleRate / p.spikeRate );
-pixels      = p.pixelNumber;
-time        = (1:sampleSize)*1000/p.sampleRate; % ms
-signal      = zeros( pixels, sampleSize +  4 * restPeriod );
+    
+sampleRate     = p.sampleRate;
+spikeRate      = p.spikeRate;
+sampleDuration = p.sampleDuration;
+pixels         = p.pixelNumber;
+
+sampleSize  = round( sampleRate * sampleDuration );
+spikeNumber = round( spikeRate  * sampleDuration );
+restPeriod  = round( sampleRate / spikeRate );
+spikeSize   = round( p.spikePeriod * sampleRate );
 
 
-if randomSpikeTF == true
-    spikeTimes =  ceil( sampleSize * rand( [1, spikeNumber] ) );
-else
-    T = p.spikePeriod;
-    N = round( T* p.sampleRate );
-    spikeTimes =  N : restPeriod : sampleSize;
+% Sample spike times
+switch p.interSpikeType
+    case 1 %'exponential'  %exponentialy
+    spikeTimes = -sampleRate * log( 1 - rand([1,spikeNumber]) ) / spikeRate;
+    spikeTimes = cumsum(spikeTimes,2);
+    spikeTimes = spikeTimes(spikeTimes< sampleSize - spikeSize);
+    
+    case 2 %'uniform'  % uniformamly
+    spikeTimes =  sampleSize * rand( [1, spikeNumber] ) ;
+    
+    case 3 %'constant' % constantly
+    spikeTimes = linspace(spikeSize + 1, sampleSize - spikeSize - 1, spikeNumber);
+    
+    otherwise
+    disp('Unknown spike intertime ssampling method. Using Default = exponential');
+    spikeTimes = -sampleRate * log( 1 - rand([1,spikeNumber]) ) / spikeRate;
+    spikeTimes = cumsum(spikeTimes,2);
+    spikeTimes = spikeTimes(spikeTimes>= sampleSize - spikeSize);
 end
-    
-    
-[impulse, impulseParam] = impulseSampling( p, spikeNumber * pixels, false );
-impulseParam.start = spikeTimes;
-waveSamples = size( impulse,2 );
-    
-i = 1;
-for j = spikeTimes
-    signal( :, j:j + waveSamples-1 ) = signal(:, j:j + waveSamples-1) + impulse(i:i+pixels-1,:);
-    i = i+pixels;
+
+
+
+% Assemble signal
+signal = zeros( pixels, sampleSize +  4 * restPeriod );
+for j = round(spikeTimes)
+    % Adiacent impulses might overlap
+    impulse = impulseSampling( p );
+    signal( :, j:j + spikeSize-1 ) = signal(:, j:j + spikeSize-1) + impulse;
 end
-    
+% Compute actual power and max point in first pixel
+testImpulse = impulseSampling( p );
+impulseParam.mP        = impulsesMeanPower(testImpulse(1,:), p);
+impulseParam.start     = spikeTimes;
+impulseParam.size      = round(spikeSize/2);
+[~, impulseParam.max]  = max(testImpulse(1,:)); 
+% resize signal
 signal = signal( :, 1:sampleSize ) ;
 
 
-
+% Check plot
 if plotTF == true
     figure;
-    plot( time, signal(1,:) );
+    plot( signal(1,:) );
     xlabel('ms');
     ylabel('mv');
 end
+
+end
+
+
+function meanPower = impulsesMeanPower(impulse, p)
+
+    meanPower = mean( sum(impulse.^2, 2) ) / p.sampleRate; % V^2s
 
 end
