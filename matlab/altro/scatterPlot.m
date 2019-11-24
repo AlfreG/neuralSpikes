@@ -1,23 +1,17 @@
-function scatterPlot( metricStore, timesStore, p )
+function scatterPlot( specD, timeD, p )
 % 
 
+
+% Fetch simulation's dimensions
 snrSpan     = p.snrSpan;
 testSpan    = p.testSpan;
-impulseSpan = p.impulseSpan;
-
 snrSpanL     = length(snrSpan);
 testSpanL    = length(testSpan);
-impulseSpanL = length(impulseSpan);
 
-band00  = 2;
-metrics = reshape( metricStore( band00, :, :, : ), testSpanL , impulseSpanL*snrSpanL );
-times   = reshape(  timesStore( 1     , :, :, : ), testSpanL , impulseSpanL*snrSpanL );
-
-
-% Scatter plot
-times   = reshape( times  , testSpanL*impulseSpanL*snrSpanL, 1);
-metrics = reshape( metrics, testSpanL*impulseSpanL*snrSpanL, 1);
-snrs = reshape( repmat( snrSpan',1,testSpanL*impulseSpanL)', 1,snrSpanL*testSpanL*impulseSpanL);
+% Scatter plot data
+times   = reshape( timeD , testSpanL*snrSpanL, 1);
+metrics = reshape( specD , testSpanL*snrSpanL, 1);
+   snrs = reshape( repmat( snrSpan',1,testSpanL)', 1,snrSpanL*testSpanL);
 
 
 % Test 1 - 
@@ -47,7 +41,6 @@ title( string(p.impulseLabel(p.impulseType)) );
 xlabel('Mean time displacement [ms]');
 ylabel('Spectral distance [Vs^{0.5}]');
 
-p.saveGraph = true;
 saveGraph(p);
 
 end
@@ -69,8 +62,7 @@ if p.saveGraph == true
 %     set(gcf, 'PaperPositionMode', 'manual');
 %     set(gcf, 'PaperPosition', [-7.5171; 6.145; 18; 26 ]);
         
-    sect = [ 'scatter' num2str(p.impulseSpan) ];
-    fileName = sect;
+    fileName = [ 'scatter' num2str(p.impulseType) ];
     path = 'results/';
 
     % save and close figure
@@ -84,5 +76,3 @@ if p.saveGraph == true
 %     fclose(fileID);
 end
 end
-
-    

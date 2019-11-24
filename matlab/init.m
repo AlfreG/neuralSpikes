@@ -10,20 +10,17 @@ addpath('/home/alfre/Documents/Unimib/Tesina/neuralSpikes/matlab/genGraph', '-be
 addpath('/home/alfre/Documents/Unimib/Tesina/neuralSpikes/matlab/testSignal', '-begin');
 addpath('/home/alfre/Documents/Unimib/Tesina/neuralSpikes/matlab/dataMining', '-begin');
 addpath('/home/alfre/Documents/Unimib/Tesina/neuralSpikes/matlab/results', '-begin');
+addpath('/home/alfre/Documents/Unimib/Tesina/neuralSpikes/matlab/parameter', '-begin');
 
 % Remove all variables from the current MATLAB® workspace
 clear;clc;
 
-% Load parameters and results
-load('parameter/param.mat');
-load('parameter/units.mat');
-load('parameter/graphSorting.mat');
-% load('parameter/forms.mat');
-% load('parameter/A.mat');
-% load('parameter/B.mat');
+% Set simulation parameters
+makeParam;
+makeP1;
 
 % Load Spikes data
-importSpikes
+data = importSpikes;
 
 % % Load Diapason data
 % % importFile('diapason.wav')

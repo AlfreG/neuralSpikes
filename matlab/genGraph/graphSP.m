@@ -1,34 +1,25 @@
 function graphSP( p )
 %
 
-p.saveGraph = true;
+p.saveGraph = false;
 
 p.impulseType    = 2;
-p.spikePeriod    = 1*1e-03;
-p.snrDb          = 4;
+p.spikeRate      = 200; %Hz
+p.sampleDuration = 30;
+p.spikePeriod    = 1e-3;
+p.snrDb          = 20;
 p.highFreq       = 2500;
-p.lowFreq        = 100;
-p.spikeRate      = 70; %Hz
-p.sampleDuration = 1;
-
-
+p.lowFreq        = 10;
+p.waveVelocity   = 1;
 
 
 % Spike train with random sampling phase. Reference signal.
-[signalR, impulseParam] = spikeTrain(p, true, false);
+[signalR, impulseParam] = spikeTrain(p, false);
 
 
 % Sample data
 sampleSize = size(signalR,2);                     % [SAMPLES]
-% time       = (1:sampleSize) * 1000 / p.sampleRate;   % [ms]
 cFreq      = p.sampleRate * (-sampleSize/2 : 1 : sampleSize/2-1) / sampleSize;  % [Hz]
-
-
-% Reference signal. With no noise
-q     = p;
-q     = ID( signalR, q);
-q     = SMOOTH(q);
-psdR  = q.psd(1,:);
 
 
 % Add noise
@@ -41,27 +32,19 @@ noiseP = mP * 10^( -p.snrDb / 10 );
     end
 
     
-
-p1 = AV(BP(SMOOTH(ID(signalN, p))));
-p1 = SMOOTH(p1);
-psd1 = p1.psd( end, : );
-
-p2 = MA(AV(SQ(BP(SMOOTH(ID(signalN, p))))));
-p2 = SMOOTH(p2);
-psd2 = p2.psd( end, : );
-
-p3 = AV(LP(SMOOTH(ID(signalN, p))));
-p3 = SMOOTH(p3);
-psd3 = p3.psd( end, : );
-
-p4 = MA(AV(SQ(LP(SMOOTH(ID(signalN, p))))));
-p4 = SMOOTH(p4);
-psd4 = p4.psd( end, : );
+% Reference psd: first pixel arithmetic mean of reference signal
+p.testType = 1; [~, psdR] = myFilter(signalR(1,:), p,true);
 
 
+p.testType = 1; [~, psd1] = myFilter(signalN, p, false);
+p.testType = 2; [~, psd2] = myFilter(signalN, p, false);
+
+p.lowFreq = 0; % only lowpass --> see myFilter.
+p.testType = 3; [~, psd3] = myFilter(signalN, p, false);
+p.testType = 4; [~, psd4] = myFilter(signalN, p, false);
 
 
-
+%
 plot( cFreq, psdR, 'k-' ); hold on;
 plot( cFreq, psd1, 'b--' ); hold on;
 plot( cFreq, psd3, 'c--' ); hold on;
@@ -111,9 +94,6 @@ if p.saveGraph == true
     saveas(gcf, [path fileName], 'epsc');
     close;
     
-    % save caption
-%     fileID = fopen([path fileName '.tex'],'w');
-%     fprintf(fileID,caption);
-%     fclose(fileID);
+
 end
 end

@@ -1,3 +1,4 @@
+function data = importSpikes
 % clear all
 
 % data import
@@ -44,3 +45,5 @@ clear fileName
 % 
 % imagesc(variance, [0, 100])
 % colorbar
+
+end

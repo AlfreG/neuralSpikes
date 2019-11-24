@@ -1,46 +1,55 @@
-function [metricStore, timesStore] = simula(p)
+function simula(p)
 
 
+% Set simulation range
+p.saveGraph   = true;
+p.simulationN = 50;
+p.impulseSpan = 1:5;
+p.snrSpan     = 0:10;
+p.testSpan    = 1:4;
 
-p.saveGraph   = false;    % if true save graph to path
+% Set simulation parameters 
+p.sampleRate      = 9*1e3;   % Hz
+p.sampleDuration  = 50;       % s
+p.spikeRate       = 30;      % Hz
+p.spikeDuration   = 1e-3;    % s
+p.lowFreq         = 100;     % Hz
+p.highFreq        = 2500;    % Hz
+p.pixelNumber     = 7;       %
+p.noiseTF         = true;
+p.waveVelocity    = 0;
 
-p.impulseSpan = 2;
-N = 50;
-
-p.snrSpan     = 0:1:10;
-p.testSpan    = 1:1:4;
-
-
-
-
-
-
+% Repositories set up
 snrSpanL     = length(p.snrSpan);
 testSpanL    = length(p.testSpan);
 impulseSpanL = length(p.impulseSpan);
 
-bandSpan   = 4; % low band, in band, over band, all spectrum
-timeSpan   = 1;
+%
+N = p.simulationN;
+for i = 1 : 1: impulseSpanL
+    p.impulseType = p.impulseSpan(i);
+    % reset repos at each impulse type
+    specR = zeros( testSpanL, snrSpanL );
+    timeR = zeros( testSpanL, snrSpanL );
 
-metricStore = zeros( bandSpan  , testSpanL, snrSpanL, impulseSpanL );
-timesStore  = zeros( timeSpan  , testSpanL, snrSpanL, impulseSpanL );
+    for r = 1: N
 
-
-
-for i = 1: 1: N
+        for s = 1 : snrSpanL
+            p.snrDb = p.snrSpan(s);
+            
+            for t = 1 : testSpanL
+                p.testType   = p.testSpan(t);
     
-    [ metric, times, p ] = genGraph( p );
+                [specD, timeD]   = filtersMetrics( p );
+                specR( t, s) = specR( t, s) + specD/N;
+                timeR( t, s) = timeR( t, s) + timeD/N;
+            end
+        end
+    end
     
-    metricStore = metricStore + metric;
-    timesStore  = timesStore  + times;
-    
+    % Draw graph
+    scatterPlot(specR, timeR, p);
 end
-
-metricStore = metricStore/N;
-timesStore  = timesStore/N;
-
-scatterPlot(metricStore, timesStore, p);
-% enquiry(metricStore, timesStore, p, false);
 
 
 end

@@ -1,21 +1,12 @@
 function [signal, impulseParam] = spikeTrain(p, plotTF )
 %
 
-% Stub parameters. [signal, impulseParam] = spikeTrain(param, true );
-%     p.impulseType    = 2;
-%     p.spikeRate      = 5;
-%     p.sampleDuration = 0.1;
-%     p.interSpikeType = 1;
-
-
-    
 sampleRate     = p.sampleRate;
+sampleSize     = p.sampleSize;
 spikeRate      = p.spikeRate;
-sampleDuration = p.sampleDuration;
+spikeNumber    = p.spikeNumber;
 pixels         = p.pixelNumber;
 
-sampleSize  = round( sampleRate * sampleDuration );
-spikeNumber = round( spikeRate  * sampleDuration );
 restPeriod  = round( sampleRate / spikeRate );
 spikeSize   = round( p.spikePeriod * sampleRate );
 
@@ -23,7 +14,7 @@ spikeSize   = round( p.spikePeriod * sampleRate );
 % Sample spike times
 switch p.interSpikeType
     case 1 %'exponential'  %exponentialy
-    spikeTimes = -sampleRate * log( 1 - rand([1,spikeNumber]) ) / spikeRate;
+    spikeTimes = expinv(rand([1,spikeNumber]), sampleRate/spikeRate);
     spikeTimes = cumsum(spikeTimes,2);
     spikeTimes = spikeTimes(spikeTimes< sampleSize - spikeSize);
     
@@ -32,19 +23,32 @@ switch p.interSpikeType
     
     case 3 %'constant' % constantly
     spikeTimes = linspace(spikeSize + 1, sampleSize - spikeSize - 1, spikeNumber);
+
+    case 4 %gamma
+    spikeTimes = gamrnd(restPeriod/p.gammaStdErr, p.gammaStdErr, 1, spikeNumber);
+    spikeTimes = cumsum(spikeTimes,2);
+    spikeTimes = spikeTimes(spikeTimes< sampleSize - spikeSize);
     
     otherwise
-    disp('Unknown spike intertime ssampling method. Using Default = exponential');
-    spikeTimes = -sampleRate * log( 1 - rand([1,spikeNumber]) ) / spikeRate;
+    writeToLog('Unknown spike intertime sampling method. Using Default = exponential');
+    spikeTimes = expinv(rand([1,spikeNumber]), sampleRate/spikeRate);
     spikeTimes = cumsum(spikeTimes,2);
     spikeTimes = spikeTimes(spikeTimes>= sampleSize - spikeSize);
 end
 
 
+% Log
+% writeToLog( 'T' + string(p.testType) + 'I' + string(p.impulseType) + 'SNR' + string(p.snrDb) );
+% writeToLog( mfilename );
+% writeToLog( 'sample Size:   ' + string(sampleSize) );
+% writeToLog( 'spikes number: ' + string(spikeNumber) );
+% writeToLog( 'spikes gene.d: ' + string(length(spikeTimes)) );
+% writeToLog( 'spike   times: ' + string(round(spikeTimes)) );
+
 
 % Assemble signal
 signal = zeros( pixels, sampleSize +  4 * restPeriod );
-for j = round(spikeTimes)
+for j = ceil(spikeTimes)
     % Adiacent impulses might overlap
     impulse = impulseSampling( p );
     signal( :, j:j + spikeSize-1 ) = signal(:, j:j + spikeSize-1) + impulse;
@@ -53,9 +57,11 @@ end
 testImpulse = impulseSampling( p );
 impulseParam.mP        = impulsesMeanPower(testImpulse(1,:), p);
 impulseParam.start     = spikeTimes;
-impulseParam.size      = round(spikeSize/2);
+impulseParam.midSize   = round(spikeSize/2);
+impulseParam.size      = spikeSize;
 [~, impulseParam.max]  = max(testImpulse(1,:)); 
-% resize signal
+
+% resize and demean signal
 signal = signal( :, 1:sampleSize ) ;
 
 
@@ -66,6 +72,7 @@ if plotTF == true
     xlabel('ms');
     ylabel('mv');
 end
+
 
 end
 

@@ -1,13 +1,10 @@
-function    distTab = dftNorm( q, p )
-% q Reference   DFT
-% p Noisy       DFT
+function    dist = dftNorm( dftR, dftN, p )
+% dftR Reference DFT
+% dftN Noisy DFT
+
 
 checkPlot = false;
 
-
-% Reference and Noisy spectrum
-dftR = mean( q.dft(:,:), 1);
-dftN =       p.dft(end,:);
 dft  = [dftR; dftN];
 
 
@@ -45,12 +42,14 @@ dft = dft - [0; delta];
 diff = dft(2,:) - dft(1,:) - delta;
 
 
+dist = norm( diff( k0    : kHigh), 2 );
+
 % Tab distance per frequency band
-distTab = zeros(4,1);
-    distTab(1) = norm( diff( k0    : kLow) , 2 );
-    distTab(2) = norm( diff( k0    : kHigh), 2 );
-    distTab(3) = norm( diff( k0     : end)  , 2 );
-    distTab(4) = norm( diff( kHigh : end)  , 2 );
+% dist = zeros(4,1);
+%     dist(1) = norm( diff( k0    : kLow) , 2 );
+%     dist(2) = norm( diff( k0    : kHigh), 2 );
+%     dist(3) = norm( diff( k0     : end)  , 2 );
+%     dist(4) = norm( diff( kHigh : end)  , 2 );
                     
 end
 
