@@ -1,18 +1,23 @@
 function [specD, timeD] = filtersMetrics( p )
 %
 
+% Get interspike times type
+interTimes = p.interSpikeType;
 
 % Make reference signal: a spike train with random sampling phase
 [signalR, impulseParam] = spikeTrain(p, false);
-% Compute reference signal DFT
-[~, dftR, ~] = myFilter(signalR, p, true);
+
+% Spike train with constant inter spike times
+p.interSpikeType = 3;
+[signalC, ~] = spikeTrain(p, false);
+p.interSpikeType = interTimes;
+dftR  = myDft(signalC(1,:), p, " ");
 
 % Add Noise
-signalN = signalR + thermalNoise(p, impulseParam); 
+signalN = signalR + thermalNoise(p, impulseParam);
+signalN = myFilter(signalN, p, p.testType);
+dftN    = myDft(signalN, p, " ");
 
-
-% Filter noisy signal and get DFT
-[signalF, dftF, ~] = myFilter(signalN, p, false)    ;
 % Compute metrics
-specD = dftNorm(dftR, dftF, p);
-timeD = timeDist(signalF, impulseParam, p);
+specD = dftNorm(dftR, dftN, p);
+timeD = timeDist(signalN, impulseParam, p);

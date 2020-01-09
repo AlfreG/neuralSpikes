@@ -11,7 +11,7 @@ dft  = [dftR; dftN];
 % Find the index of the stopband's frequencies
 N            = size(dftR, 2);
 k0           = ceil( N/2 );   %
-    kLow  = k0 + round( p.lowFreq  );
+%     kLow  = k0 + round( p.lowFreq  );
     kHigh = k0 + round( p.highFreq );
 
 

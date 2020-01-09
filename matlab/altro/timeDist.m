@@ -16,7 +16,7 @@ spikeMidTimes = sort(spikeMidTimes, 'asc');
 
 % Distance in ms
 distV = abs( maxInd - spikeMidTimes );
-distV = distV(distV >= impulseParam.size);
+% distV = distV(distV >= impulseParam.size);
 
 % 
 dist = sum(distV) / M;

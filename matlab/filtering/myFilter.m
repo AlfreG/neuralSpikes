@@ -15,13 +15,14 @@ end
 
 
 % Pixels aggregation
-if (testType == 1) || (testType == 3)
-    signal = mean(signal,1);
-else
-    signal = mean(signal.^2,1);
+switch testType
+    case {1,3}
+        signal = mean(signal,1);
+    otherwise
+        signal = mean(signal.^2,1);
 end
 
 
 % Normalize signal
 signal = signal - mean(signal,2);
-signal = signal ./ std(signal, [], 2);
+signal = signal ./ std(signal, [], 2) / 500;

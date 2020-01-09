@@ -9,11 +9,10 @@ interTimes = p.interSpikeType;
 % Spike train with causal inter spike times
 [signalR, impulseParam] = spikeTrain(p, false);
 
-
 % Spike train with constant inter spike times
-% p.interSpikeType = 3;
-% [signalC, ~] = spikeTrain(p, false);
-% p.interSpikeType = interTimes;
+p.interSpikeType = 3;
+[signalC, ~] = spikeTrain(p, false);
+p.interSpikeType = interTimes;
 
 % Add noise
 signalN = signalR + thermalNoise(p, impulseParam);
@@ -26,18 +25,24 @@ s3 = myFilter(signalN, p, 3);
 s4 = myFilter(signalN, p, 4);
 
 psdString = "psd";
-outR = myDft(signalR(1,:), p, psdString);
+outR = myDft(signalC(1,:), p, psdString);
 out1 = myDft(s1, p, psdString);
 out2 = myDft(s2, p, psdString);
 out3 = myDft(s3, p, psdString);
 out4 = myDft(s4, p, psdString);
 
+index = (p.nyquist+2 : p.nyquist+p.spikeRate*4 );
+cM = corr([outR(index)' out1(index)' out2(index)' out3(index)' out4(index)']);
+cM(1,2:end)
+
+
+
 %
 close; hold on;
 plot( p.freq, outR, 'k-' ) ;
 plot( p.freq, out1, 'b--' );
-plot( p.freq, out2, 'c--' );
 plot( p.freq, out3, 'r--' );
+plot( p.freq, out2, 'c--' );
 plot( p.freq, out4, 'm--' );
 
 
@@ -51,9 +56,9 @@ legend('Signal PSD. ' + string(p.impulseLabel(p.impulseType)), ...
  
 xlabel('Hz');
 ylabel('dB(V^2/Hz)');
-% xlim([max(p.spikeRate-200,0) p.spikeRate+200]);
+% xlim([2 p.spikeRate*2]);
 
-text( 500, -120, 'spikeRate: '+ string(p.spikeRate) + 'Hz. ' + 'SNR: ' + string(p.snrDb)  );
+text( p.spikeRate, -120, 'spikeRate: '+ string(p.spikeRate) + 'Hz. ' + 'SNR: ' + string(p.snrDb)  );
 set(gcf,'WindowStyle','docked');
         
 saveGraph(p);

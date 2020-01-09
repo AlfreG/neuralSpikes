@@ -7,19 +7,17 @@ sampleSize = p.sampleSize;
 % Add Noise
 if p.noiseTF == true
     
-    % single impulse mean power
+    % Single impulse mean power SIMP
     mP = impulseParam.mP;
-    % impulse signal mean power: using actual impulse number
-    mP = mP * size(impulseParam.start,2);
-    % total length noise power
-    noiseP = mP * 10^( -p.snrDb / 10 );
+    % Signal total power: SIMP times number of impulses
+    SP = mP * size(impulseParam.start,2);
+    % Noise total power
+    NP = SP * 10^( -p.snrDb / 10 );
     % noise sampling amplitude
-    sigma = sqrt( noiseP / p.sampleDuration );
+    sigma = sqrt( NP / p.sampleDuration );
     
     noise  = randn( [ p.pixelNumber, sampleSize] ) * sigma; 
 
 else
-    noise  = zeros( p.pixelNumber, sampleSize ); 
-
-
+    noise  = zeros( p.pixelNumber, sampleSize );
 end
