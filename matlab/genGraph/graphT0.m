@@ -17,14 +17,14 @@ signalN = signalR + thermalNoise(p, impulseParam);
 spikeTimes = round(impulseParam.start + impulseParam.midSize);
 spikes             = NaN( 1, p.sampleSize );
 spikes(spikeTimes) = signalN(spikeTimes);
-spikes(spikeTimes) = p.amplitude/2;
+spikes(spikeTimes) = 0;
 
     
 
 close gcf;
 hold on; 
 
-plot( time, signalN(1,:)        , '--k', 'LineWidth', 0.1 );
+plot( time, signalN(1,:)/3        , '--k', 'LineWidth', 0.1 );
 plot( time, myFilter(signalN, p, 3), '-b' , 'LineWidth', 2);
 plot( time, myFilter(signalN, p, 4), '-m' , 'LineWidth', 2);
 plot( time, spikes, 'r^', 'MarkerFaceColor','r');
@@ -71,6 +71,7 @@ if p.saveGraph == true
     % save and close figure
     saveas(gcf, [path fileName], 'epsc');
     saveas(gcf, [path fileName], 'jpeg');
+    saveas(gcf, [path fileName], 'fig');
     close;
     
 end

@@ -18,19 +18,19 @@ metrics = reshape( specD , testSpanL*snrSpanL, 1);
 hold on;
 ind = 1:4:size(times,1);
 plot(times(ind), metrics(ind), 'b.-', 'MarkerSize', 12);
-text(times(ind)+1.5, metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 ind = 3:4:size(times,1);
 plot(times(ind), metrics(ind), 'c.-', 'MarkerSize', 12);
-text(times(ind)+1.5, metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 ind = 2:4:size(times,1);
 plot(times(ind), metrics(ind), 'r.-', 'MarkerSize', 12);
-text(times(ind)+1.5, metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 ind = 4:4:size(times,1);
 plot(times(ind), metrics(ind), 'm.-', 'MarkerSize', 12);
-text(times(ind)+1.5, metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 
 grid on;
@@ -68,6 +68,7 @@ if p.saveGraph == true
     % save and close figure
     saveas(gcf, [path fileName], 'jpg');
     saveas(gcf, [path fileName], 'epsc');
+    saveas(gcf, [path fileName], 'fig');
     close;
     
     % save caption

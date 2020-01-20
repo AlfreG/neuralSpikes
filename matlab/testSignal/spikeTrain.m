@@ -56,7 +56,7 @@ end
 % Compute actual power and max point in first pixel
 testImpulse = impulseSampling( p );
 impulseParam.mP        = impulsesMeanPower(testImpulse(1,:), p);
-impulseParam.start     = spikeTimes;
+impulseParam.start     = round(spikeTimes);
 impulseParam.midSize   = round(spikeSize/2);
 impulseParam.size      = spikeSize;
 [~, impulseParam.max]  = max(testImpulse(1,:)); 

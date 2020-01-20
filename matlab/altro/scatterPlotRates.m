@@ -3,17 +3,15 @@ function scatterPlotRates( specD, timeD, p )
 
 
 % Fetch simulation's dimensions
-% snrSpan       = p.snrSpan;
+snrSpan       = p.snrSpan;
 testSpan      = p.testSpan;
-spikeRateSpan = p.spikeRateSpan;
-% snrSpanL       = length(snrSpan);
+snrSpanL       = length(snrSpan);
 testSpanL      = length(testSpan);
-spikeRateSpanL = length(spikeRateSpan);
 
 % Scatter plot data
-times   = reshape( timeD , testSpanL*spikeRateSpanL, 1);
-metrics = reshape( specD , testSpanL*spikeRateSpanL, 1);
-   rates = reshape( repmat( spikeRateSpan',1,testSpanL)', 1,spikeRateSpanL*testSpanL);
+times   = reshape( timeD, testSpanL*snrSpanL, 1);
+metrics = reshape( specD, testSpanL*snrSpanL, 1);
+   rates = reshape( repmat( snrSpanL',1,testSpanL)', 1, snrSpanL*testSpanL);
 
 
 % Test 1 - 

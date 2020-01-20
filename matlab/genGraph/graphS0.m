@@ -17,6 +17,10 @@ p.interSpikeType = interTimes;
 % Add noise
 signalN = signalR + thermalNoise(p, impulseParam);
 
+% Normalize signals
+signalN = (signalN - mean( signalN, 2))./ std( signalN, [], 2);
+signalC = (signalC - mean( signalC, 2))./ std( signalC, [], 2);
+
 
 % Reference psd: first pixel arithmetic mean of reference signal
 s1 = myFilter(signalN, p, 1);
@@ -41,8 +45,8 @@ cM(1,2:end)
 close; hold on;
 plot( p.freq, outR, 'k-' ) ;
 plot( p.freq, out1, 'b--' );
-plot( p.freq, out3, 'r--' );
-plot( p.freq, out2, 'c--' );
+plot( p.freq, out3, 'c--' );
+plot( p.freq, out2, 'r--' );
 plot( p.freq, out4, 'm--' );
 
 
@@ -90,6 +94,7 @@ if p.saveGraph == true
     % save and close figure
     saveas(gcf, [path fileName], 'jpg');
     saveas(gcf, [path fileName], 'epsc');
+    saveas(gcf, [path fileName], 'fig');
     close;
     
 

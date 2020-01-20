@@ -4,23 +4,35 @@ function [dist, distV] = timeDist(signal, impulseParam, p)
 % Trues spikes' time are stored in the struct impulseParam
 
 
-% Find signal's M-quantile
+% Find signal's higher M pikes
 M = size(impulseParam.start,2);
 [~, maxInd] = sort(signal, 'asc');
-maxInd      = maxInd(end-M+1 : end);
+maxInd      = maxInd(end-M+1:end);
 maxInd      = sort(maxInd);
 
 % Sort true spike times
-spikeMidTimes = impulseParam.start + round(M/2);
+spikeMidTimes = impulseParam.start;
 spikeMidTimes = sort(spikeMidTimes, 'asc');
 
 % Distance in ms
-distV = abs( maxInd - spikeMidTimes );
-% distV = distV(distV >= impulseParam.size);
+%distV = abs( maxInd - spikeMidTimes );
+
+dist = 0;
+for x = maxInd
+    m = min( abs(spikeMidTimes - x) );
+    if m <= impulseParam.size
+        m = 0;  % got the spike!
+    else
+        dist = dist + m*2;
+    end
+end
+dist = sqrt(dist);
 
 % 
-dist = sum(distV) / M;
+%dist = sum(distV) / M;
 dist = dist / p.sampleRate * 1000;
+
+
 
 
 % Log
