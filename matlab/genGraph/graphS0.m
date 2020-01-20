@@ -56,7 +56,7 @@ legend('Signal PSD. ' + string(p.impulseLabel(p.impulseType)), ...
  
 xlabel('Hz');
 ylabel('dB(V^2/Hz)');
-% xlim([2 p.spikeRate*2]);
+xlim([0 p.spikeRate*2]);
 
 text( p.spikeRate, -120, 'spikeRate: '+ string(p.spikeRate) + 'Hz. ' + 'SNR: ' + string(p.snrDb)  );
 set(gcf,'WindowStyle','docked');

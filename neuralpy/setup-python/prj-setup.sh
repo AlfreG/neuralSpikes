@@ -10,14 +10,26 @@ make test
 make altinstall
 
 python3.8 -m pip install --upgrade pip setuptools wheel
-
+#--------------------------------------------------------
 python3.8 -m pip install --user Cython==0.29.16
+#--------------------------------------------------------
 python3.8 -m pip install --user numpy==1.18.1
 python3.8 -m pip install --user scipy==1.4.1
 python3.8 -m pip install --user matplotlib==3.1.2
+python3.8 -m pip install --user scikit-learn==
+# python3.8 -m pip install --user sklearn==
 python3.8 -m pip install --user django==3.0.0
+#--------------------------------------------------------
 python3.8 -m pip install --user prompt-toolkit==2.0.9
 python3.8 -m pip install --user sqlparse
+#--------------------------------------------------------
+python3.8 -m pip install --user pylint
+#--------------------------------------------------------
+python3.8 -m pip install --user pyspark
+python3.8 -m pip install --user findspark
+
+
+
 
 
 ## Make executable globally

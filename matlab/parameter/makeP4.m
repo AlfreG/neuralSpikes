@@ -2,12 +2,16 @@
 % Low spike rate
 % Highly variable intertimes
 % High thermal noise
-
+        
 p4 = p;
 
-p4.spikeRate      = 10;
+p4.spikeRate      = 234;
 p4.spikePeriod    = 1e-03;
-p4.interSpikeType = 2;
+p4.interSpikeType = 3;
+    %case 1 %'exponential'  %exponentialy
+    %case 2 %'uniform'  % uniformamly
+    %case 3 %'constant' % constantly
+    %case 4 %gamma
 p4.gammaStdErr    = 0.01;
 
 
@@ -17,13 +21,13 @@ p4.saveGraph     = false;
 % Randomness
 p4.noiseTF        = true;
 p4.randomPhase    = true;
-p4.snrDb          = 0;
+p4.snrDb          = -7
 p4.impulseType    = 5;
 p4.smoothDFT      = true;
 p4.smoothFIL      = true;
 
 % Sampling 
-p4.sampleRate    = 9000;
+p4.sampleRate    = 9500;
 p4.sampleDuration= 1;
 
 % Filtering
@@ -48,3 +52,4 @@ p4.spikeNumber = round( p4.spikeRate  * p4.sampleDuration );
 
 %---------------
 graphS0(p4)
+%graphT0(p4)

@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import linalg as la
 
 x = np.array([1,1,1],dtype=np.float32)
 x.itemsize

@@ -2,7 +2,7 @@ function simula(p)
 
 
 % Set simulation range
-p.saveGraph   = true;
+p.saveGraph   = false;
 p.simulationN = 50;
 p.impulseSpan = 2;
 p.snrSpan     = 0;
