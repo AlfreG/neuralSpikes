@@ -13,7 +13,7 @@ p4.gammaStdErr    = 0.01;
 p4.noiseTF        = true;
 p4.randomPhase    = true;
 p4.snrDb          = -7;
-p4.impulseType    = 1;
+p4.impulseType    = 5;
 p4.smoothDFT      = false;
 p4.smoothFIL      = false;
 
@@ -29,7 +29,7 @@ p4.filterType    = 'butter';
 
 % Spikes
 p4.amplitude     = 0.06;
-p4.pixelNumber   = 1;
+p4.pixelNumber   = 7;
 p4.waveVelocity  = 0;
 p4.pixelDistance = 10;
 

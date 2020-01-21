@@ -17,7 +17,6 @@ clear;clc;
 
 % Set simulation parameters
 makeParam;
-makeP1;
 
 % Load Spikes data
 data = importSpikes;
