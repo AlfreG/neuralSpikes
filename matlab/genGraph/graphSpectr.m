@@ -1,4 +1,4 @@
-function graphS0( p )
+function graphSpectr( p )
 % Plot DFTs of signal against filters
 
 

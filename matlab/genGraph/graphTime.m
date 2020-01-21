@@ -1,4 +1,4 @@
-function graphT0( p )
+function graphTime( p )
 % Plot signal and filters in time domain.
 
 

@@ -20,10 +20,12 @@ switch testType
         signal = mean(signal,1);
     otherwise
         signal = mean(signal.^2,1);
-        % add MA - filter
-        B = [1 1 1];
-        A = [1 0 0];
-        signal = filter( B, A, signal, [], 2 );
+        if p.MA_filter == true
+            % add MA - filter
+            B = [1 1 1];
+            A = [1 0 0];
+            signal = filter( B, A, signal, [], 2 );
+        end
 end
 
 
