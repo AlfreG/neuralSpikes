@@ -1,6 +1,7 @@
 % Main folder
 cd /home/alfre/unimib/Tesina/neuralSpikes/matlab;
 
+addpath('/home/alfre/unimib/Tesina/neuralSpikes/matlab/altro', '-begin');
 addpath('/home/alfre/unimib/Tesina/neuralSpikes/matlab/filtering', '-begin');
 addpath('/home/alfre/unimib/Tesina/neuralSpikes/matlab/data', '-begin');
 addpath('/home/alfre/unimib/Tesina/neuralSpikes/matlab/genGraph', '-begin');

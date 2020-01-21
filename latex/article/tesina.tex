@@ -46,10 +46,22 @@ Si conclude che i test di soglia in potenza accoppiati con filtri passa banda po
 
 \section{Introduzione}
 
-Nei contesti sperimentali di rilevazione di segnali neurali con tecnologia $MEA$ un segnale fortemente rumoroso nasconde degli impulsi in tensione di forma non nota che si manifestano in tempi non noti. Alcuni algoritmi di sorting proposti in letteratura
+Nei contesti sperimentali di rilevazione di segnali neurali con tecnologia $MEA$ un segnale fortemente rumoroso nasconde degli impulsi in tensione di forma non nota che si manifestano in tempi non noti, con frequenza media
+({\it mean spike rate}) dell'ordine di qualche $kHz$. Le capacità discriminanti di alcuni algoritmi di sorting del segnale proposti in letteratura
 \cite{Vallicelli2017}, \cite{Lambacher2011} vengono  qui confrontati su un segnale di prova.
 
-Le capacità predittive degli algoritmi possono qui essere analizzate con riguardo al profilo temporale, essendo noti i tempi di spike nel segnale di prova. L'analisi temporale è comprovata da un'analisi spettrale e dalla distribuzione congiunta di due metriche, una relativa al profilo temporale e una al profilo spettrale, al variare dell'$SNR$ del segnale e della forma degli impulsi.
+La simulazione introduce nel segnale di prova tre tipi di irregolarità suggerite sia dal contesto sperimentale di rilevazione del segnale, che dalla sua natura biologica: (1) rumore termico additivo; (2) intervalli di tempo casuali tra due impulsi successivi; (3) ritardo di fase di campionamento dell'impulso casuale.
+
+Le variabili di simulazione riguardano le seguenti proprietà: (1) la distribuzione di probabilità dei tempi d'attesa tra due impulsi; (2) la forma degli impulsi; (3) lo spike rate medio; (4) SNR. Con riguardo alla prima le analisi preliminari hanno evidenziano che l'emersione dei picchi alla frequenza dello spike rate medio avviene solo quando la deviazione standard della distribuzione dei tempi d'attesa è sufficientemente bassa, è necessario quindi modellare tale distribuzione con almeno due parametri distinti, uno per la media e uno per la varianza. Sono state perciò scartate le più semplici distribuzioni di probabilità come quella rettangolare e quella del decadimento esponenziale\footnote{Note nella letteratura statistica rispettivamente come uniforme ed esponenziale negativa}. La varianza di tali distribuzioni è infatti funzionalmente dipendente dalla media e per la presente applicazione, troppo elevata. La distribuzione utilizzata è invece la distribuzione gamma, controllata da due parametri, uno di forma, detto $\lambda$ e uno di scala, detto $\beta$. La distribuzione gamma è la più semplice generalizzazione della distribuzione esponenziale negativa, potendosi ottenere come distribuzione della somma di un numero $\beta$ di variabili casuali esponenziali negative, tutte identicamente distribuite con parametro di media $\lambda$. In funzione di questi parametri lo spike rate medio è $\beta\lambda^{-1}$ e la varianza $\beta\lambda^{-2}$, in questo modo, variando opportunamente i due parametri $\lambda$ e $\beta$, si ottengono tutte le possibili configurazione dei primi due momenti dello spike rate. Con riguardo alla forma degli impulsi, l'analisi preliminare ha evidenziato una certa variabilità dei risultati, tale variabile di simulazione viene perciò conservata e sono stati proposti quattro tipi di impusi. Infine, con riguardo allo spike rate medio, i risultati preliminari non hanno dimostrato sufficiente variabilità in un ampio intervallo di frequenze a partire da qualche decina di $Hz$ fino al limite di $10kHz$, oltre il quale impulsi della durata di $1ms$ iniziano a sovrapporsi.
+
+I test presi in considerazione dalla simulazione sono due, il primo proposto in letteratura da \cite{Lambacher2011}, è un test in potenza basato sulla media quadratica del segnale. Il secondo test, più semplice, utilizza la media aritmetica. Ognuno dei due test è variato con due diversi filtri in frequenza preliminari, un passa banda e un passa basso, applicati alternativamente per un totale di quattro test. 
+
+Le conclusioni della simulazioni si basano sull'accuratezza delle capacità discriminanti dei due algoritmi di sorting. Nella fase preliminare dell'analisi, l'andamento congiunto di due metriche, una afferente al dominio delle frequenze e una al dominio dei tempi, mostra evidenze importanti a favore dei test a media artimentica, evidenza corroborata da un coerente andamento delle metriche al variare di tutte le variabili di simulazione.
+
+Per trarre evidenze analitiche più precise, si propone infine un'analisi di classificazione delle previsioni dei due algoritmi di sorting, che viene riportata in misura media al variare di tutte le variabili di simulazione e per la ripetizione della simulazione su $100$ iterazioni, al fine di ottenere risultati più robusti con riguardo anche alle casualità introdotte. I risultati di simulazione vengono riassunti in quattro categorie: falsi positivi, veri positivi, falsi negativi e veri negativi. Le conclusioni si affidano a due indici di concordanza, l'indice di concordanza di Jaccard e il punteggio $F1$, noti nella letteratura in ambito di {\it data science} e ampiamente utilizzati per riportare l'accuratezza degli algoritmi di classificazione. Tali indici, sono in sostanza delle misure di correlazione, anche se trattandosi di variabili dicotomiche è corretto parlare di associazione o concordanza, tra la previsione dei tempi degli impulsi e i tempi effettivi, e sono, per comodità, uniformati a variare tra il valore $0$, che indica assenza di correlazione e $1$, massima dipendenza. 
+
+I valori degli indici per i filtri a media aritmetica risultanti dalla presente simulazione sono sempre sensibilmente superiori a quelli degli algoritmi a media quadratica, indipendentemente dal tipo di filtro in frequenza applicato.
+
 
 
 % This  template is designed to assist with creating an article to submit to the \emph{Journal of Optical Communications and Networking}. See the OSA's \href{http://www.opticsinfobase.org/submit/style/}{Style Guide} and \href{http://www.opticsinfobase.org/submit/templates/}{Manuscript Templates} pages for more details.
@@ -68,14 +80,16 @@ La seguente tabella \ref{tab:param} mostra i principali parametri di simulazione
 \caption{\bf Parametri di simulazione}
 \begin{tabular}{ccc}
 \hline
-Durata segnale       & 1s        \\
-Spike rate           & 50-250Hz      \\
-Durata spike         & 1ms       \\
-Ampiezza Max 0p      & 60mV      \\
-Campionamento        & 9kSamples \\
-Filtro. $\nu_{low}$  & 0.02 kHz   \\
-Filtro. $\nu_{high}$ & 2.5 kHz   \\
-Pixels               & 7         \\
+Durata segnale                  & 1s                \\
+Spike rate (media)              & 150Hz             \\
+Spike rate (errore standard)    & 0.01              \\
+Durata spike                    & 1ms               \\
+Ampiezza Max 0p                 & 60mV              \\
+Potenza media spike            & 1.8$\mu V^{2}s$   \\
+Campionamento                   & 9kSamples         \\
+Filtro. $\nu_{low}$             & 0.02 kHz          \\
+Filtro. $\nu_{high}$            & 2.5 kHz           \\
+Pixels                          & 7                 \\
 \hline
 \end{tabular}
 \label{tab:param}

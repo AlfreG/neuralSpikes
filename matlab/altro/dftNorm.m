@@ -16,4 +16,4 @@ dft = (dft - mean( dft, 2) )./ std( dft, [], 2);
 
 % Distance
 diff = dft(1,:) - dft(2,:);
-dist = norm( diff(kLow:kHigh), 2 );
+dist = norm( diff(k0:kHigh), 2 );

@@ -18,19 +18,19 @@ metrics = reshape( specD , testSpanL*snrSpanL, 1);
 hold on;
 ind = 1:4:size(times,1);
 plot(times(ind), metrics(ind), 'b.-', 'MarkerSize', 12);
-text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind)*1.001, metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 ind = 3:4:size(times,1);
 plot(times(ind), metrics(ind), 'c.-', 'MarkerSize', 12);
-text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind)*1.001, metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 ind = 2:4:size(times,1);
 plot(times(ind), metrics(ind), 'r.-', 'MarkerSize', 12);
-text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind)*1.001, metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 ind = 4:4:size(times,1);
 plot(times(ind), metrics(ind), 'm.-', 'MarkerSize', 12);
-text(times(ind), metrics(ind), string(snrs(ind)), 'FontSize', 12);
+text(times(ind)*1.001, metrics(ind), string(snrs(ind)), 'FontSize', 12);
 
 
 grid on;
@@ -63,17 +63,13 @@ if p.saveGraph == true
 %     set(gcf, 'PaperPosition', [-7.5171; 6.145; 18; 26 ]);
         
     fileName = [ 'scatter' num2str(p.impulseType) ];
-    path = 'results/';
+    path = p.path;
 
     % save and close figure
     saveas(gcf, [path fileName], 'jpg');
     saveas(gcf, [path fileName], 'epsc');
     saveas(gcf, [path fileName], 'fig');
     close;
-    
-    % save caption
-%     fileID = fopen([path fileName '.tex'],'w');
-%     fprintf(fileID,caption);
-%     fclose(fileID);
+
 end
 end

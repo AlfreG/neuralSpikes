@@ -56,13 +56,13 @@ legend('Signal PSD. ' + string(p.impulseLabel(p.impulseType)), ...
        'BP.filt+arith.Mean', ...
        'LP.filt+arith.Mean', ...
        'BP.filt+square.Mean', ...
-       'LP.filt+square.Mean');
+       'LP.filt+square.Mean', 'Orientation','horizontal');
  
 xlabel('Hz');
 ylabel('dB(V^2/Hz)');
 xlim([0 p.spikeRate*2]);
 
-text( p.spikeRate, -120, 'spikeRate: '+ string(p.spikeRate) + 'Hz. ' + 'SNR: ' + string(p.snrDb)  );
+text( p.spikeRate, -200, 'spikeRate: '+ string(p.spikeRate) + 'Hz. ' + 'SNR: ' + string(p.snrDb)  );
 set(gcf,'WindowStyle','docked');
         
 saveGraph(p);
@@ -83,12 +83,10 @@ if p.saveGraph == true
 %     set(gcf, 'PaperPositionMode', 'manual');
 %     set(gcf, 'PaperPosition', [-7.5171; 6.145; 18; 26 ]);
         
-    chap = 'c9_';
     sect = ['I' num2str(p.impulseType) 'SNR' num2str(p.snrDb)];
     desc = 'spec';
-    fileName = [chap sect desc];
-%     xts = 'jpg';
-    path = 'results/';
+    fileName = [sect desc];
+    path = p.path;
 
     
     % save and close figure

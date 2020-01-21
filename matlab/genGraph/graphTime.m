@@ -31,7 +31,7 @@ plot( time, spikes, 'r^', 'MarkerFaceColor','r');
 
 legend(  'Signal. ' + string(p.impulseLabel(p.impulseType)) + '. ' + num2str(p.snrDb) + 'dB.' +...
          ' SpikeRate ' + string(p.spikeRate) + 'Hz.', ...
-         'Algor:LP.filt+arith.Mean', 'Algor:LP.filt+square.Mean','Spike', 'Location', 'NorthEast');
+         'Algor:LP.filt+arith.Mean', 'Algor:LP.filt+square.Mean','Spike', 'Location', 'NorthEast','Orientation','horizontal');
     grid ON;
 
 %     title( string(p.impulseLabel(p.impulseType)) + '. ' + num2str(p.snrDb) + 'dB' );
@@ -60,12 +60,10 @@ if p.saveGraph == true
 %     set(gcf, 'PaperPositionMode', 'manual');
 %     set(gcf, 'PaperPosition', [-7.5171; 6.145; 18; 26 ]);
         
-    chap = 'c1_';
     sect = ['I' num2str(p.impulseType) 'SNR' num2str(p.snrDb)];
     desc = 'time';
-    fileName = [chap sect desc];
-%     xts = 'epsc';
-    path = 'results/';
+    fileName = [sect desc];
+    path = p.path;
 
     
     % save and close figure

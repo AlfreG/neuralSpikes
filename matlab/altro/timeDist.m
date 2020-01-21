@@ -20,11 +20,12 @@ spikeMidTimes = sort(spikeMidTimes, 'asc');
 dist = 0;
 for x = maxInd
     m = min( abs(spikeMidTimes - x) );
-    if m <= impulseParam.size
-        m = 0;  % got the spike!
-    else
-        dist = dist + m*2;
-    end
+    dist = dist + m*2;
+%     if m <= impulseParam.size
+%         m = 0;  % got the spike!
+%     else
+%         dist = dist + m*2;
+%     end
 end
 dist = sqrt(dist);
 
