@@ -17,6 +17,9 @@ p.interSpikeType = interTimes;
 % Add noise
 signalN = signalR + thermalNoise(p, impulseParam);
 
+% Mean signal C
+signalC = mean( signalC, 1)
+
 % Normalize signals
 signalN = (signalN - mean( signalN, 2))./ std( signalN, [], 2);
 signalC = (signalC - mean( signalC, 2))./ std( signalC, [], 2);
@@ -61,6 +64,7 @@ legend('Signal PSD. ' + string(p.impulseLabel(p.impulseType)), ...
 xlabel('Hz');
 ylabel('dB(V^2/Hz)');
 xlim([0 p.spikeRate*2]);
+ylim([-200 -50]);
 
 text( p.spikeRate, -200, 'spikeRate: '+ string(p.spikeRate) + 'Hz. ' + 'SNR: ' + string(p.snrDb)  );
 set(gcf,'WindowStyle','docked');

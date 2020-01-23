@@ -1,5 +1,7 @@
 \documentclass[9pt,twocolumn,twoside]{osajnl}
 
+\usepackage{multirow}
+
 \journal{jocn} 
 
 % See template introduction for guidance on setting shortarticle option
@@ -8,7 +10,7 @@
 % false = research / review article
 % (depending on journal).
 
-\title{\LaTeX\  Simulazione di un filtro digitale per la rilevazione di segnali neurali \emph{ }}
+\title{Simulazione di un filtro digitale per la rilevazione di segnali neurali \emph{ }}
 
 \author[1]{Alfredo Guarnieri}
 % \author[2,*]{Author Two}
@@ -47,14 +49,14 @@ Si conclude che i test di soglia in potenza accoppiati con filtri passa banda po
 \section{Introduzione}
 
 Nei contesti sperimentali di rilevazione di segnali neurali con tecnologia $MEA$ un segnale fortemente rumoroso nasconde degli impulsi in tensione di forma non nota che si manifestano in tempi non noti, con frequenza media
-({\it mean spike rate}) dell'ordine di qualche $kHz$. Le capacità discriminanti di alcuni algoritmi di sorting del segnale proposti in letteratura
-\cite{Vallicelli2017}, \cite{Lambacher2011} vengono  qui confrontati su un segnale di prova.
+({\it mean spike rate}) dell'ordine di qualche $kHz$. Le capacità discriminanti di alcuni algoritmi di rilevazione del segnale proposti in letteratura
+\cite{Vallicelli2017}, \cite{Lambacher2011} vengono qui confrontati su un segnale di prova.
 
-La simulazione introduce nel segnale di prova tre tipi di irregolarità suggerite sia dal contesto sperimentale di rilevazione del segnale, che dalla sua natura biologica: (1) rumore termico additivo; (2) intervalli di tempo casuali tra due impulsi successivi; (3) ritardo di fase di campionamento dell'impulso casuale.
+La simulazione introduce tre tipi di irregolarità suggerite sia dal contesto sperimentale di rilevazione del segnale, che dalla sua natura biologica: (1) rumore termico additivo; (2) intervalli di tempo casuali tra due impulsi successivi; (3) ritardo di fase di campionamento dell'impulso casuale.
 
-Le variabili di simulazione riguardano le seguenti proprietà: (1) la distribuzione di probabilità dei tempi d'attesa tra due impulsi; (2) la forma degli impulsi; (3) lo spike rate medio; (4) SNR. Con riguardo alla prima le analisi preliminari hanno evidenziano che l'emersione dei picchi alla frequenza dello spike rate medio avviene solo quando la deviazione standard della distribuzione dei tempi d'attesa è sufficientemente bassa, è necessario quindi modellare tale distribuzione con almeno due parametri distinti, uno per la media e uno per la varianza. Sono state perciò scartate le più semplici distribuzioni di probabilità come quella rettangolare e quella del decadimento esponenziale\footnote{Note nella letteratura statistica rispettivamente come uniforme ed esponenziale negativa}. La varianza di tali distribuzioni è infatti funzionalmente dipendente dalla media e per la presente applicazione, troppo elevata. La distribuzione utilizzata è invece la distribuzione gamma, controllata da due parametri, uno di forma, detto $\lambda$ e uno di scala, detto $\beta$. La distribuzione gamma è la più semplice generalizzazione della distribuzione esponenziale negativa, potendosi ottenere come distribuzione della somma di un numero $\beta$ di variabili casuali esponenziali negative, tutte identicamente distribuite con parametro di media $\lambda$. In funzione di questi parametri lo spike rate medio è $\beta\lambda^{-1}$ e la varianza $\beta\lambda^{-2}$, in questo modo, variando opportunamente i due parametri $\lambda$ e $\beta$, si ottengono tutte le possibili configurazione dei primi due momenti dello spike rate. Con riguardo alla forma degli impulsi, l'analisi preliminare ha evidenziato una certa variabilità dei risultati, tale variabile di simulazione viene perciò conservata e sono stati proposti quattro tipi di impusi. Infine, con riguardo allo spike rate medio, i risultati preliminari non hanno dimostrato sufficiente variabilità in un ampio intervallo di frequenze a partire da qualche decina di $Hz$ fino al limite di $10kHz$, oltre il quale impulsi della durata di $1ms$ iniziano a sovrapporsi.
+Le variabili di simulazione riguardano le seguenti proprietà: (1) la distribuzione di probabilità dei tempi d'attesa tra due impulsi; (2) la forma degli impulsi; (3) lo spike rate medio; (4) SNR. Con riguardo alla prima, le analisi preliminari hanno evidenziano che l'emersione dei picchi alla frequenza dello spike rate medio avviene solo quando la deviazione standard della distribuzione dei tempi d'attesa è sufficientemente bassa, è necessario quindi modellare tale distribuzione con almeno due parametri distinti, uno per la media e uno per la varianza. Sono state perciò scartate le più semplici distribuzioni di probabilità come quella rettangolare e quella del decadimento esponenziale\footnote{Note nella letteratura statistica rispettivamente come uniforme ed esponenziale negativa}. La varianza di tali distribuzioni è infatti funzionalmente dipendente dalla media e per la presente applicazione, troppo elevata. La distribuzione utilizzata è invece la distribuzione gamma, controllata da due parametri, uno di forma, detto $\lambda$ e uno di scala, detto $\beta$. La distribuzione gamma è la più semplice generalizzazione della distribuzione esponenziale negativa, potendosi ottenere come distribuzione della somma di un numero $\beta$ di variabili casuali esponenziali negative, tutte identicamente distribuite con parametro di media $\lambda$. In funzione di questi parametri lo spike rate medio è $\beta\lambda$ e la varianza $\beta\lambda^{-2}$, in questo modo, variando opportunamente i due parametri $\lambda$ e $\beta$, si ottengono tutte le possibili configurazione dei primi due momenti dello spike rate. Con riguardo alla forma degli impulsi, l'analisi preliminare ha evidenziato una certa variabilità dei risultati, tale variabile di simulazione viene perciò conservata e sono stati proposti quattro tipi di impusi. Infine, con riguardo allo spike rate medio, i risultati preliminari non hanno dimostrato sufficiente variabilità in un ampio intervallo di frequenze a partire da qualche decina di $Hz$ fino al limite di $10kHz$, oltre il quale impulsi della durata di $1ms$ iniziano a sovrapporsi.
 
-I test presi in considerazione dalla simulazione sono due, il primo proposto in letteratura da \cite{Lambacher2011}, è un test in potenza basato sulla media quadratica del segnale. Il secondo test, più semplice, utilizza la media aritmetica. Ognuno dei due test è variato con due diversi filtri in frequenza preliminari, un passa banda e un passa basso, applicati alternativamente per un totale di quattro test. 
+Nel contesto sperimentale di riferimento, l'elevata densità spaziale dei sensori fa sì che un singolo impulso emesso sia rilevato da un numero di circa $7$ pixel contigui. Perciò, i test utilizzati per la rilevazione del segnale fanno anche leva sul profilo spaziale, utilizzando opportune quantità medie tra i 7 pixel. I test presi in considerazione dalla simulazione sono due, il primo proposto in letteratura da \cite{Lambacher2011}, è un test in potenza basato sulla media quadratica del segnale. Il secondo test, più semplice e utilizzato come test di riferimento, si basa su medie aritmetiche. Ognuno dei due test è variato con due diversi filtri in frequenza, applicati preliminarmente, un passa banda e un passa basso, applicati alternativamente per un totale di quattro test.
 
 Le conclusioni della simulazioni si basano sull'accuratezza delle capacità discriminanti dei due algoritmi di sorting. Nella fase preliminare dell'analisi, l'andamento congiunto di due metriche, una afferente al dominio delle frequenze e una al dominio dei tempi, mostra evidenze importanti a favore dei test a media artimentica, evidenza corroborata da un coerente andamento delle metriche al variare di tutte le variabili di simulazione.
 
@@ -73,7 +75,7 @@ I valori degli indici per i filtri a media aritmetica risultanti dalla presente 
 \section{Simulazione}
 \label{sec:examples}
 
-La seguente tabella \ref{tab:param} mostra i principali parametri di simulazione.
+La seguente tabella \ref{tab:param} riporta i parametri di simulazione.
 
 \begin{table}[htbp]
 \centering
@@ -85,11 +87,12 @@ Spike rate (media)              & 150Hz             \\
 Spike rate (errore standard)    & 0.01              \\
 Durata spike                    & 1ms               \\
 Ampiezza Max 0p                 & 60mV              \\
-Potenza media spike            & 1.8$\mu V^{2}s$   \\
+Potenza media spike             & 1.8$\mu V^{2}s$   \\
 Campionamento                   & 9kSamples         \\
 Filtro. $\nu_{low}$             & 0.02 kHz          \\
 Filtro. $\nu_{high}$            & 2.5 kHz           \\
-Pixels                          & 7                 \\
+Filtro. Tipo e Ordine           & Butterw. $2\textdegree$ \\
+Pixels nel cluster              & 7                 \\
 \hline
 \end{tabular}
 \label{tab:param}
@@ -99,29 +102,42 @@ Pixels                          & 7                 \\
 
 \subsection{Impulsi e SNR}
 
-Il segnale di prova è un treno di impulsi uniformemente distribuiti lungo la durata del segnale $T$. Ogni impulso $I(t'), t'\in[0,t]$ è campionamento a intervalli costanti con una fase casuale $\phi_{\mu}$, dove $\mu$ è il tempo casuale in cui si manifesta l'impulso.
+Il segnale di prova è costituito da un treno di impulsi di durata fissa di $D=1ms$ la cui specifica forma funzionale nel tempo è data da una funzione $I(t-t_{j})$, dove $t_{j}$ è il tempo di emissione del $j-$esimo impulso. Con un numero di impulsi $K$, regolarmente spaziati in accordo con il tasso di emissione degli impulsi {\it spike rate}, il segnale in funzione del tempo può perciò essere scritto 
 %
 \begin{align*}
- s_{n} &= \epsilon_{n} + I(k_{n} + \phi_{\mu})(\theta_{\mu+N} - \theta_{\mu})    \\
- \epsilon_{n} & \sim N(0,\sigma^{2}_{\epsilon})   \\
- \phi & \sim U(0,t), \quad\quad \mu  \sim  U(0,T )
+S(t) & = \sum_{j=1}^{K} I(t - t_{j})Rect(\frac{t-t_{j}}{D}),   \\
+\quad t & = 0, ..., T.
 \end{align*}
 %
-Gli impulsi considerati hanno uguale durata media e potenza trasferita e si distinguono per la forma (gaussiana, rettangolare, sinusoidale, ... ). Al tasso di campionamento considerato, ogni impulso è campionato per circa $N = 9kSamples/s (1ms) \simeq 9$ volte.
-
-La potenza di rumore utilizzata per dato $SNR$ è stata calcolata tenendo conto della potenza trasferita nel tempo di durata di un singolo impulso, secondo le seguenti relazioni.
+Il segnale deterministico $S(t)$ così ottenuto costituisce il segnale di riferimento della simulazione, rispetto al quale, il filtro della seguente versione rumorosa $\tilde{S}(t)$ verrà confrontato.
+La versione rumorosa $\tilde{S(t)}$ si ottiene aggiungendo le seguenti irregolarità
+%
 \begin{align*}
-P_{noise} \quad [V^2s] &=  P_{impulse} 10^{- snr [dB]/10} \\
+\tilde{S(t)} & = \sum_{j=1}^{K} I(t - \tau_{j})Rect(\frac{t-\tau_{j}-\phi_{j}}{D}) 
+ + \epsilon_{t},
+ \end{align*}
+%
+dove $\phi_{j}$ è un ritardo di campionamento casuale distribuito uniformemente nell'intervallo $[0,\frac{1}{\nu_{s}}]$, dove $\nu_{s}$ è il tasso di campionamento. $\tau_{j}$ è il tempo di emissione del $j-$esimo impulso, distribuito secondo la variabile casuale $t_{j-1}+\Gamma(\alpha, \beta)$, dove $t_{j-1}$ è il tempo, noto, di emissione del precedente impulso e $\Gamma(\alpha, \beta)$ è una distribuzione gamma i cui parametri sono fissati in modo da ottenere lo spike rate medio desiderato e il relativo errore standard che garantisca sufficiente regolarità nell'emissione degli impulsi tale da far emergere i picchi spettrali alla frequenza dello spike rate.
+%
+\begin{table}[htbp]
+\centering
+\caption{\bf Momenti del tasso di emissione degli impulsi}
+\begin{tabular}{cccc}
+\hline
+Media            & $\alpha\beta$      & $150Hz$   \\
+Varianza         & $\alpha\beta^{2}$  &           \\
+Errore standard  & $\beta$            & $0.01$    \\
+\hline
+\end{tabular}
+\label{tab:momenti}
+\end{table}
+%
+Infine $\epsilon_{t}$ è un rumore gaussiano di natura termica di media nulla e di varianza determinata in funzione della potenza media del segnale di riferimento e dell'$SNR$ imposto dalla simulazione. La potenza di rumore utilizzata per dato $SNR$ è stata calcolata secondo le seguenti relazioni.
+\begin{align*}
+P_{thermal noise} \quad [V^2s] &=  P_{impulses signal} 10^{- snr [dB]/10} \\
 \sigma^{2}_{\epsilon} &= \frac{ P_{noise} }{ N }
 \end{align*}
-Con riferimento all'impulso di riferimento sinusoidale, il seguente grafico \ref{fig:c6_graphSNR} riporta le deviazioni standard utilizzate in funzione dell'$SNR$.
-%
-% \begin{figure}[htbp]
-% \centering
-% \fbox{\includegraphics[width=.5\linewidth]{results/c6_graphSNR.eps}}
-% \caption{Varianza errore termico e $SNR$.}
-% \label{fig:results/c6_graphSNR}
-% \end{figure}
+
 
 
 
@@ -137,8 +153,8 @@ I due algoritmi di base differiscono per l'ordine della media, aritmetica o quad
 %\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
 \State $s_{j,t}$ \Comment{Segnale al tempo t, pixel j}
 \State $f_{j,t}$ \Comment{Filtro passa basso o passa banda}
-\State $f_{t}\gets \sum_{1:7}   f_{j,t}/7$
-\State $f_{t}\gets \sum_{i=1:3} f_{t-i}/3$
+\State $f_{t}\gets \sum_{1:7}   f_{j,t}/7$ \Comment{Media spaziale}
+%\State $f_{t}\gets \sum_{i=1:3} f_{t-i}/3$
 % \EndWhile\label{euclidendwhile}
 % \State \textbf{return} $b$\Comment{The gcd is b}
 % \EndProcedure
@@ -154,8 +170,8 @@ I due algoritmi di base differiscono per l'ordine della media, aritmetica o quad
 %\While{$r\not=0$}\Comment{We have the answer if r is 0}
 \State $f_{j,t}$ \Comment{Filtro passa basso o passa banda}
 \State $F_{j,t}\gets f^{2}_{j,t}$
-\State $F_{t}\gets \sum_{1:7}   F_{j,t}/7$
-\State $F_{t}\gets \sum_{i=1:3} F_{t-i}/3$
+\State $F_{t}\gets \sum_{1:7}   F_{j,t}/7$ \Comment{Media spaziale}
+\State $F_{t}\gets \sum_{i=1:3} F_{t-i}/3$ \Comment{Finestra mobile}
 % \EndWhile\label{euclidendwhile}
 % \State \textbf{return} $b$\Comment{The gcd is b}
 % \EndProcedure
@@ -169,33 +185,31 @@ I due algoritmi di base differiscono per l'ordine della media, aritmetica o quad
 \subsection{Sorting: profilo spettrale}
 
 Le figure \ref{fig:c9_I5SNR4spec} e \ref{fig:c9_I2SNR4spec} mostrano l'effetto spettrale degli algoritmi su due segnali di prova.
-
-
-
+%
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=1\linewidth]{results/c9_I5SNR4spec.jpg}
-\caption{$SNR = 4dB$. PSDs}
+\includegraphics[width=1\linewidth]{graphs/I1SNR-6spec.jpg}
+\caption{$SNR = -6dB$. PSDs}
 \label{fig:c9_I5SNR4spec}
 \end{figure}
+%
+% Per entrambi i tipi di impulso considerato, l'algoritmo a media quadratica ha l'effetto di innalzare considerevolmente le basse frequenze. Si tratta di un {\it red shift} dovuto all'operazione di elevamente al quadrato accoppiato a (1) rumorosità del segnale: il quadrato di un segnale rumoroso sviluppa una componente in continua che si allarga anche alle basse frequenze. (2) Non linearità della trasformazione: con la qudratura compaiono frequenze fittizie che sono frutto di combinazioni lineari di quelle preesistenti nel segnale originale.
 
-Per entrambi i tipi di impulso considerato, l'algoritmo a media quadratica ha l'effetto di innalzare considerevolmente le basse frequenze. Si tratta di un {\it red shift} dovuto all'operazione di elevamente al quadrato accoppiato a (1) rumorosità del segnale: il quadrato di un segnale rumoroso sviluppa una componente in continua che si allarga anche alle basse frequenze. (2) Non linearità della trasformazione: con la qudratura compaiono frequenze fittizie che sono frutto di combinazioni lineari di quelle preesistenti nel segnale originale.
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=1\linewidth]{results/c9_I2SNR4spec.jpg}
+% \caption{$SNR = 4dB$. PSDs.}
+% \label{fig:c9_I2SNR4spec}
+% \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{results/c9_I2SNR4spec.jpg}
-\caption{$SNR = 4dB$. PSDs.}
-\label{fig:c9_I2SNR4spec}
-\end{figure}
-
-L'effetto di {\it red shift} è particolarmente dannoso per gli impulsi come quello sinusoidale dove la densità di potenza sulle basse frequenze dello spettro non rumoroso è molto bassa. Nel caso invece degli impulsi rettangoalre e gaussiano la forma dello spettro risulta meglio approssimata.
-
-
+% L'effetto di {\it red shift} è particolarmente dannoso per gli impulsi come quello sinusoidale dove la densità di potenza sulle basse frequenze dello spettro non rumoroso è molto bassa. Nel caso invece degli impulsi rettangoalre e gaussiano la forma dello spettro risulta meglio approssimata.
 
 
-\section{Sorting: profilo temporale}
 
-I seguenti grafici \ref{fig:c1_I2SNR0time} e \ref{fig:c1_I4SNR0time} mostrano la serie temporale del segnale di prova a $0dB$ e a confronto il segnale filtrato.
+
+\subsection{Sorting: profilo temporale}
+
+I seguenti grafici \ref{fig:c1_I2SNR0time} e \ref{fig:c1_I4SNR0time} mostrano la serie temporale del segnale di prova a $0dB$ a confronto il segnale filtrato.
 
 
 \begin{figure}[htbp]
@@ -217,8 +231,10 @@ I seguenti grafici \ref{fig:c1_I2SNR0time} e \ref{fig:c1_I4SNR0time} mostrano la
 
 \section{Metriche di valutazione degli algoritmi}
 
-Sotto il profilo spettrale un buon algoritmo di sorting trasforma uno spettro rumoroso in modo da ben approssimare i picchi delle frequenza caratteristiche del segnale non rumoroso (toni). Nel contesto di segnali ad impulsi irregolari, questo è ancora vero se si sostiutisce la visione tonica con una timbrica, in cui lo spettro non rumoroso non è composto da una serie di picchi in frequenza ma piuttosto da una forma caratteristica che riflette sia la forma degli impulsi sia l'irregolarità con cui essi appaiono nel segnale.
-
+Sotto il profilo spettrale un buon algoritmo di sorting trasforma uno spettro rumoroso in modo da ben approssimare i picchi delle frequenza caratteristiche del segnale non rumoroso (toni).
+%
+% Nel contesto di segnali ad impulsi irregolari, questo è ancora vero se si sostiutisce la visione tonica con una timbrica, in cui lo spettro non rumoroso non è composto da una serie di picchi in frequenza ma piuttosto da una forma caratteristica che riflette sia la forma degli impulsi sia l'irregolarità con cui essi appaiono nel segnale.
+%
 Con il fine di definire di quantificare l'approssimazione raggiunta da un algoritmo di sorting si propone una metrica per la distanza spettrale adottata in questo lavoro, paragrafo \ref{metricaS}.
 
 Sotto il profilo temporale un buon algoritmo di sorting azzera il segnale dove non rileva impulsi in modo tale da ridurre gli errori di previsione di un test di soglia del tipo
@@ -230,11 +246,13 @@ Come illustrato nel paragrafo \ref{risultati}, le due metriche adottate sono for
 \subsection{Metriche: distanza spettrale}
 \label{metricaS}
 
-La distanza spettrale considerata è la distanza euclidea tra gli spettri nella banda $[0-\nu_{high}]$, dove $\nu_{high}$ è la frequenza alta di taglio del filtro passa banda. Per normalizzare la metrica gli spettri vengono prima traslati in modo che il picco massimo dello spettro non rumoroso coincida con quello rumoroso.
+La distanza spettrale considerata è la distanza euclidea tra gli spettri nella banda $[0-\nu_{high}]$, dove $\nu_{high}$ è la frequenza alta di taglio del filtro passa banda.
+% 
+% Per normalizzare la metrica gli spettri vengono prima traslati in modo che il picco massimo dello spettro non rumoroso coincida con quello rumoroso.
 %
 \begin{align*}
- d_{s}^2 & = \sum_{j:0}^{\nu_{high}}(DFT_{ref}(j) - DFT_{noisy}(j) - \Delta)^2 \\
- \Delta  & = DFT_{ref}(j_{Max}) - DFT_{noisy}(j_{Max})
+ d_{s}^2 & = \sum_{j:0}^{\nu_{high}}(DFT_{ref}(j) - DFT_{noisy}(j) - \Delta)^2
+% \Delta  & = DFT_{ref}(j_{Max}) - DFT_{noisy}(j_{Max})
 \end{align*}
 %
 La distanza viene calcolata solo nella banda di interesse, tenuto conto dei parametri di simulazione ed in particolare della durata media degli impulsi.
@@ -261,42 +279,105 @@ $d_{t}$ si interpreta perciò come la differenza media tra i tempi degli spike r
 \section{Risultati}
 \label{risultati}
 
-I grafici \ref{fig:scatter2} e \ref{fig:scatter4} mostrano la distribuzione congiunta delle metriche temporale e spettrale. Come atteso, si evidenzia (1) una forte correlazione positiva tra le due metriche, (2) l'andamento crescente con il decrescere del $SNR$, (3) una disttinta collazione dei punti in base all'algoritmo di sorting e al tipo di impulso.
+I grafici \ref{fig:scatter2} e \ref{fig:scatter4} mostrano la distribuzione congiunta delle metriche temporale e spettrale. Come atteso, si evidenzia (1) una forte correlazione positiva tra le due metriche, (2) l'andamento crescente con il decrescere del $SNR$, (3) una distinta collazione dei punti in base all'algoritmo di sorting e al tipo di impulso.
 
 
-Nel grafico \ref{fig:scatter2} si verifica che per l'impulso gaussiano il filtro passabanda riduce, sebbene di poco, la capacità previsiva degli algoritmi: le basse frequenze sono frequenze caratteristiche della forma dell'impulso e tale evidenza è confermata dal grafico \ref{fig:c9_I2SNR4spec} degli spettri. Tale deformazine spettrale induce anche un andamento più confuso dei punti al decrescere del $SNR$. In secondo luogo per questo tipo di impulso è evidente la superiorità degli algoritmi a media semplice rispetto a quelli a media quadratica: sebbene l'aderenza degli spettri sia superiore, questo è dovuto al fatto che gli algoritmi quadratici riempiono la parte bassa dello spettro con frequenze fittizie dovute alla rumorosità del segnale e ciò migliora l'aderanza degli spettri, ma non la capacità previsvisa dell'algoritmo.
+% Nel grafico \ref{fig:scatter2} si verifica che per l'impulso gaussiano il filtro passabanda riduce, sebbene di poco, la capacità previsiva degli algoritmi: le basse frequenze sono frequenze caratteristiche della forma dell'impulso e tale evidenza è confermata dal grafico \ref{fig:c9_I2SNR4spec} degli spettri. Tale deformazine spettrale induce anche un andamento più confuso dei punti al decrescere del $SNR$. In secondo luogo per questo tipo di impulso è evidente la superiorità degli algoritmi a media semplice rispetto a quelli a media quadratica: sebbene l'aderenza degli spettri sia superiore, questo è dovuto al fatto che gli algoritmi quadratici riempiono la parte bassa dello spettro con frequenze fittizie dovute alla rumorosità del segnale e ciò migliora l'aderanza degli spettri, ma non la capacità previsvisa dell'algoritmo.
 
 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=1\linewidth]{results/scatter2.jpg}
-\caption{Impulso gaussiano. $SNR= \{1, ..., 10\}dB$}
+\includegraphics[width=1\linewidth]{graphs/scatter1.jpg}
+\caption{Impulso gaussiano. $SNR= \{-12,-3\}dB$}
+\label{fig:scatter1}
+\end{figure}
+
+
+% Nel grafico \ref{fig:scatter4} la correlazione positiva tra le metriche; trattandosi di un impulso a media nulla con una prima parte positiva e una seconda negativa, gli algoritmi a media quadratica vengono penalizzati per l'effetto che inducono sulla parte bassa dello spettro a causa della rumorosità.
+% Evidenza inattesa, il filtro passa banda porta anche in questo caso ad una minor capacità previsiva.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{graphs/scatter2.jpg}
+\caption{Impulso gaussiano. $SNR= \{-12,-3\}dB$}
 \label{fig:scatter2}
 \end{figure}
 
-
-Nel grafico \ref{fig:scatter4} la correlazione positiva tra le metriche; trattandosi di un impulso a media nulla con una prima parte positiva e una seconda negativa, gli algoritmi a media quadratica vengono penalizzati per l'effetto che inducono sulla parte bassa dello spettro a causa della rumorosità.
-Evidenza inattesa, il filtro passa banda porta anche in questo caso ad una minor capacità previsiva.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=1\linewidth]{results/scatter4.jpg}
-\caption{Impulso spike. $SNR= \{1, ..., 10\}dB$}
-\label{fig:scatter4}
-\end{figure}
-
-Nel caso dell'impulso sinusoidale il grafico \ref{fig:scatter5} conferma i risultati dell'impulso spike analogo.
-PEr questo tipo di impilso si evidenzia una circostanza interessante con riguardo al test a media quadratica con filtro passa banda. A parità di aderenza dello spettro, la capacità previsiva si riduce drasticamente al decrescere del $SNR$.
+% Nel caso dell'impulso sinusoidale il grafico \ref{fig:scatter5} conferma i risultati dell'impulso spike analogo.
+% PEr questo tipo di impilso si evidenzia una circostanza interessante con riguardo al test a media quadratica con filtro passa banda. A parità di aderenza dello spettro, la capacità previsiva si riduce drasticamente al decrescere del $SNR$.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=1\linewidth]{results/scatter5.jpg}
-\caption{Impulso sinusoidale. $SNR= \{1, ..., 10\}dB$}
+\includegraphics[width=1\linewidth]{graphs/scatter5.jpg}
+\caption{Impulso sinusoidale. $SNR= \{-12,-3\}dB$}
 \label{fig:scatter5}
 \end{figure}
 
 
+
+%-----------------------------------------
+%-----------------------------------------
+%-----------------------------------------
+\section{Accuratezza}
+\label{accuratezza}
+
+
+\subsection{Indici di accuratezza}
+\label{indici}
+Filtri preliminari in frequenza
+$BP$: passa banca 
+$LP$: passa basso
+Test
+$1$: semplice, media aritmetica. Test di riferimento
+$2$: quadratico. Test in valutazione.
+
+\begin{table}[htbp]
+\centering
+\caption{\bf Accuratezza}
+\begin{tabular}{ccccc}
+\hline
+%Test              & \multirow{2}{}{Semplice} & \multirow{2}{}{Quadratico} \\
+Test                & BP-1 & BP-2 & LP-1 & LP-2 \\
+\hline
+Punteggio F1        & 0.1838    &0.1300    &0.1748    &0.1324\\
+Indice di Jaccard   & 0.5545    &0.5268    &0.5515    &0.5280 \\
+\hline
+\end{tabular}
+\label{tab:indici}
+\end{table}
+
+
+\subsection{Indici di accuratezza}
+\label{matrici}
+
+
+%
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cccclcc}
+                           &                         & \multicolumn{2}{c}{BP-1}                           &                       & \multicolumn{2}{c}{BP-2}                           \\
+                           &                         & \multicolumn{2}{c}{Previsto}                       &                       & \multicolumn{2}{c}{Previsto}                       \\
+                           &                         & si                      & no                       &                       & si                      & no                       \\ \cline{3-4} \cline{6-7} 
+\multirow{2}{*}{Effettivo} & \multicolumn{1}{c|}{si} & \multicolumn{1}{c|}{66} & \multicolumn{1}{c|}{103} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{32} & \multicolumn{1}{c|}{127} \\ \cline{3-4} \cline{6-7} 
+                           & \multicolumn{1}{c|}{no} & \multicolumn{1}{c|}{64} & \multicolumn{1}{c|}{147} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{32} & \multicolumn{1}{c|}{147} \\ \cline{3-4} \cline{6-7} 
+                           &                         &                         &                          &                       &                         &                          \\
+                           &                         & \multicolumn{2}{c}{LP-1}                           &                       & \multicolumn{2}{c}{LP-2}                           \\
+                           &                         & \multicolumn{2}{c}{Previsto}                       &                       & \multicolumn{2}{c}{Previsto}                       \\
+                           &                         & si                      & no                       &                       & si                      & no                       \\ \cline{3-4} \cline{6-7} 
+Effettivo                  & \multicolumn{1}{c|}{si} & \multicolumn{1}{c|}{62} & \multicolumn{1}{c|}{105} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{33} & \multicolumn{1}{c|}{126} \\ \cline{3-4} \cline{6-7} 
+                           & \multicolumn{1}{c|}{no} & \multicolumn{1}{c|}{61} & \multicolumn{1}{c|}{147} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{33} & \multicolumn{1}{c|}{147} \\ \cline{3-4} \cline{6-7} 
+\end{tabular}
+\caption{\bf Accuratezza}
+\label{tab:matrici}
+\end{table}
+%
+
+
+
+%-----------------------------------------
+%-----------------------------------------
+%-----------------------------------------
 \section{Conclusioni}
 \label{conclusioni}
 

@@ -10,9 +10,10 @@ p.sampleRate     = 9000;
 p.spikeRate      = 150;
 p.sampleDuration = 1;
 p.impulseType    = 1;
-p.MA_filter      = true;
+p.MA13_filter      = true;
+p.MA24_filter      = true;
 p.interSpikeType = 3;
-p.path           = 'results/new/';
+p.path           = 'results/ma-ma/';
 
 % -------------------------------------------------------------------------
 % Randomness

@@ -24,7 +24,7 @@ spikes(spikeTimes) = 0;
 close gcf;
 hold on; 
 
-plot( time, signalN(1,:)/3        , '--k', 'LineWidth', 0.1 );
+plot( time, signalN(1,:)/15        , '--k', 'LineWidth', 0.1 );
 plot( time, myFilter(signalN, p, 3), '-b' , 'LineWidth', 2);
 plot( time, myFilter(signalN, p, 4), '-m' , 'LineWidth', 2);
 plot( time, spikes, 'r^', 'MarkerFaceColor','r');

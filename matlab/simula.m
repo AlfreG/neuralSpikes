@@ -46,7 +46,7 @@ end
 % Round confusion matrix
 cMatrixR=round(cMatrixR);
 
-% Draw time and freq graphs
-p.snrDb = -6;
-graphSpectr(p)
-graphTime(p)
+% % Draw time and freq graphs
+% p.snrDb = -6;
+% graphSpectr(p)
+% graphTime(p)
