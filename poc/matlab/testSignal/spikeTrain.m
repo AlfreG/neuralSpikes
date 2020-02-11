@@ -36,16 +36,6 @@ switch p.interSpikeType
     spikeTimes = spikeTimes(spikeTimes>= sampleSize - spikeSize);
 end
 
-
-% Log
-% writeToLog( 'T' + string(p.testType) + 'I' + string(p.impulseType) + 'SNR' + string(p.snrDb) );
-% writeToLog( mfilename );
-% writeToLog( 'sample Size:   ' + string(sampleSize) );
-% writeToLog( 'spikes number: ' + string(spikeNumber) );
-% writeToLog( 'spikes gene.d: ' + string(length(spikeTimes)) );
-% writeToLog( 'spike   times: ' + string(round(spikeTimes)) );
-
-
 % Assemble signal
 signal = zeros( pixels, sampleSize +  4 * restPeriod );
 for j = ceil(spikeTimes)
@@ -59,7 +49,7 @@ impulseParam.mP        = impulsesMeanPower(testImpulse(1,:), p);
 impulseParam.start     = round(spikeTimes);
 impulseParam.midSize   = round(spikeSize/2);
 impulseParam.size      = spikeSize;
-[~, impulseParam.max]  = max(testImpulse(1,:)); 
+[~, impulseParam.max]  = max(testImpulse(1,:));
 
 % resize and demean signal
 signal = signal( :, 1:sampleSize ) ;

@@ -25,13 +25,21 @@ switch testType
             signal = filter( B, A, signal, [], 2 );
         end
     otherwise
+        %
         signal = mean(signal.^2,1);
+        %
         if p.MA24_filter == true
             % add MA - filter
             B = [1 1 1];
             A = [1 0 0];
             signal = filter( B, A, signal, [], 2 );
         end
+        %
+        if p.MA24_zerophase == true
+            signal = filter( B, A, flip(signal), [], 2 );
+            signal = flip(signal);
+        end
+        %
 end
 
 

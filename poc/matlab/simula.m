@@ -40,7 +40,7 @@ for i = 1 : 1: impulseSpanL
     end
     
     % Draw scatter plot
-    scatterPlot(specR, timeR, p);
+    % scatterPlot(specR, timeR, p);
 end
 
 % Round confusion matrix

@@ -1,48 +1,27 @@
-function [dist, distV] = timeDist(signal, impulseParam, p)
-% Prediction mean time error
+function delay = timeDist(signal, impulseParam, p)
+% Prediction mean time error in [ms]
 % Signal is the noisy filtered signal
 % Trues spikes' time are stored in the struct impulseParam
 
 
-% Find signal's higher M pikes
-M = size(impulseParam.start,2);
+% Sort true spike times
+spikeMaxTimes = impulseParam.start + impulseParam.max;
+spikeMaxTimes = sort(spikeMaxTimes, 'asc');
+
+% Find signal's higher M spikes
+M = size(spikeMaxTimes,2);
 [~, maxInd] = sort(signal, 'asc');
 maxInd      = maxInd(end-M+1:end);
 maxInd      = sort(maxInd);
 
-% Sort true spike times
-spikeMidTimes = impulseParam.start;
-spikeMidTimes = sort(spikeMidTimes, 'asc');
-
-% Distance in ms
-%distV = abs( maxInd - spikeMidTimes );
-
-dist = 0;
+delay = 0;
 for x = maxInd
-    m = min( abs(spikeMidTimes - x) );
-    dist = dist + m*2;
-%     if m <= impulseParam.size
-%         m = 0;  % got the spike!
-%     else
-%         dist = dist + m*2;
-%     end
+    m = min( abs(spikeMaxTimes - x) );
+    delay = delay + m;
 end
-dist = sqrt(dist);
 
-% 
-%dist = sum(distV) / M;
-dist = dist / p.sampleRate * 1000;
+delay = delay / M / p.sampleRate * 1000;
 
-
-
-
-% Log
-% writeToLog( 'T' + string(p.testType) + 'I' + string(p.impulseType) + 'SNR' + string(p.snrDb) );
-% writeToLog( mfilename );
-% writeToLog( 'spikes number: ' + string(M) );
-% writeToLog( 'max indeces length: '   + string(length(maxInd)) );
-% writeToLog( 'impulse size: '   + string(impulseParam.size) );
-% writeToLog( 'time dist: '      + string(dist) );
 end
 
 

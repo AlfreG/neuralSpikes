@@ -2,7 +2,6 @@ function impulse = impulseSampling( p )
 % Impulse is a matrix whose number of rows = p.pixel
 % and number of column = number of samples per spike
 
-
 % Impulses' sampling parameters
 V = p.amplitude;
 T = p.spikePeriod;
@@ -38,9 +37,4 @@ t     = ones(pixels, N) .* (0:1:N-1) - phase - v/d*(0:pixels-1)';
 impulse = impulseFun{p.impulseType}(t);
 
 
-
-
 end
-
-
-

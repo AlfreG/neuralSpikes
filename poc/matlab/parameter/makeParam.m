@@ -4,16 +4,17 @@ p = struct;
 % -------------------------------------------------------------------------
 % Simulation subset
 % interSpikeType: 1, 2, 3=constant, 4=gamma
-p.saveGraph      = true;
+p.saveGraph      = false;
 p.simulationN    = 100;
 p.sampleRate     = 9000;
 p.spikeRate      = 150;
 p.sampleDuration = 1;
 p.impulseType    = 1;
-p.MA13_filter      = true;
-p.MA24_filter      = true;
+p.MA13_filter    = false;
+p.MA24_filter    = true;
+p.MA24_zerophase = true;
 p.interSpikeType = 3;
-p.path           = 'results/ma-ma/';
+p.path           = 'results/';
 
 % -------------------------------------------------------------------------
 % Randomness
@@ -47,13 +48,13 @@ p.gammaStdErr    = 0.01;
 % -------------------------------------------------------------------------
 % Simulation ranges
 p.interSpikeSpan    = [1 2 3];
-p.snrSpan           = -3:-1:-12;
+p.snrSpan           = -12;
 p.testSpan          = [1 2 3 4];
 p.impulseSpan       = [1 2 4 5];    % without impulse 3=gaus.alt
-p.spikeRateSpan     = p.spikeRate
+p.spikeRateSpan     = p.spikeRate;
 p.interSpikeTimes   = {'exponential'  'uniform'  'constant'};
-p.impulseLabel      = { 'Imp.rettangolare', 'Imp.gauss', 'Imp.gauss.alt' ...
-                      , 'Imp.neurale', 'Imp.sinus','pointLike'};
+p.impulseLabel      = { 'Impulso rettangolare', 'Impulso gaussiano', 'Impulso gauss. alt.' ...
+                      , 'Impulso neurale', 'Impulso sinusoidale','pointLike'};
 
 
 % ------------------------------------------------------------------------- 

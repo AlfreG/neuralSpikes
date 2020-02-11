@@ -5,37 +5,44 @@ function [cMatrix, jaccard, f1Score] = confusionMatrix(signal, impulseParam)
 % Initialize
 cMatrix = zeros(2,2);
 
+% Sort true spike times
+spikeMaxTimes = impulseParam.start + impulseParam.max;
+spikeMaxTimes = sort(spikeMaxTimes, 'asc');
+
 % Find signal's higher M pikes
 M = size(impulseParam.start,2);
 [~, maxInd] = sort(signal, 'asc');
 maxInd      = maxInd(end-M+1:end);
 maxInd      = sort(maxInd);
 
-% Sort true spike times
-spikeMidTimes = impulseParam.start;
-spikeMidTimes = sort(spikeMidTimes, 'asc');
-
 % Init for loop
-target = spikeMidTimes;
+target = spikeMaxTimes;
 guess  = maxInd;
-found  = ones(size(target));
+L = length(target);
+spikeFound = zeros(1, L);
+emptyFound = zeros(1, L);
 
 for x = guess
     [m, i] = min( abs(target - x) );
     
     if m <= impulseParam.size/2
-        cMatrix(1,1) = cMatrix(1,1) + 1;     % got the spike!
-        found(i) = 0;                        % set found
-    else
-        cMatrix(2,1) = cMatrix(1,1) + 1;     % sorry, try again.
+        spikeFound(i) = 1;
+    else            
+        if i==1 && x < target(i)
+            emptyFound(L) = 1;
+        elseif x > target(i)
+            emptyFound(i) = 1;
+        else
+            emptyFound(i-1) = 1;
+        end
     end
     
-    rest = setdiff(1:length(guess), x);      % pop found guess
-    guess = guess(rest);
 end
 
-cMatrix(1,2) = sum(found);          % missed spikes. True negative
-cMatrix(2,2) = length(guess);      % missed spikes. False positive
+cMatrix(1,1) = sum(spikeFound, 2);
+cMatrix(1,2) = L - cMatrix(1,1);
+cMatrix(2,1) = sum(emptyFound, 2);
+cMatrix(2,2) = L - cMatrix(2,1);
 
 jaccard = cMatrix(1,1) + cMatrix(2,2);
 jaccard = jaccard / sum(cMatrix, [1 2]);
