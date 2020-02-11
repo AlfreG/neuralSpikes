@@ -120,3 +120,23 @@ class Simulation(Signal):
 
 class Filter(Signal):
     pass
+
+
+
+
+
+
+if __name__=="__main__":
+    
+    import scipy.stats as st
+    import matplotlib.pyplot as plt
+
+    param = {"sfreq":1000,"elapse":1,
+             "width":0.01,"height":0.06,
+             "shape_fun":st.norm.pdf,
+             "spike_rate":5,
+             "noise_mean":0,
+             "noise_var":0.01 \
+             }
+    
+    signal=Signal(**param)  

@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
-import sys
-from pathlib import Path
-file = Path("__file__").resolve()
-parent, root = file.parent, file.parents[1]
-sys.path.append(str(root))
+''' Unit Test suite
+
+'''
+
+import sys, os
+# from pathlib import Path
+# file = Path("__file__").resolve()
+# parent, root = file.parent, file.parents[1]
+modules_path=os.path.join(os.path.realpath('..'), 'modules')
+sys.path.append(str(modules_path))
 
 import unittest
 import nsignal as ns
-import numpy as np
 import scipy.stats as st
 
 
