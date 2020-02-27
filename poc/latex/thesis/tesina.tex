@@ -2,26 +2,7 @@
 % !TEX TS-  program = lualatex
 % !BIB TS-program = biber
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% This version of toptesi-scudo-example. tex and its subsidiary %%%%%
-%%%%% file are typeset with version 6.2.02 of the TOPtesi bundle.   %%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%% The above first line is used to auto-configure those LaTeX
-%%%%%%% friendly editors, such as TeXShop, TeXworks, TeXstudio 
-%%%%%%% so as to use the UTF-8 encoding for editing the source
-%%%%%%% files and to save them.
-
-%%%%%%% For the same editors the second line specifies which 
-%%%%%%% typesetting engine is to be used when hitting the editor's
-%%%%%%% button that launches the typesetting job.
-%%%%%%% You can chose between pdflatex, lualatex or xelatex; in general
-%%%%%%% it is better to avoid using xelatex and to prefer lualatex.
-
-%%%%%%% If and only if you want to produce an archivable document
-%%%%%%% according to the ISO regulation 19005:2005-1b add the
-%%%%%%% following code before the statement \documentclass, and
-%%%%%%% adapt its contents to your particular thesis.
 
 \begin{filecontents*}{\jobname.xmpdata}
 \Author{Alfredo Guarnieri}
@@ -34,7 +15,7 @@
           Degree final dissertation\sep
           Physics\sep
           Unimib}
-\Publisher{Università Biccoca}
+\Publisher{Università degli studi Milano-Bicocca}
 \setRGBcolorprofile{sRGB.icc}{sRGB}{Argyll CMS, sRGB color profile}{https://www.argyllcms.com/}\end{filecontents*}
 
 
@@ -48,16 +29,10 @@
    
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 
-%%%% Use the following package if and only if you want to produce
-%%%% an archivable document according to standard PDF/A-1b
-%%%% No need to load package imakeidx, because it has already been
-%%%% loaded by the specific module toptesi-scudo.
-%\usepackage[a-1b]{pdfx}
-%%%%%% Read the English documentation of TOPtesi in order to check
-%%%%%% the special attention needed to produce ISO compliant
-%%%%%% archivable files
-%%%%
+
 
 % \ifPDFTeX
 %     \usepackage[utf8]{inputenc}% 
@@ -66,21 +41,14 @@
 
 % \errorcontextlines=9% more information on the console in case of errors
 
-%%%% Specify fonts here; chose one among these fonts by leaving just
-%%%% one line without initial comment character.
-%%%% With LuaLaTeX or XeLaTeX don't change fonts
+
 \ifPDFTeX % using pdflatex
     \usepackage{lmodern} % Default
     %\usepackage{newtxtext,newtxmath}% Times eXtended for text and math
     %\usepackage{fourier}% Utopia, Helvetica and "monospace = ?"
 
 \else % using lualatex (or xelatex}
-% Here we use the Libertinus serif, sans serif, monospaced and math fonts;
-% they are alla available with a complete up-to-date TeXLive installation.
-% Without specifying any OpenType font, the Latin Modern OpenType ones are
-% used by default; try commenting the setting for Libertinus Mono, run with
-% LuaLaTeX and see what happens; you might prefer to keep the comment sign
-% in this line.
+
     \usepackage{fontspec}
     \defaultfontfeatures{Ligatures=TeX}
     \setmainfont{Libertinus Serif}
@@ -94,11 +62,12 @@
 
 
 \usepackage{kantlipsum} % to produce dummy text
-% \usepackage[latin1]{inputenc}
-% \usepackage[italian]{babel}
+%\usepackage[latin1]{inputenc}
+%\usepackage[italian]{babel}
 
 
 \makeindex[intoc]% collect material to index
+
 
 \ifmybibstyle % not necessary in a  real thesis
 \usepackage[autostyle]{csquotes} % necessary for biblatex
@@ -107,22 +76,10 @@
             scauthors=all,
             sorting=nyt,
             natbib]{biblatex} % LaTeX specific bibliography handler
-\addbibresource{Biblio/biblio.bib}% bibliographic data base(s}
+\addbibresource{biblio.bib}% bibliographic data base(s}
 \fi % not necessary in a real thesis
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This is to be loaded as the end of the preamble if one wants
-% to use hyperlinks and/or urs to be typed within the thesis,
-% except that after loading hyperref very few commands may be
-% issued. One is the \includeonly command with its list of files;
-% other packages may be loaded after hyperref, only if their
-% documentation says so; some of these packages, but they are
-% not the only ones, involve Right to left languages or other
-% oriental languages.
-%
-% Distinguish the hyperref call from the hyperref setup so as
-% to avoid option clashes with other packages that may invoke 
-% hyperref with different options.
+
 
 \usepackage{hyperref}
 \unless\ifcsname ver@hyperref.sty\endcsname\usepackage{hyperref}\fi
@@ -161,23 +118,13 @@
 \usepackage{color}
 
 
+
 \begin{document}
 
-% The contents of this ThesisTitlePage environment may be written
-% in a configuration file named exactly the same as the thesis main
-% file, but with extension .cfg. If similar commands with different
-% data are written within this environment, such data prevail on
-% those read from the configuration file.
+
+
 \begin{ThesisTitlePage}
-% Use the optional command to set a different School logo
-% Its is possible to used this command several times; each time
-% a new different  Institution logo  may be added. In general
-% just the ScuDo logo is sufficient; for dissertations made in
-% cooperation with the University of Turin, its logo may be added
-% with a second instance of the \PhGschoolLog statement. With
-% dissertations supported by the INRiM, this institution logo may
-% be added. Such logos (in PDF format) may be obtained from the
-% ScuDo web server.
+
 %\PhDschoolLogo{TiTDocScCropped.pdf}% Fake logo for this example
 %\PhDschoolLogo{Logo-ScuDo-blu} % just the ScuDo logo
 %\PhDschoolLogo{Logo-ScuDo-blu,Logo-INRIM} %for dissertations made in cooperation with INRIM
@@ -241,40 +188,15 @@
 %}
 %\end{flushright}}
 \end{ThesisTitlePage}
-%%%%%%%%%%%%%%%% Everything else necessary in the thesis title
-%%%%%%%%%%%%%%%% page and in the copyright page is supplied by
-%%%%%%%%%%%%%%%% the default values.
-%%%%%%%%%%%%%%%% If you enter an explicit disclaimer, you can
-%%%%%%%%%%%%%%%% typeset other material before the disclaimer
-%%%%%%%%%%%%%%%% formula; use the necessary spacing on order
-%%%%%%%%%%%%%%%% to separate the formula from other text. 
-%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%% For example you might want to write the formula
-%%%%%%%%%%%%%%%% for a particular licence, provided the licence 
-%%%%%%%%%%%%%%%% allows Open access; not necessarily all uses
-%%%%%%%%%%%%%%%% of the thesis should be allowed, but the minimum
-%%%%%%%%%%%%%%%% is the reading access.
+ 
 
-%%%%%%%%%%%%%%%% The next two lines are metadata for a normal PDF file.
-%%%%%%%%%%%%%%%% For ISO archivable PDF/A-1b metadata, they must
-%%%%%%%%%%%%%%%% be entered only in the form used in the file
-%%%%%%%%%%%%%%%% named in the filecontents* environment as shown
-%%%%%%%%%%%%%%%% at the beginning of this file.
+\summary
 
-%\subject{How to typeset a doctoral thesis suitable for defence in almost any country and university.}
-%\keywords{{pdfLaTeX} {LuaLaTeX} {XeLaTeX} {PhD doctoral programs} {PhD dissertation} {Politecnico di Torino}} 
+Le proprietà spettrali di segnali rumorosi di impulsi in tensione caratterizzati da spaziatura e ritardo temporale irregolari, sono utilizzate in questo lavoro con l'intento di simulare un segnale di natura biologica e verificare le capacità predittive di alcuni test di soglia ampiamente utilizzati per la rilevazione di segnali provenienti da popolazioni di neuroni con tecnologia $MEA$, \cite{Lambacher2011}, \cite{Vallicelli2017}. 
 
-\summary%\sommario
-% 
-% This is where you write your abstract \dots\ (Maximum 4000 characters, i.e. maximum two pages in normal sized font, typeset with the thesis layout).
-% 
-% The abstract environment is also available, but  \texttt{\string\summary} is preferred because it generates an un-numbered chapter. The abstract environment is more suitable for articles and two column typesetting without a separate title page.
+L'analisi è condotta parallelamente sotto il profilo spaziale e temporale analizzando la distribuzione congiunta di, (1) una metrica spettrale per la distanza del segnale filtrato da quello originale e (2) un indice di precisione della rilevazione nel tempo degli impulsi.
 
-In questo lavoro si analizzano le proprietà spettrali di segnali rumorosi di impulsi in tensione caratterizzati da spaziatura e fase di campionamento irregolari, e a basso $SNR$ $2\textendash 5 dB$, con l'intento di simulare un segnale di natura biologica e le capacità predittive di alcuni test di soglia accoppiati a filtri in frequenza già noti e ampiamente utilizzati per la rilevazione di segnali derivanti da popolazioni di neuroni con tecnologia $MEA$, \cite{Lambacher2011}, \cite{Vallicelli2017}. 
-
-Il lavoro propone una metrica per la distanza spettrale tra segnale e segnale filtrato, con la quale si verifica che la bontà di alcune tecniche di rilevazione basate su filtri passa banda e test in potenza possono condurre a risultati imprecisi in merito alla rilevazione dei momenti degli impulsi per le distorsioni spettrali introdotte a causa di: $(1)$ elevata rumorosità del segnale, $(2)$ ignota forma degli impulsi.
-
-Si conclude che per le proprietà di siffatti segnali biologici, la tecnica di trattazione del segnale più robusta e accurata, non essendo nota a priori né la forma degli impulsi né il tempo in cui siverificano, è quella che utilizza semplici medie aritmetiche spazio-temporali, facendo leva sull'elevata frequenza di campionamento e densità di sensori $CMOS$ per area.
+Si conclude che i test di soglia in tensione a media semplice conducono a risultati più precisi in merito alla rilevazione del tempo degli impulsi. In particolare, rispetto ai test in potenza hanno percentuali di impulsi rilevati sul totale degli impulsi emessi maggiori. Tale proprietà sono verificate per un ampio spettro di $SNR$ e su diversi tipi di impulso. Si conclude che i test a media semplice, facendo leva sull'elevata frequenza di campionamento spazio-temporale della tecnologia utilizzata, consentono di ridurre la rumorosità del segnale mediando segnali da diversi pixel e sono molto precisi sia con riguardo alla rilevazione dello spettro quanto alla previsione dell'esatto momento di emissione dell'impulso. Mostrano inoltre percentuali di corretta rilevazione superiori.
 
 
 
@@ -310,7 +232,7 @@ Si conclude che per le proprietà di siffatti segnali biologici, la tecnica di t
 %\include{Chapter3/chapter3}
 %\include{Chapter4/chapter4}
 %\include{Chapter5/chapter5}
-\include{Chapter6/chapter6}
+%\include{Chapter6/chapter6}
 %\include{Chapter6/chapter7}
 % Numbered appendices remain in the main matter...
 % \appendix
@@ -318,9 +240,560 @@ Si conclude che per le proprietà di siffatti segnali biologici, la tecnica di t
 % \include{Appendix2/appendix2}
 
 
-\backmatter% here begins the back matter
-% ... otherwise a single appendix may stay here
-\include{Biblio/biblio.bib}
+
+
+%-----------------------------------------------------------------------
+%-----------------------------------------------------------------------
+%-----------------------------------------------------------------------
+\chapter{Introduzione}
+
+
+
+%-----------------------------------------------------------------------
+\section{Ambito del lavoro}
+\label{sez:ambito}
+
+Il presente lavoro si inserisce nel contesto delle attività di progettazione dell'infrastruttura elettronica preposta alla rilevazione dei segnali elettrici derivanti da un esperimento di elettrofisiologia che ha come obiettivo quello di registrare l'attività elettrica di uno popolazione di neuroni coltivati {\it in vitro} e posizionati sopra un array di transistor CMOS ad elevata densità, detto $MEA$ Micro Array Technology. La rilevazione del segnale elettrico neuronale con tali tecnologie {\it a contatto}, con il vantaggio di non interferisce invasivamente con il materiale biologico, impone d'altra parte diverse nuove problematiche di {\it qualità del segnale}, relative ad esempio alla risoluzione spaziale e al rumore di fondo.
+
+A partire dal seminale lavoro di \cite{Hodgkin1952} infatti, la natura e i meccanismi alla base della generazione di segnali elettrici da parte di cellule neuronali sono noti, così come sono disponibili modelli quantitavi che riproducono con buona approssimazione la forma degli impulsi osservati. D'altra parte, l'osservazione di una popolazione reale di cellule nel loro ambiente fisiologico con tecnologie che misurano quantità medie ascrivibili a più di una cellula o alla loro interazione, introduce la necessità di utilizzare tecniche di elaborazione dei segnali che tengano conto sia del loro profilo temporale che di quello spaziale.
+
+In questo contesto, il presente lavoro analizza e confronta alcune tecniche di riduzione del rumore atte a rilevare un segnale ad impulsi che coinvolge più sensori contigui (pixels) dell'array CMOS.
+
+
+
+%-----------------------------------------------------------------------
+\section{Metodologia e risultati}
+
+Nei contesti sperimentali di rilevazione di segnali neurali con tecnologia $MEA$ un segnale fortemente rumoroso nasconde degli impulsi in tensione di forma non nota che si manifestano in tempi non noti, con frequenza media
+({\it mean spike rate}) dell'ordine di qualche $kHz$. Le capacità discriminanti di alcuni algoritmi di rilevazione del segnale proposti in letteratura
+\cite{Vallicelli2017}, \cite{Lambacher2011} vengono qui confrontati su un segnale di prova.
+
+La simulazione introduce tre tipi di irregolarità suggerite sia dal contesto sperimentale di rilevazione del segnale, che dalla sua natura biologica: (1) rumore termico additivo; (2) intervalli di tempo casuali tra due impulsi successivi; (3) ritardo di fase di campionamento dell'impulso casuale.
+
+Le variabili di simulazione riguardano le seguenti proprietà: (1) la distribuzione di probabilità dei tempi d'attesa tra due impulsi; (2) la forma degli impulsi; (3) lo spike rate medio; (4) SNR. Con riguardo alla prima, analisi preliminari evidenziano che l'emersione dei picchi alla frequenza dello spike rate medio avviene solo quando la deviazione standard della distribuzione dei tempi d'attesa è sufficientemente bassa, è necessario quindi modellare tale distribuzione con almeno due parametri distinti, uno per la media e uno per la varianza. Sono state perciò scartate le più semplici distribuzioni di probabilità come quella rettangolare e quella del decadimento esponenziale\footnote{Note nella letteratura statistica rispettivamente come uniforme ed esponenziale negativa}. La varianza di tali distribuzioni è infatti funzionalmente dipendente dalla media e per la presente applicazione, troppo elevata. La distribuzione utilizzata è invece la distribuzione gamma, controllata da due parametri, uno di forma, detto $\lambda$ e uno di scala, detto $\beta$. La distribuzione gamma è la più semplice generalizzazione della distribuzione esponenziale negativa, potendosi ottenere come distribuzione della somma di un numero $\beta$ di variabili casuali esponenziali negative, tutte identicamente distribuite con parametro di media $\lambda$. In funzione di questi parametri lo spike rate medio è $\beta\lambda$ e la varianza $\beta\lambda^{2}$, in questo modo, variando opportunamente i due parametri $\lambda$ e $\beta$, si ottengono tutte le possibili configurazione dei primi due momenti dello spike rate. Con riguardo invece alla forma degli impulsi, l'analisi preliminare ha evidenziato una certa variabilità dei risultati che giustifica l'utilizzo nella simulazione di una varietà di forme funzionali di impulso. Infine, con riguardo allo spike rate medio, i risultati preliminari non hanno dimostrato sufficiente variabilità in un ampio intervallo di frequenze a partire da qualche decina di $Hz$ fino al limite di $10kHz$, oltre il quale impulsi della durata di $1ms$ iniziano a sovrapporsi.
+
+Nel contesto sperimentale di riferimento, l'elevata densità spaziale dei sensori fa sì che un singolo impulso emesso sia rilevato da un numero di circa $7$ pixel contigui. Perciò, i test utilizzati per la rilevazione del segnale fanno anche leva sul profilo spaziale, utilizzando opportune quantità medie tra i 7 pixel. I test presi in considerazione dalla simulazione sono due, il primo proposto in letteratura da \cite{Lambacher2011}, è un test in potenza basato sulla media quadratica del segnale. Il secondo test, più semplice e utilizzato come test di riferimento, si basa su medie aritmetiche. Ognuno dei due test è variato con due diversi filtri in frequenza, applicati preliminarmente, un passa banda e un passa basso, applicati alternativamente per un totale di quattro test.
+
+Le conclusioni della simulazioni si basano sull'accuratezza delle capacità discriminanti dei due algoritmi di sorting. Nella fase preliminare dell'analisi, l'andamento congiunto di due metriche, una afferente al dominio delle frequenze e una al dominio dei tempi, mostra evidenze a favore dei test a media artimentica, evidenza sì corroborata da un coerente andamento delle metriche al variare di tutte le variabili di simulazione, ma non del tutto conclusiva.
+
+Con il fine di approfondire e confermare tali risultanze intermedie, un'ulteriore verifica della capacità discriminante dei due test viene condotta per mezzo di un'analisi di classificazione delle previsioni, riportata in misura media al variare di tutte le variabili di simulazione e con la ripetizione della simulazione su $100$ iterazioni, in modo da ottenere risultati più robusti con riguardo anche alle casualità introdotte. I risultati di simulazione vengono riassunti in quattro categorie: falsi positivi, veri positivi, falsi negativi e veri negativi. Le conclusioni si affidano a due indici di concordanza, l'indice di concordanza di Jaccard e il punteggio $F1$, noti nella letteratura statistica e ampiamente utilizzati per riportare l'accuratezza degli algoritmi di classificazione. Tali indici, sono da intendersi come delle misure di correlazione\footnote{Trattandosi di variabili dicotomiche è corretto parlare di associazione o concordanza}, tra la previsione dei tempi degli impulsi e i tempi effettivi, e sono, per comodità, uniformati a variare tra il valore $0$, che indica assenza di correlazione e $1$, massima dipendenza. 
+
+I valori degli indici per i filtri a media aritmetica risultanti dalla presente simulazione sono sempre sensibilmente superiori a quelli degli algoritmi a media quadratica, indipendentemente dal tipo di filtro in frequenza applicato. Confermando perciò le evidenze grafiche intermedie.
+
+
+
+
+%-----------------------------------------------------------------------
+\section{Principali componenti dell'esperimento}
+
+
+
+
+%-----------------------------------------------------------------------
+\subsection{Segnali elettrici del sistema nervoso}
+
+Gli organismi di molti esseri viventi sono dotati di un sistema di trasmissione delle informazioni largamente basato su segnali di natura elettrica, chiamato sistema nervoso. La terminologia utilizzata nel campo delle neuroscienze fa spesso riferimento all'idea di tessuto, rete, circuito per la presenza di diversi elementi biologici interconnessi. Il profilo elettrico dei segnali scambiati caratterizza un ampio spettro di attività che vanno dagli stimoli motori più semplici, fino a più evolute funzioni celebrali.
+
+Data la relativa facilità di rilevazione dell'attività elettrica lungo le fibre nervose, rispetto alla complessità sia di rilevazione, che di comprensione delle attività che si svolgono nel sistema nervoso centrale ed in particolare a livello encefalico, la propagazione del segnale elettrico attraverso il sistema nervoso periferico è stata il primo interesse dell'elettrofisiologia. In tale ambito sono stati applicati modelli di propagazione e diffusione di un segnale elettrico attraverso una rete di cavi. Il materiale biologico legato a tale funzione è stato perciò analizzato con riguardo anche alle sue proprietà elettriche; la resistività dei tessuti e gli schemi elettrici assimilabili per spiegare la forma degli impulsi elettrici osservati. Una breve rassegna di tali proprietà viene riporata nella successiva sezione \ref{sez:Fisiologia} con riferimento ad un singolo neurone.
+
+L'aspetto più complesso legato all'elaborazione o modulazione del segnale oltre che alla sua trasmissione è stato per la prima volta descritto con precisione dal seminale contributo di \cite{Hodgkin1952}. Con un impianto di sonda nell'assone di una specie di calamaro gigante, l'esperimento ha gettato luce sui meccanismi di generazione del segnale elettrico, in base ai quali gli autori hanno formulato un modello matematico che replica con buon adattamento la forma dell'impulso elettrico osservato. Più nel dettaglio, il segnale di \cite{Hodgkin1952} è generato da meccanismi cellulari localizzati nella membrana dei neuroni che regolano il flusso in entrata e in uscita di alcuni ioni, tra cui $Na^{+}$, $Ca^{2+}$ e $K^{+}$, la cui concentrazione locale nell'ambiente extracellulre può essere stimata in base alla differenza di potenziale radiale tra il centro e la membrana cellulare.
+
+
+
+%-----------------------------------------------------------------------
+\subsection{Fisiologia neuronale}
+\label{sez:Fisiologia}
+
+Diversamente da altre cellule, il neurone ha una forma allungata, di una testa, detta dentrita, da cui origina una protuberanza allungata di forma cilindrica, detta assone. Questa dicotomia nell'anatomia cellulare ha una base funzionale con riferimento ad un modello input-output del segnale trasmesso. Secondo questa concettualizzazione, particolarmente utile per decrivere le basi elettriche di una rete neurale, l'assone è preposto alla gestione dell'output del segnale. Esso crea un contatto per la trasmissione del segnale ad un obiettivo, altro neurone o un tessuto muscolare ad esempio, posto anche a molta distanza dal dentrita da cui esso origina. Si indica invece con il termine sinapse il sottodominio degli assoni dedicato al contatto e trasmissione locale del segnale. Tipicamente un neurone è composto da un singolo assone che si prolunga dal corpo cellulare per poi ramificarsi. La lunghezza di un assone può raggiungere anche tutta la lunghezza dell'organismo, nei mammiferi le lunghezze spaziano da pochi micrometri fino a qualche metro.
+Per contro, i dentriti sono preposti alla ricezione del segnale, dotati a loro volta di una ramificazione in spine dedicate alla gestione locale del segnale in ingresso.
+
+I primi studi di elettrofisiologia sono stati condotti su fibre nervose attraversate da segnali elettrici da e verso i muscoli motori, anche attraverso l'elettrostimolazione, e l'ipotesi di passaggio di corrente elettrica è stata corroborata da una moltitudine di primi esperimenti.
+
+Tuttavia, la comprensione del segnale elettrico oltre che dello stimolo delle fibre nervose ad opera di una corrente transitoria, è avvenuta solo grazie agli esperimenti di \cite{Hodgkin1952} sull'assone di una famiglia di calamari giganti, le cui dimensioni in diametro di circa $0.5$ $mm$ hanno permesso l'inserimento di sonde per la misurazione della differenza di potenziale radiale tra il centro e la membrana cellulare.
+Gli esperimenti hanno rilevato una differenza di potenziale radiale tra il centro e la membrana dell'assone di circa $60$ $mV$, differenza di potenziale che può essere variata repentinamente dal neurone, con l'effetto di generare dei segnali il cui spettro in frequenza può variare di molto a seconda della tipologia di neurone.
+
+\begin{figure}%[tbp] 
+\centering    
+\includegraphics[width=0.5\textwidth]{Pictures/ActionPotential.jpg}
+\caption[Esperimento di \cite{Hodgkin1952}]
+{ Sonda e misurazione del potenziale d'azione nell'assone del calamaro gigante {\it Loligo forbesi} nell'esperimento di \cite{Hodgkin1952}. In \cite{Schwiening2012}. }
+\label{fig:ActionPotential}
+\end{figure}
+
+
+
+
+
+%-----------------------------------------------------------------------
+\subsection{La tecnologia di rilevazione CMOS-MEA}
+\label{sez:Mea}\label{sez:Rilevazione}
+
+{\it Micro Array Technology}. Si tratta di una tecnica di rilevazione e di stimolazione basata su un rivelatore piano composto di micro elettrodi utilizzata per la prima volta nel 1972 in ambito medico. Le cellule neuronali coltivate in vitro aderiscono alla superficie del rilevatore dove in prossimità degli elettrodi è sensibile al potenziale d'azione (scariche ioniche extracellulari, cfr. \ref{sez:Fisiologia} ) ed è capace anche di fornire un segnale elettrico di stimolazione.
+%
+Parametri critici dei rivelatori MEA sono la densità e l'impedenza dei micro elettrodi.
+%
+L'impedenza dei microelettrodi dipende dalla loro area che può essere aumentata con la formazione di nanostrutture metalliche come nanotubi o nanopori che aumentano le capacità di rivelazione dei sensori \cite{Kim2014}.
+%
+La densità spaziale deli elettrodi nel sensore MEA può essere drasticamente aumentata con transistor CMOS integrati in un chip\footnote{Il cui disegno è effettuato con tecniche
+VLSI {Very Large Scale Integration}, atte a implementare nello stesso chip di rivelazione anche i circuiti di amplificazione, multiplexing, conversione analogico-digitale e filtro}.
+
+
+
+
+%-----------------------------------------------------------------------
+\subsection{L'algoritmo di rilevazione degli impulsi}
+\label{sez:NeuroChip}
+
+Attraverso la tecnologia presentata nelle sezioni precedenti, l'esperimento riceve un segnale composto da picchi di potenziale d'azione, caratterizzati approssimativamente da ampiezze di $60$ $mV$ e frequenze nell'ordine dei $kHz$, sovrapposto ad un segnale rumoroso derivante sia dalla componente tecnologica che quella biologica. L'alta risoluzione spaziale e temporale del sensore fa si che un singolo picco di potenziale sia rilevato contemporaneamente da un cluster di $3x3$ pixels contigui, per un intervallo temporale della durata di $3$ campioni consecutivi. Sulla base di questa sistematicità la rilevazione di un picco è basata su un test statistico del $\chi^{2}$, in base al quale una porzione di segnale contiene un picco se la media quadratica normalizzata per la varianza del segnale è superiore ad un dato valore di soglia.
+
+Nella formula che segue $V_{i,j}$ è l'ampiezza del segnale in tensione rilevato dal pixel $i,j$, dove le due coordinate indicano un punto nella superficie del rilevatore e $\sigma_{i,j}$ è la relativa varianza complessiva del segnale, sempre nel pixel di coordinate $i,j$. $tau$ è il valore di soglia.
+\begin{equation}
+ \sum_{i,j=1,2,3} \sum_{t=0}^{2} \frac{|V_{i,j}(t)|^{2}}{\sigma_{i,j}^{2}} \geq \tau
+\end{equation}
+
+In letteratura, cfr. \cite{Lambacher2011}, la soglia $\tau$ è determinata sperimentalmente in sede di calibrazione della strumentazione.
+
+
+
+
+
+%-----------------------------------------------------------------------
+%-----------------------------------------------------------------------
+%-----------------------------------------------------------------------
+\chapter{Simulazione}
+
+
+
+%-----------------------------------------------------------------------
+\section{Parametri di simulazione}
+\label{sec:examples}
+
+La seguente tabella \ref{tab:param} riporta i parametri di simulazione.
+La durata del segnale è il tempo di osservazione del segnale. Lo {\it spike rate} o tasso di emissione degli impulsi è la frequenza media con cui gli impulsi sono emessi. I tempi di attesa tra due impulsi sono distribuiti secondo una distribuzione gamma i cui parametri sono fissati in modo tale da generare un segnale sufficientemente regolare in modo da far emergere un picco nello spettro del segnale rumoroso in corrispondenza dello {\it spike rate} medio.
+
+\begin{table}[htbp]
+\centering
+\caption{\bf Parametri di simulazione}
+\begin{tabular}{lrr}
+\hline
+&\\
+Durata segnale                  & 1s                \\
+Spike rate medio                & 150Hz             \\
+%Spike rate (errore standard)    & 0.01              \\
+Durata spike                    & 1ms               \\
+Ampiezza Max $0p$                 & 60mV              \\
+Potenza media spike             & 1.8$\mu V^{2}s$   \\
+Campionamento                   & 9kSamples         \\
+Filtro. $\nu_{low}$             & 0.02 kHz          \\
+Filtro. $\nu_{high}$            & 2.5 kHz           \\
+Filtro. Tipo e Ordine           & Butterw. $2$\textdegree \\
+Pixels nel cluster              & 7                 \\
+&\\
+\hline
+\end{tabular}
+\label{tab:param}
+\end{table}
+
+
+In conformità a quanto noto in letteratura ogni impulsi ha durata di $1ms$ e ampiezza massima di $60mV$. La potenza media di riferimento per un impulso è di $1.8\mu V^{2}s$, calcolata con riferimento ad un impulso di forma gaussiana. Il campionamento utilizzato nella simulazione è quello dell'esperimento di riferimento, $9000$ campioni al secondo, e infine il numero di sensori nel cluster considerato è $7$, parametro fissato in conformità a precedenti contributi, dove si assume che il segnale di una determinata unità cellulare possa essere rilevato contemporaneamente da più sensori che, per la loro elevata densità e ridotte dimensioni, campionano in più punti la stessa cellula e il relativo segnale emesso, cfr. \cite{Vallicelli2017}.
+%
+Si riportano infine, i parametri del filtro in frequenza utilizzato. La banda considerata, sempre in accordo a precedenti contributi è quella $0.02-2.5$ $kHz$. L'approssimazione di Butterworth al second'ordine fa in particolare riferimento ad una nota metodologia di approssimazione dei parametri di un filtro digitale che garantisce monotonia nella funzione di risposta in frequenza del filtro in corrispondenza delle soglie di banda, cfr. \cite{Oppenheim1998}.
+
+
+%-----------------------------------------------------------------------
+\subsection{Impulsi e SNR}
+
+Il segnale di prova è costituito da un treno di impulsi di durata fissa di $D=1ms$ la cui specifica forma funzionale nel tempo è data da una funzione $I(t-t_{j})$, dove $t_{j}$ è il tempo di emissione del $j-$esimo impulso. Con un numero di impulsi $K$, spaziati nel tempo in accordo con il tasso di emissione degli impulsi {\it spike rate}, il segnale in funzione del tempo può perciò essere scritto 
+%
+\begin{align*}
+S(t) & = \sum_{j=1}^{K} I(t - t_{j})Rect(\frac{t-t_{j}}{D}),   \\
+\quad t & = 0, ..., T.
+\end{align*}
+%
+Il segnale deterministico $S(t)$ così ottenuto costituisce il segnale di riferimento della simulazione, rispetto al quale, il filtro della seguente versione rumorosa $\tilde{S}(t)$ sarà confrontato.
+La versione rumorosa $\tilde{S(t)}$ si ottiene aggiungendo le seguenti irregolarità
+%
+\begin{align*}
+\tilde{S(t)} & = \sum_{j=1}^{K} I(t - \tau_{j})Rect(\frac{t-\tau_{j}-\phi_{j}}{D}) 
+ + \epsilon_{t},
+ \end{align*}
+%
+dove $\phi_{j}$ è un ritardo di campionamento casuale distribuito uniformemente nell'intervallo $[0,\frac{1}{\nu_{s}}]$, dove $\nu_{s}$ è il tasso di campionamento. $\tau_{j}$ è il tempo di emissione del $j-$esimo impulso, distribuito secondo la variabile casuale $t_{j-1}+\Gamma(\alpha, \beta)$, dove $t_{j-1}$ è il tempo, noto, di emissione del precedente impulso e $\Gamma(\alpha, \beta)$ è una distribuzione gamma i cui parametri sono fissati in modo da ottenere lo spike rate medio desiderato e il relativo errore standard che garantisca sufficiente regolarità nell'emissione degli impulsi tale da far emergere i picchi spettrali alla frequenza dello spike rate.
+%
+% \begin{table}[htbp]
+% \centering
+% \caption{\bf Momenti del tasso di emissione degli impulsi}
+% \begin{tabular}{cccc}
+% \hline
+% Media            & $\beta\lambda$      & $150Hz$   \\
+% Varianza         & $\beta\lambda^{2}$  &           \\
+% Errore standard  & $\beta$            & $0.01$    \\
+% \hline
+% \end{tabular}
+% \label{tab:momenti}
+% \end{table}
+%
+Infine $\epsilon_{t}$ è un rumore gaussiano di natura termica di media nulla e di varianza determinata in funzione della potenza media del segnale di riferimento e dell'$SNR$ imposto dalla simulazione. La potenza di rumore utilizzata per dato $SNR$ è stata calcolata secondo le seguenti relazioni.
+\begin{align*}
+P_{thermal noise} \quad [V^2s] &=  P_{impulses signal} 10^{- snr [dB]/10} \\
+\sigma^{2}_{\epsilon} &= \frac{ P_{noise} }{ N }
+\end{align*}
+
+
+
+
+\subsection{Algoritmi di rilevazione}
+
+Gli algoritmi di sorting analizzati \ref{alg:arit}, \ref{alg:quad} sono riportati qui di seguito. L'algoritmo \ref{alg:quad} è disegnato per identificare picchi in potenza del segnale e si trova proposto in \cite{Lambacher2011}. L'algoritmo \ref{alg:arit} è un test di riferimento, che esegue una semplice media spaziale del segnale in tensione.
+Ognuno dei due algoritmi viene implementato dopo l'applicazione di un filtro in frequenza che può essere, passa basso o passa banda alla frequenze indicate nella tabella \ref{tab:param}, per un totale di $4$ combinazioni.
+
+Si evidenzia qui che per evitare effetti distorsivi sul risultato del confronto tra i due algorimti, l'ultimo passaggio dell'algoritmo \ref{alg:quad} che prevede la media mobile di ordine 3, viene eseguito con un filtro a fase zero, così da evitare che scostamenti di previsione dovuti alla differenza di fase influiscano sulle conclusioni della simulazione, come meglio spiegato nelle conclusioni \ref{conclusioni}.
+
+
+\begin{algorithm}
+\caption{Algoritmo lineare}\label{alg:arit}
+\begin{algorithmic}[1]
+%\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+\State $s_{j,t}$ \Comment{Segnale al tempo t, pixel j}
+\State $f_{j,t}$ \Comment{Filtro passa basso o passa banda}
+\State $f_{t}\gets \sum_{1:7}   f_{j,t}/7$ \Comment{Media spaziale}
+%\State $f_{t}\gets \sum_{i=1:3} f_{t-i}/3$
+% \EndWhile\label{euclidendwhile}
+% \State \textbf{return} $b$\Comment{The gcd is b}
+% \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Algoritmo quadratico}\label{alg:quad}
+\begin{algorithmic}[1]
+%\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+\State $s_{j,t}$ \Comment{Segnale al tempo t, pixel j}
+%\While{$r\not=0$}\Comment{We have the answer if r is 0}
+\State $f_{j,t}$ \Comment{Filtro passa basso o passa banda}
+\State $F_{j,t}\gets f^{2}_{j,t}$ \Comment{Passaggio da tensione a potenza}
+\State $F_{t}\gets \sum_{1:7}   F_{j,t}/7$ \Comment{Media spaziale}
+\State $F_{t}\gets \sum_{i=1:3} F_{t-i}/3$ \Comment{Finestra mobile a fase zero}
+% \EndWhile\label{euclidendwhile}
+% \State \textbf{return} $b$\Comment{The gcd is b}
+% \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\subsection{Forma degli impulsi}
+
+La forma funzionale degli impulsi è tra le variabili di simulazione risultanti significative dall'analisi preliminare.
+Si considerano due impulsi a media positiva, (1) a forma rettangolare e (2) a campana gaussiana, e due oscillanti, (3) doppio picco gaussiano, (4) sinusoidale. L'impulso (3) in particolare è una versione semplificata della forma degli impulsi neurali riportata nella letteratura specifica e sarà perciò qui indicata con l'etichetta {\it spike impulse}.
+
+\begin{table}
+\centering
+\caption{\bf Impulsi: forme funzionali}
+\begin{tabular}{ll}
+\hline
+&\\
+Rettangolare    & $V_{0}Rett(\frac{t}{T})$ \\
+Gaussiano       & $V_{0}e^{\frac{-t^{2}}{2\sigma_{0}^{2}}}$ \\
+Sinusoidale       & $V_{0}sin(t)$ \\
+Spike           & $V_{0}e^{\frac{-(t-t_{1})^{2}}{2\sigma_{1}^{2}}} 
+                   -V_{1}e^{\frac{-(t-t_{2})^{2}}{2\sigma_{2}^{2}}}$ \\
+&\\
+\hline
+\end{tabular}
+\label{tab:forme}
+\end{table}
+
+I parametri di normalizzazione e di forma delle diverse forme funzionali sono calcolati in modo che la potenza media trasferita da ciascun impulso sia pari a $1.8$ $\mu V^{2}s$, ovvero la potenza di riferimento di un impulso gaussiano della durata d $1$ $ms$ e picco $60$ $mV$.
+Data la potenza degli impulsi, si calcola la potenza del segnale in base al numero di impulsi (in funzione del loro tasso di emissione) e da questa la varianza del rumore termico tale da garantire l'$SNR$ desiderato in fase di simulazione.
+
+
+
+\subsection{Profilo spettrale}
+
+La figura \ref{fig:c9_I5SNR4spec} mostra lo spettro del segnale di riferimento, non rumoroso, in nero e a colori i quattro spettri del segnale rumoroso filtrato.
+%
+\begin{figure}[htbp]
+\centering
+%\includegraphics[width=1\linewidth]{graphs/I1SNR-6spec.jpg}
+\includegraphics[width=2\linewidth]{Graph/spettro.jpg}
+\caption{Densità spettrale di potenza (PSD), $SNR = -6dB$.}
+\label{fig:c9_I5SNR4spec}
+\end{figure}
+%
+Si evidenzia il picco relativo alla frequenza di emissione degli impulsi al primo ordine a $150$ $HZ$ e al secondo ordine a $300$ $Hz$. Vengono omessi i picchi successivi. 
+
+
+
+\subsection{Profilo temporale}
+
+Il grafico \ref{fig:c1_I2SNR0time} riporta la serie temporale del segnale di prova a $0dB$ a confronto il segnale filtrato.
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics[width=2\linewidth]{results/c1_I2SNR0time.jpg}
+\includegraphics[width=2\linewidth]{Graph/time.jpg}
+\caption{Serie temporali. Segnale e filtri. Impulso gaussiano}
+\label{fig:c1_I2SNR0time}
+\end{figure}
+
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=1\linewidth]%{results/c1_I4SNR0time.jpg}
+%\caption{Serie temporali. Segnale e %filtri. Impulso spike}
+%\label{fig:c1_I4SNR0time}
+%\end{figure}
+
+
+
+
+\section{Metriche di valutazione degli algoritmi}
+
+Sotto il profilo spettrale, un buon filtro trasforma uno spettro rumoroso in modo da far emergere i picchi delle frequenza caratteristiche del segnale (toni) rispetto al rumore di fondo.
+%
+Nel contesto della presenza simulazione, dove il segnale è composto da impulsi di data forma funzionale, non necessariamente sinusoidale e di durata limitata, si deve tener conto anche di una visione {\it timbrica}, in cui rileva anche la forma caratteristica dei picchi e dello spettro in generale, forme che riflettono sia la forma funzionale degli impulsi sia le diverse irregolarità introdotte nel segnale.
+%
+In questo senso, un buon filtro dovrebbe restiture uno spettro del segnale rumoroso filtrato quanto più vicino a quello del segnale non rumoroso.
+La metrica che valuta la distanza spettrale adottata in questo lavoro è presentata nel paragrafo \ref{metricaS}.
+
+Sotto il profilo temporale invece, un buon algoritmo azzera il segnale dove non rileva impulsi in modo da ridurre gli errori di previsione di un test di soglia come il seguente
+\begin{equation*}
+t = t_{spike} \Leftrightarrow V(t) > V_{treshold}
+\end{equation*}
+Per test di soglia si intende perciò un criterio di discriminazione degli impulsi che si basa esclusivamente sull'ampiezza del segnale filtrato: scelto un valore di riferimento per il massimo rumore ammesso, tutti i punti del segnale sopra tale soglia si marcano come impulsi e come rumore il resto.
+Tale procedura è chiaramente soggetta ad errore, la cui quantificazione 
+attraverso opportune metriche da luogo alla valutazione di accuratezza dell'algoritmo adottato. In questo lavoro, la capacità predittiva degli algoritmi di sorting è valutata con la metrica illustrata nel paragrafo \ref{metricaT}.
+
+Come illustrato nel paragrafo \ref{risultati}, le due metriche adottate sono fortemente correlate e l'analisi della loro congiunta distribuzione al variare del $SNR$ e della forma degli impulsi permette di valutarne la coerenza.
+
+
+
+\subsection{Distanza spettrale}
+\label{metricaS}
+
+La distanza spettrale considerata è la distanza euclidea tra gli spettri nella banda $[0-\nu_{high}]$, dove $\nu_{high}$ è la frequenza alta di taglio del filtro passa banda.
+% 
+Nella formula che segue $DFT_{ref}$ è lo spettro del segnale di riferimento, non rumoroso e $DFT_{noisy.filt}$ quella del segnale rumoroso dopo essere stato soggetto agli algoritmi di sorting.
+%
+\begin{align*}
+ d_{s}^2 & = \sum_{j:0}^{\nu_{high}}(DFT_{ref}(j) - DFT_{noisy.filt}(j) )^2
+\end{align*}
+%
+L'indice $j$ corre solo nelle frequenze della banda di interesse, tenuto conto dei parametri di simulazione.
+
+
+
+
+\subsection{Errore medio di previsione}
+\label{metricaT}
+
+Nel segnale di prova di riferimento sono noti i tempi di emissione degli impulsi.
+%
+Nel segnale filtrato questo tempo è incerto a causa dell'effetto congiunto della fase del filtro, della rumorosità del segnale e dell'azione dell'algoritmo.
+%
+La valutazione dell'errore medio di previsione è condotta con l'algoritmo \ref{alg:errore} nella seguente tabella. In breve, presi tutti e soli gli impulsi rilevati, ovvero i primi $N$ picchi più alti del segnale filtrato, l'algoritmo determina per ogni impulso rilevato quale sia il più vicino impulso reale e registra la differenza in termini di numero di campioni tra il momento dell'impulso rilevato e quello dell'impulso più vicino, in valore assoluto. L'errore complessivo viene infine riportato in $ms$ e in misura media su tutti gli $N$ impulsi.
+
+\begin{algorithm}
+\caption{Calcolo errore medio di previsione}\label{alg:errore}
+\begin{algorithmic}[1]
+%\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+\State $t_{j=1,...,N}$ \Comment{Noti gli N tempi nel segnale di riferimento}
+\State $\tau_{j=1,...,N}$ \Comment{Estraggo i primi N massimi nel segnale filtrato}
+\State $\tau_{j}\mapsto d_{j} = min( |t_{1}-\tau_{j}|, |t_{2}-\tau_{j}|, ...)$ \Comment{Ad ogni previsione associo la minima distanza con l'insieme dei veri tempi $t_{j}$}
+\State $\sum_{1}^{N} d_{j}/N$ \Comment{Errore medio in $ms$}
+%\State $f_{t}\gets \sum_{i=1:3} f_{t-i}/3$
+% \EndWhile\label{euclidendwhile}
+% \State \textbf{return} $b$\Comment{The gcd is b}
+% \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Questa semplice metrica ha natura esplorativa ed è da intendersi solo indicativa della bontà di previsione, e viene utilizzata in questo lavoro solo per l'analisi esplorativa nei grafici di dispersione presentati qui di seguito. In particolare si evidenzia che la metrica non rileva in alcun modo la presenza di previsioni multiple sullo stesso impulso o la presenza di impulsi non rilevati.
+
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=1\linewidth]{Graph/disegno.jpg}
+% \caption[Disegno esemplificativo della classificazione delle previsioni]{Disegno esemplificativo della classificazione delle previsioni. Gli impulsi previsti $\tau_{j}$, $j=1,..,4$ sono determinati dall'intersezione della linea di soglia in grigio con il segnale filtrato (linea superiore). Gl intervalli temporali interessati da impusi effettivi sono invece indicati dai rettangoli lungo la linea sottostante. Le linee in rosso indicano gli sfasamenti temporali considerati nel calcolo dell'errore medio di previsione del primo algoritmo. In questo esempio, il secondo algoritmo conta invece due impulsi previsti, al tempo $t_{2}$ e $t_{4}$, due impulsi non rilevati al tempo $t_{1}$ e $t_{3}$ e due corrispondenti falsi positivi. Risultano correttamente previsti inoltre tutti i tempi d'attesa, ad eccezione del primo intervallo.
+% 
+% L'esempio evidenza come sia possibile che più rilevazioni insistano sullo stesso impulso emesso oppure che, a causa della soglia in ampiezza fissata, alcuni impulsi emessi non siano rilevati (impulso $t_{3}$)}
+% \label{fig:scatter1}
+% \end{figure}
+
+Per completare l'analisi della capacità previsivia dei test, si utilizza invece un indicatore più formale. Qui di seguito illustrato nell'algoritmo \ref{alg:matrice}.
+
+\begin{algorithm}
+\caption{Calcolo errore medio di previsione}\label{alg:matrice}
+\begin{algorithmic}[1]
+
+%\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+\State $t_{j=1,...,N}$ \Comment{Noti gli N tempi nel segnale di riferimento}
+\State $\tau_{j=1,...,N}$ \Comment{Estraggo i primi N massimi nel segnale filtrato}
+\State $\tau_{j}\mapsto d_{j} = min( |t_{1}-\tau_{j}|, |t_{2}-\tau_{j}|, ...)$ \Comment{Ad ogni previsione associo la minima distanza con l'insieme dei veri tempi $t_{j}$}
+\State Se $d_{j}<\frac{D}{2}$ \Comment{Se l'errore è minore della semidurata degli impulsi allora la previsione si intende corretta. L'impulso viene marcato come rilevato, se già non lo era da una precedente previsione.}
+\State Se $d_{j}>\frac{D}{2}$ \Comment{Se l'errore è maggiore della semidurata degli impulsi allora la previsione si intende errata. L'evento viene marcato come un falso positivo, se già non lo era da una precedente previsione.}
+\State  \Comment{Il numero di falsi negativi si determina per differenza di $N$ con gli impulsi rilevati.}
+\State  \Comment{Il numero di veri negativi si determina per differenza di $N$ con il numero di falsi positivi.}
+
+\end{algorithmic}
+\end{algorithm}
+
+In breve, data una media di $150$ impulsi in un segnale della durata di $1s$, l'algoritmo registra gli impulsi rilevati e determina quelli non rilevati per differenza. La registrazione è dicotomica, non si contano cioè il numero di previsioni che rilevano lo stesso impulso. Simmetricamente, il segnale può essere scomposto in $150$ spazi vuoti che rappresentano i tempi di attesa tra due impulsi. L'algoritmo conta gli spazi vuoti che ricevono una previsione di impulso e determina così i falsi positivi e, per differenza, i veri negativi.
+
+L'applicazione di questo algoritmo riassume tutta la simulazione in una matrice $2x2$ che rappresenta la distribuzione congiunta dei tempi di emissione previsti e di quelli effettivi. Maggiori sono gli elementi concordanti della matrice, quelli cioè posti sulla diagonale principale, dove a impulsi effettivi corrispondono impulsi previsti e viceversa, maggiore sarà la bontà dell'algoritmo.
+
+Si osserva che nell'applicazione di questo algoritmo è implicita una tolleranza nella previsione del tempo d'impulso pari alla durata dell'impulso stesso.
+
+Infine, dati i parametri di simulazione utilizzati, la lunghezza di un impulso che è di $9$ campioni e la distanza media tra gli impulsi di $60$ campioni, un algoritmo casuale di rilevazione ha una matrice degli errori caratteristica basata sul {\it fattore casuale di successo} di $\frac{9}{60}$ di cui bisogna tener conto in sede di valutazione dei risultati. 
+
+
+
+
+\chapter{Risultati}
+\section{Andamento degli errori di previsione}
+\label{risultati}
+
+I grafici \ref{fig:scatter1} $-$ \ref{fig:scatter5} mostrano la distribuzione congiunta delle metriche temporale e spettrale. Come atteso, si evidenzia (1) una forte correlazione positiva tra le due metriche, (2) l'andamento crescente con il decrescere del $SNR$, (3) una distinta collazione dei punti in base all'algoritmo di sorting e al tipo di impulso.
+
+Per quanto riguarda gli impulsi rettangolare e gaussiano si evidenziano due fasi. La prima con $SNR$ fino a $-12$ $dB$, l'errore medio di previsione mostra un andamento simile per le due categorie di test, quadratico e semplice, se non addirittura favorevole al test quadratico. Poi per $SNR$ inferiori, si evidenzia una marcata divergenza delle performance dei test a media quadratica, come se l'aumento della rumorosità avesse l'effetto congiunto di distorcere lo spettro e peggiorare la precisione con cui si determinano i momenti degli impulsi. L'andamento delle due metriche è concorde, come previsto. Per quanto riguarda l'impulso sinusoidale si evidenzia invece una netta separazione nelle performance previsive dei due algoritmi.
+
+Tuttavia ciò che indebolisce l'evidenza riportata da questi grafici è il valore medio della distanza temporale, mai superiore a $1$ $ms$; sebbene l'andamento sia peggiorativo con l'$SNR$, l'errore di previsione medio non è mai superiore alla semidurata degli impulsi. Tale considerazione fa sospettare che le {\it differenze visive di natura grafica} siano dovute esclusivamente alla differenza di rilevazione del centro dell'impulso, indotte dalla diversa forma funzionale. In particolare, impulsi simmetrici (gaussiano, rettangolare) vengono meglio rilevati rispetto a quelli asimmetrici (sinusoidale, neurale). Risulta a questo punto necessaria un'analisi più approfondita.
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{Graph/scatter1.jpg}
+\caption[Distribuzione congiunta delle metriche di valutazione al variare dell'SNR: impulso rettangolare]{Distribuzione congiunta delle metriche di valutazione: impulso rettangolare. $SNR$ da $-3$, a $-14$ dB. Le linee a toni blu sono relative al test semplice in media aritmetica, in toni rossi quelle del test quadratico.}
+\label{fig:scatter1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{Graph/scatter2.jpg}
+\caption[Distribuzione congiunta delle metriche di valutazione al variare dell'SNR: impulso gaussiano ]{Distribuzione congiunta delle metriche di valutazione: impulso gaussiano. $SNR$ da $-3$, a $-14$ dB. Le linee a toni blu sono relative al test semplice in media aritmetica, in toni rossi quelle del test quadratico.}
+\label{fig:scatter2}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{Graph/scatter4.jpg}
+\caption[Distribuzione congiunta delle metriche di valutazione al variare dell'SNR: impulso neurale ]{Distribuzione congiunta delle metriche di valutazione: impulso neurale. $SNR$ da $-3$, a $-14$ dB. Le linee a toni blu sono relative al test semplice in media aritmetica, in toni rossi quelle del test quadratico.}
+\label{fig:scatter4}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1\linewidth]{Graph/scatter5.jpg}
+\caption[Distribuzione congiunta delle metriche di valutazione al variare dell'SNR: impulso sinusoidale ]{Distribuzione congiunta delle metriche di valutazione:: impulso sinusoidale. $SNR$ da $-3$, a $-14$ dB. Le linee a toni blu sono relative al test semplice in media aritmetica, in toni rossi quelle del test quadratico.}
+\label{fig:scatter5}
+\end{figure}
+
+
+
+%-----------------------------------------
+%-----------------------------------------
+%-----------------------------------------
+\section{Valutazione di accuratezza delle previsioni}
+\label{accuratezza}
+
+
+\subsection{Indici di accuratezza}
+\label{indici}
+Nella tabella \ref{tab:indici} i filtri preliminari in frequenza sono indicati con
+$BP$: passa banda,
+$LP$: passa basso.
+I test invece con
+$1$: semplice, a media aritmetica, il test di riferimento.
+$2$: quadratico, il test in potenza in valutazione.
+
+Il valore numerico degli indici in tabella evidenzia la superiorità dei test in tensione a media semplice, con indici di concorcadanza medi sempre superiori ai test a media quadratica.
+
+\begin{table}[htbp]
+\centering
+\caption[Indici di accuratezza: tasso di rilevazione, indice di Jaccard e F1 score]{\bf Indici di accuratezza}
+\begin{tabular}{ccccc}
+\hline
+%Test              & \multirow{2}{}{Semplice} & \multirow{2}{}{Quadratico} \\
+Test                & BP-1 & BP-2 & LP-1 & LP-2 \\
+\hline
+& & & & \\
+Tasso di rilevazione & 0.55      &0.32      &0.54      &0.32\\
+Punteggio F1         & 0.3384    &0.2159    &0.3349    &0.2211\\
+Indice di Jaccard    & 0.7336    &0.5795    &0.7281    &0.5886 \\
+& & & & \\
+\hline
+\end{tabular}
+\label{tab:indici}
+\end{table}
+
+
+\subsection{Matrici di accuratezza}
+\label{matrici}
+
+Il dettaglio delle matrici di accuratezza da cui sono stati calcolati gli indici al paragrafo \ref{indici} è qui di seguito riportato.
+
+%
+\begin{table}[htbp]
+\centering
+\begin{tabular}{cccclcc}
+                           &                         & \multicolumn{2}{c}{BP-1}                           &                       & \multicolumn{2}{c}{BP-2}                           \\
+                           &                         & \multicolumn{2}{c}{Previsto}                       &                       & \multicolumn{2}{c}{Previsto}                       \\
+                           &                         & si                      & no                       &                       & si                      & no                       \\ \cline{3-4} \cline{6-7} 
+\multirow{2}{*}{Effettivo} & \multicolumn{1}{c|}{si} & \multicolumn{1}{c|}{83} & \multicolumn{1}{c|}{67} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{48} & \multicolumn{1}{c|}{102} \\ \cline{3-4} \cline{6-7} 
+                           & \multicolumn{1}{c|}{no} & \multicolumn{1}{c|}{13} & \multicolumn{1}{c|}{137} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{24} & \multicolumn{1}{c|}{126} \\ \cline{3-4} \cline{6-7} 
+                           &                         &                         &                          &                       &                         &                          \\
+                           &                         & \multicolumn{2}{c}{LP-1}                           &                       & \multicolumn{2}{c}{LP-2}                           \\
+                           &                         & \multicolumn{2}{c}{Previsto}                       &                       & \multicolumn{2}{c}{Previsto}                       \\
+                           &                         & si                      & no                       &                       & si                      & no                       \\ \cline{3-4} \cline{6-7} 
+Effettivo                  & \multicolumn{1}{c|}{si} & \multicolumn{1}{c|}{82} & \multicolumn{1}{c|}{68} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{49} & \multicolumn{1}{c|}{101} \\ \cline{3-4} \cline{6-7} 
+                           & \multicolumn{1}{c|}{no} & \multicolumn{1}{c|}{14} & \multicolumn{1}{c|}{136} & \multicolumn{1}{l|}{} & \multicolumn{1}{c|}{22} & \multicolumn{1}{c|}{128} \\ \cline{3-4} \cline{6-7} 
+\end{tabular}
+\caption[Distribuzione congiunta degli impulsi emessi e rilevati. Matrice di accuratezza.]{\bf Matrici di accuratezza}
+\label{tab:matrici}
+\end{table}
+%
+
+
+
+
+\section{Riepilogo}
+\label{conclusioni}
+
+Con questa simulazione si è voluto verificare il comportamento di un algoritmo di rilevazione degli impulsi neurali comunemente utilizzato in letteratura \cite{Lambacher2011}, in un contesto di alta rumorosità e irregolarità del segnale. I segnali neurali sono impulsi in tensione caratterizzati dall'alternanza di una fase di alta tensione positiva con una fase in cui la tensione si sposta verso valori negativi e per questo si rende conveniente l'utilizzo di tecniche di elaborazione del segnale che ne considerano la potenza trasmessa, e che ad un certo stato dell'elaborazione trasformano il segnale elevandolo al quadrato. Risultato di questo tipo di elaborazione è idealmente un segnale di piccola intensità nei tempi d'attesa tra due impulsi contigui e di elevata intensità negli intervalli in cui si manifestano gli impulsi, rendendo così agevole la loro rilevazione.
+
+La procedura di elaborazione suddetta può presentare delle difficoltà applicative nel contesto degli esperimenti di rilevazione con tecnologia $MEA$, in cui si inserisce questo lavoro, a causa sia dell'elevata rumorosità del segnale, che della forma ignota degli impulsi. Inoltre la procedura di elaborazione basata sulla potenza del segnale non permette di sfruttare appieno l'elevata densità spaziale dei sensori, grazie alla quale una stessa cellula neurale e il relativo segnale emesso, può essere campionato da più sensori in diverse posizioni.
+
+Al fine di verificare il comportamento delle procedure di elaborazione del segnale in potenza nel contesto della tecnologia $MEA$ questo lavoro simula un segnale altamente rumoroso rilevato da un cluster di sensori contigui e ne confronta gli errori di previsione con una procedura di elaborazione del segnale in tensione, che tra le varie trasformazione esegue una media aritmentica spaziale tra i pixel che campionano una stessa cellula neurale. L'idea sottostante a questa procedura di riferimento è che lo stesso segnale possa essere rilevato da più sensori e quindi pulito da un aparte di rumore con l'elaborazione di un segnale medio.
+
+
+\section{Raffronto: elaborazione del segnale in potenza e in tensione}
+A priori, sono diverse le considerazioni che si possono muovere a sfavore dell'efficacia degli algoritmi di rilevazione basati sulla potenza del segnale in un contesto di alta rumorosità e irregolarità degli impulsi. In primo luogo, l'applicazione del quadrato non permette di sfruttare l'elevata frequenza di campionamento spazio temporale per mediare segnali da pixel diversi e ridurre così compensativamente il rumore. In secondo luogo, laddove gli impulsi sono irregolari e limitati nel tempo l'applicazione di una trasformazione non lineare ad un pacchetto di frequenze comporta distorsioni allo spettro facendo comparire, in seguito all'elevamente al quadrato, picchi spettrali che non sono invece presenti nel segnale originale. D'altro canto, i test a media semplice non inducono alcuna distorsione spettrale e permettono di mediare il rumore tra diversi pixel. A sfavore dei test in tensione a media semplice, si può invece argomentare che in presenza di impulsi a media nulla, con parti positive e negative, una delle due non può essere utilizzata per rilevare gli impulsi con test di soglia.
+%
+I risultati qui esposti dimostrano che le distorsioni spettrali introdotte dai test a media quadratica, il comparire cioè di picchi in frequenza non presenti nello spettro originale a causa dell'elevamento al quadrato, sebbene non risultino visibili graficamente, in quanto smorzati dall'irregolarità del segnale, sono comunque rilevati dalla metrica di distanza spettrale e contribuiscono a deteriorare la capacità previsiva di questa categoria di test.
+%
+I test a media semplice, per contro, risultano molto precisi sia nella sagoma spettrale restituita, sia nella rilevazione del tempo degli impulsi. Inoltre, l'insieme degli impulsi correttamente rilevati da questi test è maggiore rispetto a quello dei test a media quadratica, come evidenziato dai conteggi riportati nelle matrici di errore.
+%
+Le risultanze intermedie dei grafici di andamento congiunto vengono periò confermate. Sebbene le differenze grafiche visive siano da attribuire a differenze nella rilevazione del centro dell'impulso, in funzione delle diverse forme funzionali degli impulsi utilizzati, l'andamento crescente dell'errore di previsione è effettivamente indicativo del deterioramento delle capacità previsive dei test a media quadratica, sebbene i valori di errore medio siano molto bassi. Circostanza che si spiega per l'elevata percentuale di impulsi correttamente previsti, che abbassa i valori dell'errore medio di entrambe le categorie di test.
+
+
+
+\section{Conclusioni}
+La simulazione proposta evidenzia che per sfruttare l'elevata densità spaziale dei sensori 
+della tecnologia $MEA$, grazie alla quale una stessa cellula neurale e il relativo segnale emesso può essere campionato da più sensori in diverse posizioni, le procedure di elaborazione del segnale in potenza dovrebbero essere applicate solo successivamente alla riduzione del rumore, utilizzando delle medie spaziali sui diversi rilevatori che campionano la stessa fonte di emissione degli impulsi.
+
+Secondo questa procedura di elaborazione del segnale, la prima fase di elaborazione si focalizzerebbe sul segnale in tensione e non apporterebbe distorsioni allo spettro del segnale emesso. In questa prima fase lo spettro del segnale è ancora utilizzabile per verificare le proprietà della fonte emissiva degli impulsi. In un seconda fase, una volta che il segnale è stato pulito da una parte del rumore grazie all'effetto compensativo delle medie spaziali sul rumore di tipo {\it white noise}, i test in potenza risultano il modo più appropriato per trasformare il segnale grezzo in un indicatore di impulsi.
+
+
+\section{Ulteriori prospettive di indagine}
+I risultati qui esposti si basano sulla possibilità di elaborare un segnale medio derivante dai diversi segnali dei sensori che campionano la stessa cellula emettitrice di impulsi. La qualità del segnale medio in questa simulazione è sempre migliore di quello grezzo grazie alle caratteristiche ideali del rumore utilizzato: rumore additivo di variabili casuali indipendenti e identicamente distribuite. 
+La presente simulazione non prende perciò in considerazione due aspetti che possono essere validi nel contesto sperimentale di riferimento: (1) la propagazione del segnale e (2) la correlazione del rumore. Entrambi sono in particolare  legati alla presenza di una soluzione fisiologica in cui le cellule neurali sono immerse. Il primo aspetto, quello della propagazione del segnale, potrebbe impattare sui risultati della presente simulazione solo qualora la propagazione dell'impulso tra pixel contigui induca una sovrapposizione distruttiva del segnale: la media aritmetica tra pixel diversi risulterebbe in una complessiva riduzione dell'intensità del segnale se pixel contigui campionano fasi di tensione di impulso di segno opposto. Il secondo aspetto invece, renderebbe inutile l'applicazione della media spaziale, non potendosi concretizzare completamente l'abbattimento della varianza del rumore.
+
+
+
+\backmatter
+
+
+\include{biblio.bib}
 
 % Do not use this command if you did not prepare a nomenclature
 % database by means od the suitable \nomenclature command and its
@@ -334,7 +807,7 @@ Si conclude che per le proprietà di siffatti segnali biologici, la tecnica di t
 \nocite{*}
 
 
-% \printbibliography[heading=bibintoc]
+\printbibliography[heading=bibintoc]
 
 % Do not use this command if you did not set the \makeindex switch
 % in the preamble.

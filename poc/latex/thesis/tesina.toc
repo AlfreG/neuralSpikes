@@ -1,0 +1,66 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {italian}{}
+\babel@toc {italian}{}
+\babel@toc {italian}{}
+\babel@toc {english}{}
+\contentsline {chapter}{List of Tables}{vii}{chapter*.3}
+\contentsline {chapter}{List of Figures}{viii}{chapter*.4}
+\contentsline {chapter}{\numberline {1}Introduzione}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Ambito del lavoro}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Obiettivi del lavoro}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}Segnali elettrici del sistema nervoso}{2}{section.1.3}
+\contentsline {section}{\numberline {1.4}Fisiologia neuronale}{3}{section.1.4}
+\contentsline {section}{\numberline {1.5}Potenziale d'azione. L'equazione di Hodgkin-Huxley }{3}{section.1.5}
+\contentsline {section}{\numberline {1.6}La tecnologia di rilevazione CMOS-MEA}{5}{section.1.6}
+\contentsline {paragraph}{Impedenza}{5}{section*.8}
+\contentsline {paragraph}{Densit\IeC {\`a}}{5}{section*.9}
+\contentsline {section}{\numberline {1.7}L'algoritmo di spike sorting nell'esperimento Neuro Chip}{5}{section.1.7}
+\contentsline {chapter}{\numberline {2}Costruzione di un filtro per segnali a tempo discreto}{9}{chapter.2}
+\contentsline {section}{\numberline {2.1}Rappresentazione convoluzionale}{9}{section.2.1}
+\contentsline {section}{\numberline {2.2}Funzione di risposta agli impulsi. Trasformata z}{10}{section.2.2}
+\contentsline {section}{\numberline {2.3}Analisi spettrale di un segnale}{10}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Campionamento di segnali continui}{11}{subsection.2.3.1}
+\contentsline {paragraph}{Aliasing}{11}{section*.12}
+\contentsline {subsection}{\numberline {2.3.2}Trasformata di Fourier discreta}{12}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Windowing}{13}{subsection.2.3.3}
+\contentsline {section}{\numberline {2.4}Disegno di un filtro in frequenza}{13}{section.2.4}
+\contentsline {section}{\numberline {2.5}Implementazione di un filtro}{14}{section.2.5}
+\contentsline {section}{\numberline {2.6}Termini stocastici. Rumore}{16}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Correlogramma e Periodogramma}{16}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Stima della densit\IeC {\`a} spettrale di potenza}{17}{subsection.2.6.2}
+\contentsline {chapter}{\numberline {3}Implemetazione matlab}{19}{chapter.3}
+\contentsline {section}{\numberline {3.1}Spettro di un segnale di prova sinusoidale}{19}{section.3.1}
+\contentsline {section}{\numberline {3.2}Risoluzione spettrale}{21}{section.3.2}
+\contentsline {section}{\numberline {3.3}Funzione di trasferimento del filtro}{22}{section.3.3}
+\contentsline {section}{\numberline {3.4}Filtro dei dati}{23}{section.3.4}
+\contentsline {section}{\numberline {3.5}Effetto del rumore}{24}{section.3.5}
+\contentsline {section}{\numberline {3.6}Effetto della PCA}{25}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Elevamento alla seconda potenza}{25}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Media mobile di ordine 3}{26}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Algoritmo PCA}{27}{subsection.3.6.3}
+\contentsline {chapter}{\numberline {4}Logica di simulazione}{31}{chapter.4}
+\contentsline {paragraph}{Profilo temporale.}{31}{section*.26}
+\contentsline {paragraph}{Profilo spettrale.}{31}{section*.27}
+\contentsline {subparagraph}{Spettro di riferimento.}{31}{section*.28}
+\contentsline {section}{\numberline {4.1}Algoritmo di rilevazione a media semplice}{31}{section.4.1}
+\contentsline {section}{\numberline {4.2}Algoritmo di rilevazione a media quadratica}{32}{section.4.2}
+\contentsline {section}{\numberline {4.3}Logica di simulazione}{32}{section.4.3}
+\contentsline {paragraph}{Tempo di interarrivo degli impulsi.}{32}{section*.29}
+\contentsline {paragraph}{Forma dell'impulso}{32}{section*.30}
+\contentsline {paragraph}{Fase di campionamento}{33}{section*.31}
+\contentsline {paragraph}{Rumore termico}{33}{section*.32}
+\contentsline {section}{\numberline {4.4}Parametri di simulazione}{33}{section.4.4}
+\contentsline {section}{\numberline {4.5}Forma degli impulsi e fase di campionamento}{33}{section.4.5}
+\contentsline {paragraph}{Fase di campionamento}{34}{section*.34}
+\contentsline {section}{\numberline {4.6}Calcolo potenza di rumore per dato SNR}{34}{section.4.6}
+\contentsline {chapter}{\numberline {5}Risultati}{37}{chapter.5}
+\contentsline {section}{\numberline {5.1}Algoritmo quadratico}{37}{section.5.1}
+\contentsline {section}{\numberline {5.2}Algoritmo in media semplice}{38}{section.5.2}
+\contentsline {section}{\numberline {5.3}Risultati: Distanza spettri}{39}{section.5.3}
+\contentsline {chapter}{\numberline {A}Dimostrazioni}{41}{appendix.A}
+\contentsline {section}{\numberline {A.1}Spettri notevoli}{41}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Finestra quadrata}{41}{subsection.A.1.1}
+\contentsline {chapter}{\numberline {B}Codice sorgente}{43}{appendix.B}
+\contentsline {section}{\numberline {B.1}Trasformata discreta di Fourier simmetrica}{43}{section.B.1}
+\contentsline {section}{\numberline {B.2}Implementazione del filtro}{43}{section.B.2}
+\contentsline {section}{\numberline {B.3}Calcolo accuratezza}{44}{section.B.3}

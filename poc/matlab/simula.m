@@ -7,7 +7,7 @@ testSpanL       = length(p.testSpan);
 impulseSpanL    = length(p.impulseSpan);
 
 % Initialize accuracy metrics
-cMatrixR = zeros(2,2, testSpanL);
+cMatrixR = zeros(2,2, testSpanL, snrSpanL);
 jaccardR = zeros(1, testSpanL);
 f1ScoreR = zeros(1, testSpanL);
 
@@ -27,12 +27,12 @@ for i = 1 : 1: impulseSpanL
             for t = 1 : testSpanL
                 p.testType   = p.testSpan(t);
     
-                [specD, timeD, cMatrix, jaccard, f1Score] = filtersMetrics( p );
+                [specD, timeD, cMatrix, jaccard, f1Score, ~] = filtersMetrics( p );
                 specR( t, s) = specR( t, s) + specD/N;
                 timeR( t, s) = timeR( t, s) + timeD/N;
                 
                 % Record accuracy
-                cMatrixR(:,:,t) = cMatrixR(:,:,t) + cMatrix/L;
+                cMatrixR(:,:,t,s) = cMatrixR(:,:,t,s) + cMatrix/N;
                 jaccardR(t) = jaccardR(t) + jaccard/L;
                 f1ScoreR(t) = f1ScoreR(t) + f1Score/L;
             end
@@ -40,12 +40,34 @@ for i = 1 : 1: impulseSpanL
     end
     
     % Draw scatter plot
-    % scatterPlot(specR, timeR, p);
+    scatterPlot(specR, timeR, p);
 end
 
-% Round confusion matrix
-cMatrixR=round(cMatrixR);
 
+
+% hold on;
+% snr = p.snrSpan';
+% 
+% plot(snr, reshape(cMatrixR(1,1,2,:), 1,snrSpanL)/150 , 'r', 'LineWidth',2)
+% plot(snr, reshape(cMatrixR(2,1,2,:), 1,snrSpanL)/150, 'r--')
+% 
+% plot(snr, reshape(cMatrixR(1,1,1,:), 1,snrSpanL)/150 , 'b','LineWidth',2)
+% plot(snr, reshape(cMatrixR(2,1,1,:), 1,snrSpanL)/150, 'b--')
+% 
+% grid ON;
+% legend('TP-squared-test', ...
+%        'FP-squared-test', ...
+%        'TP-simple-test', ...
+%        'FP-simple-test', ...
+%        'Orientation','vertical');
+% xlabel('SNR dB');
+% ylabel('Detection Rate');
+
+
+% Round confusion matrix
+% TBD: collapse for the fourth dimension
+% cMatrixR=round(cMatrixR);
+ 
 % % Draw time and freq graphs
 % p.snrDb = -6;
 % graphSpectr(p)

@@ -2,6 +2,7 @@ function graphSpectr( p )
 % Plot DFTs of signal against filters
 
 
+
 % Get interspike times type
 interTimes = p.interSpikeType;
 
@@ -18,7 +19,9 @@ p.interSpikeType = interTimes;
 signalN = signalR + thermalNoise(p, impulseParam);
 
 % Mean signal C
-signalC = mean( signalC, 1)
+% signalC = mean( signalC, 1);
+signalC = signalC(1,:);
+
 
 % Normalize signals
 signalN = (signalN - mean( signalN, 2))./ std( signalN, [], 2);
@@ -33,6 +36,7 @@ s4 = myFilter(signalN, p, 4);
 
 psdString = "psd";
 outR = myDft(signalC(1,:), p, psdString);
+outN = myDft(signalN(1,:), p, psdString);
 out1 = myDft(s1, p, psdString);
 out2 = myDft(s2, p, psdString);
 out3 = myDft(s3, p, psdString);
@@ -40,31 +44,30 @@ out4 = myDft(s4, p, psdString);
 
 index = (p.nyquist+2 : p.nyquist+p.spikeRate*4 );
 cM = corr([outR(index)' out1(index)' out2(index)' out3(index)' out4(index)']);
-cM(1,2:end)
+cM(1,2:end);
 
 
 
-%
 close; hold on;
-plot( p.freq, outR, 'k-' ) ;
+plot( p.freq, outR, 'k-', 'LineWidth', 2 ) ;
+plot( p.freq, outN, 'r-.' ) ;
 plot( p.freq, out1, 'b--' );
-plot( p.freq, out3, 'c--' );
-plot( p.freq, out2, 'r--' );
-plot( p.freq, out4, 'm--' );
+plot( p.freq, out2, 'c--' );
 
 
 grid ON;
 %         title( 'PSD. ' + string(p.impulseLabel(p.impulseType)) + '. ' + num2str(p.snrDb) + 'dB' );
-legend('Signal PSD. ' + string(p.impulseLabel(p.impulseType)), ...
+legend('Reference Signal PSD. ' + string(p.impulseLabel(p.impulseType)), ...
+       'Noisy Signal PSD', ...
        'BP.filt+arith.Mean', ...
-       'LP.filt+arith.Mean', ...
        'BP.filt+square.Mean', ...
-       'LP.filt+square.Mean', 'Orientation','horizontal');
+       'Orientation','vertical');
  
 xlabel('Hz');
 ylabel('dB(V^2/Hz)');
-xlim([0 p.spikeRate*2]);
-ylim([-200 -50]);
+xlim([0 3000]);
+ylim([-200 -20]);
+xticks(p.spikeRate*(0:1:20));
 
 text( p.spikeRate, -200, 'spikeRate: '+ string(p.spikeRate) + 'Hz. ' + 'SNR: ' + string(p.snrDb)  );
 set(gcf,'WindowStyle','docked');

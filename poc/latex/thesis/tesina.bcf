@@ -1962,11 +1962,28 @@
   <!-- CITATION DATA -->
   <!-- SECTION 0 -->
   <bcf:bibdata section="0">
-    <bcf:datasource type="file" datatype="bibtex">Biblio/biblio.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex">biblio.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">Lambacher2011</bcf:citekey>
     <bcf:citekey order="2">Vallicelli2017</bcf:citekey>
+    <bcf:citekey order="4">Hodgkin1952</bcf:citekey>
+    <bcf:citekey order="5">Vallicelli2017</bcf:citekey>
+    <bcf:citekey order="6">Lambacher2011</bcf:citekey>
+    <bcf:citekey order="7">Lambacher2011</bcf:citekey>
+    <bcf:citekey order="8">Hodgkin1952</bcf:citekey>
+    <bcf:citekey order="9">Hodgkin1952</bcf:citekey>
+    <bcf:citekey order="10">Hodgkin1952</bcf:citekey>
+    <bcf:citekey order="11">Hodgkin1952</bcf:citekey>
+    <bcf:citekey order="12">Schwiening2012</bcf:citekey>
+    <bcf:citekey order="13">Hodgkin1952</bcf:citekey>
+    <bcf:citekey order="14">Schwiening2012</bcf:citekey>
+    <bcf:citekey order="15">Kim2014</bcf:citekey>
+    <bcf:citekey order="16">Lambacher2011</bcf:citekey>
+    <bcf:citekey order="17">Vallicelli2017</bcf:citekey>
+    <bcf:citekey order="18">Oppenheim1998</bcf:citekey>
+    <bcf:citekey order="19">Lambacher2011</bcf:citekey>
+    <bcf:citekey order="20">Lambacher2011</bcf:citekey>
     <bcf:citekey order="0">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
@@ -1999,4 +2016,13 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="nyt/global//global/global"
+                type="entry"
+                sortingtemplatename="nyt"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global">
+  </bcf:datalist>
 </bcf:controlfile>

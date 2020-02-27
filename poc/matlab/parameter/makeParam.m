@@ -5,21 +5,23 @@ p = struct;
 % Simulation subset
 % interSpikeType: 1, 2, 3=constant, 4=gamma
 p.saveGraph      = false;
-p.simulationN    = 100;
+p.simulationN    = 30;
 p.sampleRate     = 9000;
 p.spikeRate      = 150;
 p.sampleDuration = 1;
-p.impulseType    = 1;
+p.impulseType    = 2;
 p.MA13_filter    = false;
 p.MA24_filter    = true;
 p.MA24_zerophase = true;
 p.interSpikeType = 3;
+p.tresholdNumber1 = 500;
+p.tresholdNumber2 = 1000;
 p.path           = 'results/';
 
 % -------------------------------------------------------------------------
 % Randomness
 p.noiseTF = true;
-p.randomPhase = true;
+p.randomPhase = false;
 
 % -------------------------------------------------------------------------
 % Filtering
@@ -42,15 +44,15 @@ p.pixelDistance = 10;
 % -------------------------------------------------------------------------
 % Signal and spikes train
 p.testType       = 1;
-p.snrDb          = 6;
-p.gammaStdErr    = 0.01;
+p.snrDb          = -10;
+p.gammaStdErr    = 1;
 
 % -------------------------------------------------------------------------
 % Simulation ranges
-p.interSpikeSpan    = [1 2 3];
-p.snrSpan           = -12;
-p.testSpan          = [1 2 3 4];
-p.impulseSpan       = [1 2 4 5];    % without impulse 3=gaus.alt
+p.interSpikeSpan    = 3;
+p.snrSpan           = -20:1:-10;
+p.testSpan          = [1 2];
+p.impulseSpan       = 2; %[1 2 4 5];    % without impulse 3=gaus.alt
 p.spikeRateSpan     = p.spikeRate;
 p.interSpikeTimes   = {'exponential'  'uniform'  'constant'};
 p.impulseLabel      = { 'Impulso rettangolare', 'Impulso gaussiano', 'Impulso gauss. alt.' ...

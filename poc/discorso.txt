@@ -1,0 +1,36 @@
+Il lavoro che vorrei illustrarvi si inserisce nell'ambito di un esperimento biomedicale che ha ad oggetto l'osservazione
+dei segnali elettrici prodotti da una popolazione di neuroni, in particolare di una colutura di cellule della corteccia cerebrale di un anfibio, posta sopra un sensore planare di elettrodi che ne fotografa o filma l'attività elettrica nel tempo.
+
+Il tema principale in questo contesto è la rumorosità del segnale. Rumorosità che deriva non solo dalla tecnologia utilizzata ma è insita nell'organizzazione irregolare del materiale biologico emittente il segnale.
+
+In quest'ottica il mio lavoro non è altro che una disamina di alcune tecniche di riduzione del rumore con lo scopo di rilevare il momento esatto in cui gli impulsi elettrici vengono emessi.
+
+------------------------
+
+spiegare bene il topic, slide 0 TITOLO
+modello matlab realizzata attarverso dispositivi planari
+
+outline: lista per punti, metodi, algoritmi
+
+
+spiega solo la slide, array planari CMOS
+planare, chip sta sotto si vede sopra la popolazione
+segnale sopra il singolo pixel
+e l'informazione che devo estrarre
+
+
+pagina 3: figura al centro, più pixel per database locale per rilevare
+
+togliere la 4
+
+slide 5: tolgo errore scorrelato, calcolato statisticamente, la soglia con una probabilità
+
+slide 6: linearizzare il diagramma di flusso
+
+e poi slide sulla matrica di valutazione
+
+sezione risultati
+
+spettri, togliere gli scatter ed espandere l'andamento del dection rate e delle matrici di accuratezza
+
+

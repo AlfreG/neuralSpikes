@@ -9,18 +9,35 @@ spikeMaxTimes = impulseParam.start + impulseParam.max;
 spikeMaxTimes = sort(spikeMaxTimes, 'asc');
 
 % Find signal's higher M spikes
-M = size(spikeMaxTimes,2);
+% M = size(spikeMaxTimes,2);
+M = 500;
 [~, maxInd] = sort(signal, 'asc');
 maxInd      = maxInd(end-M+1:end);
 maxInd      = sort(maxInd);
 
 delay = 0;
+
+% distribution = -9*zeros(M,1);
+% j=1;
+
 for x = maxInd
+    
     m = min( abs(spikeMaxTimes - x) );
+%     distribution(j) = m;
+%     j= j+1;
+    
     delay = delay + m;
-end
+
+%     if m > delay
+%         delay = m;
+%     end
+
+ end
 
 delay = delay / M / p.sampleRate * 1000;
+% delay = delay / p.sampleRate * 1000;
+
+% histogram( distribution, 'Normalization', 'pdf' );
 
 end
 

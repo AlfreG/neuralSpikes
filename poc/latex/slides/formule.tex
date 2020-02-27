@@ -1,0 +1,39 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+
+
+Cluster
+\begin{equation}
+\mathtt{cluster / cella}
+\end{equation}
+
+Pedici
+\begin{align}
+\mathtt{pixels: }  p   & = 1, ..., 7 \\
+\mathtt{samples: } t,s & = 1, 2, 3
+\end{align}
+
+Filtro in frequenza passa banda
+\begin{equation}
+\mathtt{filt.sig}_{p,t} = \sum_{s=0}^{2} B_{s}\mathtt{raw.sig}_{p,t-s} + \sum_{r=0}^{2} A_{s}\mathtt{filt.sig}_{p,t-r+1} 
+\end{equation}
+
+Test in potenza
+\begin{equation}
+\mathtt{square.mean.sig}_{t} = \frac{1}{21} \sum_{s=1}^{3} \sum_{p=1}^{7} \frac{\mathtt{filt.sig}_{p,t-s}^{2}}{\sigma^{2}_{p}} 
+\end{equation}
+
+Test in tensione
+\begin{equation}
+\mathtt{mean.sig}_{t} = \frac{1}{7} \sum_{p=1}^{7} \frac{\mathtt{filt.sig}_{p,t}}{\sigma_{p}} 
+\end{equation}
+
+Criterio di soglia
+\begin{equation}
+t = t_{Impulso} \Leftrightarrow \mathtt{square.mean.sig}_{t} > treshold
+\end{equation}
+\end{document}

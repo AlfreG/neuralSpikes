@@ -1,4 +1,4 @@
-function [specD, timeD, cMatrix, jaccard, f1Score] = filtersMetrics( p )
+function [specD, timeD, cMatrix, jaccard, f1Score, detectionRate] = filtersMetrics( p )
 % A reference signal with deterministic spike rate and high SNR
 % is compared to the filter of a noisy signal with random spike rate.
 % Distance metrics in the domain of time and frequency are computed.
@@ -30,4 +30,4 @@ specD = dftNorm(dftR, dftN, p);
 timeD = timeDist(signalN, impulseParam, p);
 
 % Compute accuracy
-[cMatrix, jaccard, f1Score] = confusionMatrix(signalN, impulseParam);
+[cMatrix, jaccard, f1Score, detectionRate] = confusionMatrix(signalN, impulseParam, p);

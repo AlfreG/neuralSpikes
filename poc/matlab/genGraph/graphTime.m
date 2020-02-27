@@ -24,19 +24,21 @@ spikes(spikeTimes) = 0;
 close gcf;
 hold on; 
 
-plot( time, signalN(1,:)/15        , '--k', 'LineWidth', 0.1 );
+% plot( time, signalN(1,:)/10        , '--k', 'LineWidth', 0.1 );
 plot( time, myFilter(signalN, p, 3), '-b' , 'LineWidth', 2);
 plot( time, myFilter(signalN, p, 4), '-m' , 'LineWidth', 2);
 plot( time, spikes, 'r^', 'MarkerFaceColor','r');
 
-legend(  'Signal. ' + string(p.impulseLabel(p.impulseType)) + '. ' + num2str(p.snrDb) + 'dB.' +...
-         ' SpikeRate ' + string(p.spikeRate) + 'Hz.', ...
-         'Algor:LP.filt+arith.Mean', 'Algor:LP.filt+square.Mean','Spike', 'Location', 'NorthEast','Orientation','horizontal');
-    grid ON;
+% legend(  'Signal. ' + string(p.impulseLabel(p.impulseType)) + '. ' + num2str(p.snrDb) + 'dB.' +...
+%          ' SpikeRate ' + string(p.spikeRate) + 'Hz.', ...
+%          'Algor:LP.filt+arith.Mean', 'Algor:LP.filt+square.Mean','Spike', 'Location', 'NorthEast','Orientation','horizontal');
+
+     grid ON;
 
 %     title( string(p.impulseLabel(p.impulseType)) + '. ' + num2str(p.snrDb) + 'dB' );
     xlabel('ms');
     ylabel('mV');
+    xlim([0,25])
 %     set(gcf,'WindowStyle','docked');
 
 
